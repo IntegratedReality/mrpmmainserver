@@ -7,6 +7,15 @@ void ofApp::setup() {
     ofSetVerticalSync(true);
     ofEnableSmoothing();
 
+    //OSC
+    receiver.setup( PORT );
+    for(int i = 0; i < 10; i++){
+        remotepos[i].x = 0;
+        remotepos[i].y = 0;
+        remotepos[i].z = 0;
+    }
+    counter = 0;
+
     int x = (ofGetWidth() - projectionWidth) * 0.5;       // center on screen.
     int y = (ofGetHeight() - projectionHeight) * 0.5;     // center on screen.
     int w = projectionWidth;
@@ -33,6 +42,20 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update()
 {
+    //OSC
+    while(receiver.hasWaitingMessages()){
+        ofxOscMessage m;
+        receiver.getNextMessage(&m);
+
+        if(m.getAddress() == "/robot/pos"){
+            remotepos[counter].x = m.getArgAsInt32(0);
+            remotepos[counter].y = m.getArgAsInt32(1);
+            remotepos[counter].z = m.getArgAsInt32(2);
+        }
+
+        dumpOSC(m);
+    }
+    
     if(ofGetFrameNum() % 5 != 0) {
         // only update every 5 frames.
         return;
@@ -45,6 +68,23 @@ void ofApp::update()
         points[i].y += ofRandom(10) - 5;
         robotlist[i].update((int)points[i].x, (int)points[i].y, 0);
     }
+}
+
+//OSC stream out
+void ofApp::dumpOSC(ofxOscMessage m){
+    std::string msg_string;
+    msg_string = m.getAddress();
+    for(int i = 0; i < m.getNumArgs(); i++){
+        msg_string += " ";
+        if(m.getArgType(i) == OFXOSC_TYPE_INT32){
+            msg_string += ofToString(m.getArgAsInt32(i));
+        }else if(m.getArgType(i) == OFXOSC_TYPE_FLOAT){
+            msg_string += ofToString(m.getArgAsFloat(i));
+        }else if(m.getArgType(i) == OFXOSC_TYPE_STRING){
+            msg_string += ofToString(m.getArgAsString(i));
+        }
+    }
+    std::cout << msg_string << std::endl;
 }
 
 //--------------------------------------------------------------
@@ -158,7 +198,7 @@ void ofApp::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
+void ofApp::gotMessage(ofxOscMessage msg){
 
 }
 
