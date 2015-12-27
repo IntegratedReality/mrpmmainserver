@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxQuadWarp.h"
+#include "Robot.h"
 
 class ofApp : public ofBaseApp{
 public:
@@ -20,13 +21,15 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+    //projection mapping setting
     ofxQuadWarp warper;
-
-    ofRectangle rect;
     ofFbo fbo;
 
+    //projection range
     int projectionWidth = 600;
     int projectionHeight = 400;
+
+    Robot robotlist[10];    
 
     ofPoint points[10];
 };

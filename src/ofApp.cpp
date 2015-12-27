@@ -35,6 +35,8 @@ void ofApp::update()
         // randomise points over the image area.
         points[i].x = ofRandom(projectionWidth);
         points[i].y = ofRandom(projectionHeight);
+        std::cout << (int)points[i].x << std::endl;
+        robotlist[i].update((int)points[i].x, (int)points[i].y, 0);
     }
 }
 
@@ -43,9 +45,12 @@ void ofApp::draw() {
     ofSetColor(255);
 
     //======================== draw image into fbo.
-    // edit here to draw object
+    // edit here to draw constant object
     fbo.begin();
-    ofCircle(50, 50, 20);
+    ofClear(255, 255, 255, 0);
+    for(int i = 0; i < 10; i++){
+        robotlist[i].disp();
+    }
     fbo.end();
 
     //======================== get our quad warp matrix.
