@@ -9,19 +9,25 @@ void Robot::update(int _x, int _y, int _angle)
 {
      x = _x;
      y = _y;
-     angle = _angle;
-     std::cout << "call" << std::endl;
+     angle += 10;
 }
 
 void Robot::disp()
 {
-    ofCircle(x, y, radius);
-    int r = radius / 2;
+    ofSetColor(ofColor::white);
+    ofDrawCircle(x, y, radius);
+    int r = radius;
+    int rect_x = r / 2;
+    int rect_y = r;
     ofTranslate(x, y);
     ofRotate(angle);
-    ofRect(-r, -r, r, r);
+    ofTranslate(-rect_x, -rect_y);
+    ofSetColor(ofColor::yellow);
+    ofDrawCircle(0, 0, 5);
+    ofDrawCircle(2 * rect_x, 0, 5);
+    ofSetColor(ofColor::orange);
+    ofDrawRectangle(0, 0, 2 * rect_x, 2 * rect_y);
+    ofTranslate(rect_x, rect_y);
     ofRotate(-angle);
     ofTranslate(-x, -y);
-
-    std::cout << "x:" << x << " y:" << y << std::endl;
 }

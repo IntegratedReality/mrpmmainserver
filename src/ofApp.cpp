@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofBackground(50);
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
     ofSetVerticalSync(true);
     ofEnableSmoothing();
 
@@ -21,6 +21,13 @@ void ofApp::setup() {
     warper.setBottomRightCornerPosition(ofPoint(x + w, y + h)); // this is position of the quad warp corners, centering the image on the screen.
     warper.setup();
     warper.load(); // reload last saved changes.
+    
+    for(int i=0; i<10; i++) {
+        // randomise points over the image area.
+        points[i].x = ofRandom(projectionWidth);
+        points[i].y = ofRandom(projectionHeight);
+        robotlist[i].update((int)points[i].x, (int)points[i].y, 30);
+    }
 }
 
 //--------------------------------------------------------------
@@ -32,10 +39,10 @@ void ofApp::update()
     }
 
     for(int i=0; i<10; i++) {
-        // randomise points over the image area.
-        points[i].x = ofRandom(projectionWidth);
-        points[i].y = ofRandom(projectionHeight);
-        std::cout << (int)points[i].x << std::endl;
+        //points[i].x = ofRandom(projectionWidth);
+        //points[i].y = ofRandom(projectionHeight);
+        points[i].x += ofRandom(10) - 5;
+        points[i].y += ofRandom(10) - 5;
         robotlist[i].update((int)points[i].x, (int)points[i].y, 0);
     }
 }
@@ -66,9 +73,8 @@ void ofApp::draw() {
 
     //======================== use the matrix to transform points.
 
-    ofSetLineWidth(2);
+    /*ofSetLineWidth(2);
     ofSetColor(ofColor::cyan);
-
     for(int i=0; i<9; i++) {
         int j = i + 1;
 
@@ -76,7 +82,7 @@ void ofApp::draw() {
         ofVec3f p2 = mat.preMult(ofVec3f(points[j].x, points[j].y, 0));
 
         ofDrawLine(p1.x, p1.y, p2.x, p2.y);
-    }
+    }*/
 
     //======================== draw quad warp ui.
 
