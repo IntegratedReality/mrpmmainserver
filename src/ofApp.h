@@ -1,8 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "MainSender.h"
-#include "MainReceiver.h"
+#include "MainManager.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -22,6 +21,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofxOscMessage msg);
 
 	private:
-		MainSender sender;
-		MainReceiver receiver;
+		MainManager manager;
 };

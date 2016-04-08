@@ -1,16 +1,23 @@
 #include "MainSender.h"
 
-void MainSender::init(const char *_host, int _port) {
-	sender.setup(_host, _port);
+void MainSender::init() {
+	sender[0].setup("mrpmpi1.local", PORT);
+	sender[1].setup("mrpmpi2.local", PORT);
+	sender[2].setup("mrpmpi3.local", PORT);
+	sender[3].setup("mrpmpi4.local", PORT);
+	sender[4].setup("mrpmpi5.local", PORT);
+	sender[5].setup("mrpmpi6.local", PORT);
 }
 
 void MainSender::sendData(int _id, int _time, double _x, double _y, double _theta) {
 	ofxOscMessage m;
 	m.setAddress("/position");
-	m.addIntArg(_id);
-	m.addIntArg(_time);
+	m.addInt32Arg(_id);
+	m.addInt32Arg(_time);
 	m.addDoubleArg(_x);
 	m.addDoubleArg(_y);
 	m.addDoubleArg(_theta);
-	sender.sendMessage(m);
+	for (int i = 0; i < NUM_OF_ROBOT; i++) {
+		sender[i].sendMessage(m);
+	}
 }

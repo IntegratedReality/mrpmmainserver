@@ -4,3 +4,4 @@ ofxOpenCv
 ofxOsc
 ofxQuadWarp
 ofxVectorGraphics
+ofxBox2d

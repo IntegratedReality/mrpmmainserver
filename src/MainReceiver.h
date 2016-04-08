@@ -6,7 +6,7 @@
 
 class MainReceiver {
 	public:
-		void init(int _port);
+		void init();
 		void update();
 		RobotData getData(int _id);
 	private:
