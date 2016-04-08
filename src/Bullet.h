@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Position.h"
-#include "ofxBox2D.h"
+#include "ofxBox2d.h"
 #include "CollisionObject.h"
 
 class Bullet : public CollisionObject{

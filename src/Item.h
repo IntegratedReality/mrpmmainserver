@@ -3,7 +3,7 @@
 #include "EItem.h"
 #include "Position.h"
 #include "CollisionObject.h"
-#include "ofxBox2D.h"
+#include "ofxBox2d.h"
 
 class Item : public CollisionObject {
 	public:

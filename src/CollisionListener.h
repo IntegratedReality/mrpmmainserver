@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ofxBox2D.h"
+#include "ofxBox2d.h"
 
 class CollisionListener : public b2ContactListener {
 	public:

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RobotData.h"
-#include "ofxBox2D.h"
+#include "ofxBox2d.h"
 #include "CollisionObject.h"
 
 class SysRobot : public CollisionObject {
