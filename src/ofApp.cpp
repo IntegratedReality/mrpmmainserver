@@ -9,7 +9,7 @@ void ofApp::setup() {
 	ofNoFill();
 	ofBackground(0, 0, 0);
 	ofSetWindowShape(WIDTH_OF_FIELD * SCALE, HEIGHT_OF_FIELD * SCALE);
-	ofSetWindowTitle("MRPMSimulator");
+	ofSetWindowTitle("MRPMMainServer");
 	ofEnableAlphaBlending();
 
 	manager.init();

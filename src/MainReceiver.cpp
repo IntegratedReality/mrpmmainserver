@@ -1,7 +1,7 @@
 #include "MainReceiver.h"
 
 void MainReceiver::init() {
-	receiver.setup(PORT + 1);
+	receiver.setup(PORT);
 }
 
 void MainReceiver::update() {

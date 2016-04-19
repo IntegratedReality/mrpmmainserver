@@ -5,9 +5,9 @@
 
 void VirtualWall::init(int _id) {
 	type = VIRTUAL_WALL;
-	w = 50, h = 600;
-	if (_id == 0) x = 500, y = 1000;
-	else if (_id == 1) x = WIDTH_OF_FIELD - 500 - w, y = HEIGHT_OF_FIELD - 1000 - h;
+	h = 50, w = 600;
+	if (_id == 0) y = 500, x = 1000;
+	else if (_id == 1) x = WIDTH_OF_FIELD - 1000 - w, y = HEIGHT_OF_FIELD - 500 - h;
 	b2dRect.setPhysics(3.0, 0.53, 0.1);
 	this->b2dRect.fixture.isSensor = true; // 衝突検知のみを行う
 	this->b2dRect.setup(SysBox2D::getInstance()->getWorld(), x + w / 2, y + h / 2, w, h);

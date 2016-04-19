@@ -3,8 +3,8 @@
 constexpr int FPS = 30;
 constexpr double TIME_PER_FRAME = 1.0 / FPS;
 
-constexpr int WIDTH_OF_FIELD = 2700;
-constexpr int HEIGHT_OF_FIELD = 1820;
+constexpr int WIDTH_OF_FIELD = 1820;
+constexpr int HEIGHT_OF_FIELD = 2700;
 constexpr double SCALE = 0.25;
 
 constexpr int NUM_OF_ROBOT = 6;

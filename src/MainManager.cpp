@@ -1,6 +1,9 @@
 #include "MainManager.h"
 #include "ofApp.h"
 
+#include <iostream>
+using namespace std;
+
 #define DEBUG(x) cout << x << endl
 
 void MainManager::init() {
@@ -24,6 +27,7 @@ void MainManager::update() {
 	mainRcvr.update();
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
+		cout << i << mainRcvr.getData(i).pos.x << endl;
 		sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
 	}
 	sysRbtMgr.update();
@@ -41,7 +45,7 @@ void MainManager::update() {
 
 	time++;
 	if (time == 300) {
-		itmMgr.makeItem(Position(WIDTH_OF_FIELD / 2, HEIGHT_OF_FIELD / 4, 0), SPEEDER);
+		itmMgr.makeItem(Position(WIDTH_OF_FIELD / 4, HEIGHT_OF_FIELD / 2, 0), SPEEDER);
 		time = 0;
 	}
 }
