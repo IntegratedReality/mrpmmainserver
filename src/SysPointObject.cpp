@@ -28,6 +28,8 @@ void SysPointObject::init(int _id) {
 	this->b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う
 	this->b2dCircle.setup(SysBox2D::getInstance()->getWorld(), pos.x, pos.y, RADIUS_OF_POINT_OBJ);
 	b2dCircle.setData(this);
+
+	PM = PMx::getInstance();
 }
 
 void SysPointObject::update() {
@@ -40,6 +42,9 @@ void SysPointObject::draw() {
 	ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
 	ofSetColor(255, 255, 255, 255);
 	ofNoFill();
+
+	ofFill();
+	PM->drawPO(id);
 }
 
 ETeam SysPointObject::getOwner() {

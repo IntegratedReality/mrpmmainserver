@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "MainManager.h"
+#include "PMx.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -22,4 +23,5 @@ class ofApp : public ofBaseApp{
 
 	private:
 		MainManager manager;
+		PMx *PM;
 };

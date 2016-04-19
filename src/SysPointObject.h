@@ -3,6 +3,7 @@
 #include "Position.h"
 #include "ofxBox2d.h"
 #include "CollisionObject.h"
+#include "PMx.h"
 
 class SysPointObject : public CollisionObject {
 	public:
@@ -17,6 +18,7 @@ class SysPointObject : public CollisionObject {
 		int id;
 		Position pos;
 		ofxBox2dCircle b2dCircle;
+		PMx *PM;
 
 		void changePoint(ETeam _team, int _point);
 		int point[2];

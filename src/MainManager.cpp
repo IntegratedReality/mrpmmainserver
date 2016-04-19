@@ -26,8 +26,9 @@ void MainManager::init() {
 void MainManager::update() {
 	mainRcvr.update();
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
-		sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
-		cout << i << mainRcvr.getData(i).pos.x << endl;
+		//sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
+		sysRbtMgr.setPos(i, Position(100 * i, 100 * i, 0));
+		//cout << i << mainRcvr.getData(i).pos.x << endl;
 		sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
 	}
 	sysRbtMgr.update();

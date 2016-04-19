@@ -3,6 +3,7 @@
 #include "RobotData.h"
 #include "ofxBox2d.h"
 #include "CollisionObject.h"
+#include "PMx.h"
 
 class SysRobot : public CollisionObject {
 	public:
@@ -20,6 +21,7 @@ class SysRobot : public CollisionObject {
 	private:
 		RobotData data;
 		ofxBox2dCircle b2dCircle;
+		PMx *PM;
 
 		void sufferDamage(int _damage);
 		int HP;

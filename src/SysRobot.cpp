@@ -24,6 +24,8 @@ void SysRobot::init(int _id, ETeam _team) {
 	b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う
 	b2dCircle.setup(SysBox2D::getInstance()->getWorld(), data.pos.x, data.pos.y, RADIUS_OF_ROBOT + 10);
 	b2dCircle.setData(this);
+
+	PM = PMx::getInstance();
 }
 
 void SysRobot::setPos(Position _pos) {
@@ -113,6 +115,8 @@ void SysRobot::draw() {
 	ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
 
 	ofSetColor(255, 255, 255, 255);
+
+	PM->drawRobot(p.x, p.y, p.theta, &data);
 }
 
 int SysRobot::getId() {

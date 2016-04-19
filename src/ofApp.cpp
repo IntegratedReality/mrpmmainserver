@@ -6,11 +6,16 @@ using namespace std;
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofSetFrameRate(FPS);
-	ofNoFill();
-	ofBackground(0, 0, 0);
-	ofSetWindowShape(WIDTH_OF_FIELD * SCALE, HEIGHT_OF_FIELD * SCALE);
-	ofSetWindowTitle("MRPMMainServer");
-	ofEnableAlphaBlending();
+
+	// PM
+	PM = PMx::getInstance();
+	PM->setup();
+
+	//ofNoFill();
+	//ofBackground(0, 0, 0);
+	//ofSetWindowShape(WIDTH_OF_FIELD * SCALE, HEIGHT_OF_FIELD * SCALE);
+	//ofSetWindowTitle("MRPMMainServer");
+	//ofEnableAlphaBlending();
 
 	manager.init();
 }
@@ -23,6 +28,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	manager.draw();
+	PM->drawField();
 }
 
 void ofApp::exit() {
