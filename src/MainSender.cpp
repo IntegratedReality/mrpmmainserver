@@ -1,12 +1,12 @@
 #include "MainSender.h"
 
 void MainSender::init() {
-	sender[0].setup("mrpmpi1.local", PORT);
-	sender[1].setup("mrpmpi2.local", PORT);
-	sender[2].setup("mrpmpi3.local", PORT);
-	sender[3].setup("mrpmpi4.local", PORT);
-	sender[4].setup("mrpmpi5.local", PORT);
-	sender[5].setup("mrpmpi6.local", PORT);
+	sender[0].setup("mrpmpi2.local", PORT);
+	sender[1].setup("mrpmpi3.local", PORT);
+	sender[2].setup("mrpmpi4.local", PORT);
+	sender[3].setup("mrpmpi5.local", PORT);
+	sender[4].setup("mrpmpi6.local", PORT);
+	sender[5].setup("mrpmpi7.local", PORT);
 }
 
 void MainSender::sendData(int _id, int _time, double _x, double _y, double _theta) {

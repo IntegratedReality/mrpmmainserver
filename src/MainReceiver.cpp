@@ -18,6 +18,10 @@ void MainReceiver::update() {
 			data[id].pos.x = x;
 			data[id].pos.y = y;
 			data[id].pos.theta = theta;
+		} else if (m.getAddress() == "/robot/shot") {
+			int id = m.getArgAsInt32(0);
+			bool shot = m.getArgAsBool(1);
+			data[id].operation.shot = shot;
 		}
 	}
 }

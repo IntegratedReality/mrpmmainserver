@@ -157,6 +157,6 @@ void PMx::_drawRobot(double _x, double _y, double _theta, const RobotData *_data
 
 void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img) {
 	ofDisableNormalizedTexCoords();
-	PM.bullet.draw(_x, _y, _theta, PM.bulletImg);
+	PM.bullet.draw(_x, _y, _theta, _img);
 	ofEnableNormalizedTexCoords();
 }

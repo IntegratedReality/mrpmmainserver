@@ -38,7 +38,7 @@ void pointObject::draw(ofImage &texture){
 
 void pointObject::init(int x, int y, float theta){
 	centerPoint = ofVec2f(x,y);
-	angle = (theta / 2*pi) * 360;
+	angle = (theta / 2 * M_PI) * 360;
 	vertices[0] = ofVec3f(0,0,height_top);
 	mesh.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
 
