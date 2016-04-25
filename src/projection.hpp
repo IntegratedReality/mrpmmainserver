@@ -175,7 +175,7 @@ class PMClass{
 			viewPortPosition1.x = 0;
 			viewPortPosition1.y = 0;
 			viewPortPosition2.x = 0;
-			viewPortPosition2.y = screen_height;
+			viewPortPosition2.y = 768;
 
 			viewPort[0].setSize(screen_width,screen_height);
 			viewPort[1].setSize(screen_width,screen_height);
@@ -190,7 +190,7 @@ class PMClass{
 			cam[0].roll(90);
 			cam[1].roll(90);
 			/* カメラの視野の広さ(角度) */
-			camAngle = 31.5;
+			camAngle = 35.5;
 			cam[0].setFov(camAngle);   //35.45
 			cam[1].setFov(camAngle);
 			cout << "cam0 : " << cam[0].getX() << ":" << cam[0].getY() << ":" << cam[0].getZ() << endl;

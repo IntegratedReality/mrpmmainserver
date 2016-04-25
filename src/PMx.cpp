@@ -152,7 +152,7 @@ void PMx::_drawPO(int _id) {
 }
 
 void PMx::_drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
-	PM.robot[_data->id].draw(_x,_y,_theta,PM.textureImg);
+	PM.robot[_data->id].draw(_x, _y, _theta, PM.textureImg);
 }
 
 void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img) {
