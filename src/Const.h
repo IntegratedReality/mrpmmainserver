@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr int FPS = 30;
+constexpr int FPS = 60;
 constexpr double TIME_PER_FRAME = 1.0 / FPS;
 
 constexpr int WIDTH_OF_FIELD = 1820;

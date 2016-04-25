@@ -16,24 +16,25 @@
 
 const double root3 = sqrt(3);
 /* screen size (default : XGA) */
-// const int screen_width = 1024;
-// const int screen_height = 768;
-const int screen_width = 1800;
-const int screen_height = 1350;
+const int screen_width = 1024;
+const int screen_height = 768;
+//const int screen_width = 1800;
+//const int screen_height = 1350;
+const double scale = 0.57;
 
 class bullets{
 	/* images are drawn by these functions */
 	public:
-		inline void draw(int x, int y,int theta, ofImage &image){
+		inline void draw(int x, int y,int theta, ofImage &image){			
 			ofPushMatrix();
 			{
-				ofTranslate(y,x);
+				ofTranslate(y*scale,x*scale);
 				ofRotate(theta*360/(2*M_PI));
 				image.draw(0,0);
 			}
 			ofPopMatrix();
 		}
-
+/*
 		inline void draw(ofVec2f point, int theta, ofImage &image){
 			ofPushMatrix();
 			{
@@ -43,15 +44,15 @@ class bullets{
 			}
 			ofPopMatrix();
 		}
-
+*/
 		inline void draw(int x, int y, int theta){
 			ofPushMatrix();
 			ofPushStyle();
 			{
-				ofTranslate(y, x);
+				ofTranslate(y*scale, x*scale);
 				ofRotate(theta*360/(2*M_PI));
 				/* of上で弾を作成して表示する場合はここに記述 */
-				ofDrawCircle(x, y, 20);
+				ofDrawCircle(y*scale, x*scale, 20);
 			}
 			ofPopStyle();
 			ofPopMatrix();
@@ -64,7 +65,7 @@ class bullets{
 class robotModel{
 	/* variables */
 	public:
-		const int diameter_bottom = 117.6,diameter_top = 70.6,height_bottom = 14.7,height_top = 53;   //size of the robot
+		const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 11.7,height_top = 47;   //size of the robot
 		ofVec2f centerPoint;
 		ofMesh top_mesh,side_mesh;
 		ofVbo top_vbo,side_vbo;
@@ -175,7 +176,7 @@ class PMClass{
 			viewPortPosition1.x = 0;
 			viewPortPosition1.y = 0;
 			viewPortPosition2.x = 0;
-			viewPortPosition2.y = 768;
+			viewPortPosition2.y = screen_height;
 
 			viewPort[0].setSize(screen_width,screen_height);
 			viewPort[1].setSize(screen_width,screen_height);

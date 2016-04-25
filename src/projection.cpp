@@ -70,7 +70,8 @@ void pointObject::init(int x, int y, float theta){
 void robotModel::draw(int x, int y, float theta, ofImage &texture){
 
 	ofPushMatrix();
-	ofTranslate(y,x);
+	ofTranslate(y*scale
+,x*scale);
 	ofRotateZ(-theta*360/(2*M_PI));
 	texture.bind();
 	side_vbo.drawElements(GL_TRIANGLE_STRIP,14);
@@ -81,7 +82,7 @@ void robotModel::draw(int x, int y, float theta, ofImage &texture){
 
 void robotModel::draw(int x, int y, float theta){
 	ofPushMatrix();
-	ofTranslate(y,x);
+	ofTranslate(y*scale,x*scale);
 	ofRotateZ(-theta*360/(2*M_PI));
 	side_mesh.draw();
 	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
