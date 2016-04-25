@@ -149,6 +149,6 @@ void robotModel::init(){
 	side_mesh.addTexCoord(ofVec2f(1,1));
 	side_mesh.addTexCoord(ofVec2f(0,1));
 
-	top_vbo.setMesh(top_mesh, GL_STATIC_DRAW);  //注意 : static_drawで良いのか不明
-	side_vbo.setMesh(side_mesh, GL_STATIC_DRAW);
+	top_vbo.setMesh(top_mesh, GL_DYNAMIC_DRAW);  //注意 : static_drawで良いのか不明
+	side_vbo.setMesh(side_mesh, GL_DYNAMIC_DRAW);
 }

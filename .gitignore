@@ -3,6 +3,10 @@
 *.so
 *.d
 /bin/*
+.DS_Store
+*.xcodeproj
+*.plist
+*.xcconfig
 ### https://raw.github.com/github/gitignore/8767bd67830c90e45336e3244af3cf9d90a65c01/Global/Vim.gitignore
 
 # swap

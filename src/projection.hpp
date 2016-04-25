@@ -16,16 +16,18 @@
 
 const double root3 = sqrt(3);
 /* screen size (default : XGA) */
-const int screen_width = 1024;
-const int screen_height = 768;
-
+// const int screen_width = 1024;
+// const int screen_height = 768;
+const int screen_width = 1800;
+const int screen_height = 1350;
 
 class bullets{
+	/* images are drawn by these functions */
 	public:
 		inline void draw(int x, int y,int theta, ofImage &image){
 			ofPushMatrix();
 			{
-				ofTranslate(x,y);
+				ofTranslate(y,x);
 				ofRotate(theta*360/(2*M_PI));
 				image.draw(0,0);
 			}
@@ -46,7 +48,7 @@ class bullets{
 			ofPushMatrix();
 			ofPushStyle();
 			{
-				ofTranslate(x, y);
+				ofTranslate(y, x);
 				ofRotate(theta*360/(2*M_PI));
 				/* of上で弾を作成して表示する場合はここに記述 */
 				ofDrawCircle(x, y, 20);
@@ -62,7 +64,7 @@ class bullets{
 class robotModel{
 	/* variables */
 	public:
-		const int radius_bottom = 80,radius_top = 40,height_bottom = 20,height_top = 120;   //size of the robot
+		const int diameter_bottom = 117.6,diameter_top = 70.6,height_bottom = 14.7,height_top = 53;   //size of the robot
 		ofVec2f centerPoint;
 		ofMesh top_mesh,side_mesh;
 		ofVbo top_vbo,side_vbo;
@@ -78,19 +80,19 @@ class robotModel{
 
 		robotModel(){
 			/* set a 3D-model */
-			vertices_bottom[0] = ofVec3f(0, -radius_bottom, height_bottom);
-			vertices_bottom[1] = ofVec3f(0.5*radius_bottom*root3, -0.5*radius_bottom, height_bottom);
-			vertices_bottom[2] = ofVec3f(0.5*radius_bottom*root3, 0.5*radius_bottom, height_bottom);
-			vertices_bottom[3] = ofVec3f(0, radius_bottom, height_bottom);
-			vertices_bottom[4] = ofVec3f(-0.5*radius_bottom*root3, 0.5*radius_bottom, height_bottom);
-			vertices_bottom[5] = ofVec3f(-0.5*radius_bottom*root3, -0.5*radius_bottom, height_bottom);
+			vertices_bottom[0] = ofVec3f(0, -diameter_bottom, height_bottom);
+			vertices_bottom[1] = ofVec3f(0.5*diameter_bottom*root3, -0.5*diameter_bottom, height_bottom);
+			vertices_bottom[2] = ofVec3f(0.5*diameter_bottom*root3, 0.5*diameter_bottom, height_bottom);
+			vertices_bottom[3] = ofVec3f(0, diameter_bottom, height_bottom);
+			vertices_bottom[4] = ofVec3f(-0.5*diameter_bottom*root3, 0.5*diameter_bottom, height_bottom);
+			vertices_bottom[5] = ofVec3f(-0.5*diameter_bottom*root3, -0.5*diameter_bottom, height_bottom);
 
-			vertices_top[0] = ofVec3f(0, -radius_top, height_top);
-			vertices_top[1] = ofVec3f(0.5*radius_top*root3, -0.5*radius_top, height_top);
-			vertices_top[2] = ofVec3f(0.5*radius_top*root3, 0.5*radius_top, height_top);
-			vertices_top[3] = ofVec3f(0, radius_top, height_top);
-			vertices_top[4] = ofVec3f(-0.5*radius_top*root3, 0.5*radius_top, height_top);
-			vertices_top[5] = ofVec3f(-0.5*radius_top*root3, -0.5*radius_top, height_top);
+			vertices_top[0] = ofVec3f(0, -diameter_top, height_top);
+			vertices_top[1] = ofVec3f(0.5*diameter_top*root3, -0.5*diameter_top, height_top);
+			vertices_top[2] = ofVec3f(0.5*diameter_top*root3, 0.5*diameter_top, height_top);
+			vertices_top[3] = ofVec3f(0, diameter_top, height_top);
+			vertices_top[4] = ofVec3f(-0.5*diameter_top*root3, 0.5*diameter_top, height_top);
+			vertices_top[5] = ofVec3f(-0.5*diameter_top*root3, -0.5*diameter_top, height_top);
 
 			top_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
 			side_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
@@ -100,7 +102,7 @@ class robotModel{
 class pointObject{
 	/* variables */
 	public:
-		const int radius = 80,height_bottom = 3,height_top = 110;     //size of the point object
+		const int diameter = 80,height_bottom = 3,height_top = 110;     //size of the point object
 
 		ofVec2f centerPoint;
 		float angle;
@@ -122,12 +124,12 @@ class pointObject{
 
 		pointObject() {
 			/* set a 3D-model */
-			vertices[1] = ofVec3f(0, -radius, height_bottom);
-			vertices[2] = ofVec3f(0.5*radius*root3, -0.5*radius, height_bottom);
-			vertices[3] = ofVec3f(0.5*radius*root3, 0.5*radius, height_bottom);
-			vertices[4] = ofVec3f(0, radius, height_bottom);
-			vertices[5] = ofVec3f(-0.5*radius*root3, 0.5*radius, height_bottom);
-			vertices[6] = ofVec3f(-0.5*radius*root3, -0.5*radius, height_bottom);
+			vertices[1] = ofVec3f(0, -diameter, height_bottom);
+			vertices[2] = ofVec3f(0.5*diameter*root3, -0.5*diameter, height_bottom);
+			vertices[3] = ofVec3f(0.5*diameter*root3, 0.5*diameter, height_bottom);
+			vertices[4] = ofVec3f(0, diameter, height_bottom);
+			vertices[5] = ofVec3f(-0.5*diameter*root3, 0.5*diameter, height_bottom);
+			vertices[6] = ofVec3f(-0.5*diameter*root3, -0.5*diameter, height_bottom);
 
 			mesh.addTexCoord(ofVec2f(0,0));
 			mesh.addTexCoord(ofVec2f(0,1));

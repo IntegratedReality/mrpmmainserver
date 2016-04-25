@@ -1,7 +1,2 @@
-ofxGui
-ofxMSAInteractiveObject
-ofxOpenCv
-ofxOsc
-ofxQuadWarp
-ofxVectorGraphics
 ofxBox2d
+ofxOsc
