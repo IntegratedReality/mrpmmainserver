@@ -14,6 +14,8 @@ void PMx::setup() {
 	PM.textureImg.load("281.gif");
 	PM.pointObjectTexture.load("texture.jpg");  //example texture
 	PM.bulletImg.load("blue.png");  //image for bullet
+    PM.backGroundImg.load("bg.jpg");
+    //PM.createFieldBgFbo();
 }
 
 void PMx::keyPressed(int key) {
@@ -101,6 +103,18 @@ void PMx::drawField() {
 	PM.cam[1].end();
 }
 
+void PMx::drawFieldTexture() {
+    // screen 1
+    PM.cam[0].begin(PM.viewPort[0]);
+    _drawFieldTexture();
+    PM.cam[0].end();
+    
+    // screen 2
+    PM.cam[1].begin(PM.viewPort[1]);
+    _drawFieldTexture();
+    PM.cam[1].end();
+}
+
 void PMx::drawPO(int _id) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);
@@ -145,6 +159,21 @@ void PMx::_drawField() {
 	ofDrawRectangle(screen_height,0,screen_height,screen_width);
 	ofPopStyle();
 	ofFill();
+}
+
+void PMx::_drawFieldTexture(){
+    ofNoFill();
+    ofPushStyle();
+    ofSetColor(50, 50, 250);
+    ofDrawRectangle(0,0,screen_height,screen_width);
+    ofDrawRectangle(screen_height,0,screen_height,screen_width);
+    ofPopStyle();
+    ofFill();
+    ofDisableNormalizedTexCoords();
+    PM.backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
+    ofEnableNormalizedTexCoords();
+    
+//    PM.backGroundFbo.draw(0,0);
 }
 
 void PMx::_drawPO(int _id) {

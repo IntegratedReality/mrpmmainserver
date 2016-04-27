@@ -62,6 +62,14 @@ class bullets{
 		}
 };
 
+class virtualWall{
+
+    public:
+        
+
+
+};
+
 class robotModel{
 	/* variables */
 	public:
@@ -145,10 +153,13 @@ class pointObject{
 
 class PMClass{
 	public:
+        //void createFieldBgFbo();
 
 		/* texture, effects */
 		ofImage textureImg;
 		ofImage pointObjectTexture;
+        ofImage backGroundImg;
+        //ofFbo backGroundFbo;
 
 		/* 3Dobjects */
 		std::array<pointObject,3> p_object;

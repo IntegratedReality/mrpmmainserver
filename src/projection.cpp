@@ -16,6 +16,16 @@ void PMClass::initializeProjection(){
 	ofEnableNormalizedTexCoords();  //textureを持つあらゆるクラスの設定を変更し干渉するので注意
 }
 
+//void PMClass::createFieldBgFbo(){
+//    backGroundFbo.allocate(screen_height*2, screen_width);
+//    
+////    backGroundFbo.begin();
+////        // write here if you create a background in this program (ex. animations)
+////        ofDisableNormalizedTexCoords();
+////        backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
+////        ofEnableNormalizedTexCoords();
+////    backGroundFbo.end();
+//}
 
 void pointObject::draw(){
 	ofPushMatrix();
@@ -32,6 +42,10 @@ void pointObject::draw(ofImage &texture){
 	texture.bind();
 	vbo.draw(GL_TRIANGLE_FAN, 0, 8);
 	texture.unbind();
+    ofPushStyle();
+        ofSetColor(35, 106, 250);
+        mesh.drawWireframe();
+    ofPopStyle();
 	ofPopMatrix();
 }
 
@@ -70,13 +84,18 @@ void pointObject::init(int x, int y, float theta){
 void robotModel::draw(int x, int y, float theta, ofImage &texture){
 
 	ofPushMatrix();
-	ofTranslate(y*scale
-,x*scale);
+	ofTranslate(y*scale,x*scale);
 	ofRotateZ(-theta*360/(2*M_PI));
 	texture.bind();
 	side_vbo.drawElements(GL_TRIANGLE_STRIP,14);
 	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
 	texture.unbind();
+    ofPushStyle();
+        ofSetLineWidth(2);
+        ofSetColor(35, 106, 250);
+        top_mesh.drawWireframe();
+//        side_mesh.drawWireframe();
+    ofPopStyle();
 	ofPopMatrix();
 }
 
