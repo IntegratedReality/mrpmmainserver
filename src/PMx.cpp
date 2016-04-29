@@ -162,18 +162,28 @@ void PMx::_drawField() {
 }
 
 void PMx::_drawFieldTexture(){
-    ofNoFill();
-    ofPushStyle();
-    ofSetColor(50, 50, 250);
-    ofDrawRectangle(0,0,screen_height,screen_width);
-    ofDrawRectangle(screen_height,0,screen_height,screen_width);
-    ofPopStyle();
-    ofFill();
+    /* not necessarily create fbo here (should be written in ofApp::update) */
+    PM.backGroundFbo.begin();
     ofDisableNormalizedTexCoords();
     PM.backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
     ofEnableNormalizedTexCoords();
+    ofNoFill();
+    ofPushStyle();
+    ofSetColor(50, 50, 250);
+    ofDrawRectangle(0,0,1,screen_height,screen_width);
+    ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
+    ofPopStyle();
+    ofFill();
     
-//    PM.backGroundFbo.draw(0,0);
+    /* minimum example for animation */
+    ofPushMatrix();
+    ofTranslate(100,100,1);
+    ofRotate(ofGetElapsedTimeMillis()%360);
+    ofDrawRectangle(0, 0, 100, 100);
+    ofPopMatrix();
+    PM.backGroundFbo.end();
+    
+    PM.backGroundFbo.draw(0,0);
 }
 
 void PMx::_drawPO(int _id) {

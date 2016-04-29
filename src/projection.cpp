@@ -16,16 +16,16 @@ void PMClass::initializeProjection(){
 	ofEnableNormalizedTexCoords();  //textureを持つあらゆるクラスの設定を変更し干渉するので注意
 }
 
-//void PMClass::createFieldBgFbo(){
-//    backGroundFbo.allocate(screen_height*2, screen_width);
-//    
-////    backGroundFbo.begin();
-////        // write here if you create a background in this program (ex. animations)
-////        ofDisableNormalizedTexCoords();
-////        backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
-////        ofEnableNormalizedTexCoords();
-////    backGroundFbo.end();
-//}
+void PMClass::createFieldBgFbo(){
+    backGroundFbo.allocate(screen_height*2, screen_width);
+    
+//    backGroundFbo.begin();
+//        // write here if you create a background in this program (ex. animations)
+//        ofDisableNormalizedTexCoords();
+//        backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
+//        ofEnableNormalizedTexCoords();
+//    backGroundFbo.end();
+}
 
 void pointObject::draw(){
 	ofPushMatrix();

@@ -153,13 +153,13 @@ class pointObject{
 
 class PMClass{
 	public:
-        //void createFieldBgFbo();
+        void createFieldBgFbo();
 
 		/* texture, effects */
 		ofImage textureImg;
 		ofImage pointObjectTexture;
         ofImage backGroundImg;
-        //ofFbo backGroundFbo;
+        ofFbo backGroundFbo;
 
 		/* 3Dobjects */
 		std::array<pointObject,3> p_object;
