@@ -11,7 +11,7 @@ void MainSender::init() {
 
 void MainSender::sendData(int _id, int _time, double _x, double _y, double _theta) {
 	ofxOscMessage m;
-	m.setAddress("/position");
+	m.setAddress("/main/position");
 	m.addInt32Arg(_id);
 	m.addInt32Arg(_time);
 	m.addDoubleArg(_x);

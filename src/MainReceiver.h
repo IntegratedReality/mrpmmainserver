@@ -12,4 +12,5 @@ class MainReceiver {
 	private:
 		ofxOscReceiver receiver;
 		RobotData data[NUM_OF_ROBOT];
+		RobotData prev_data[NUM_OF_ROBOT];
 };
