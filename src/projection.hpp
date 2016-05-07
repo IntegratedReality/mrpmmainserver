@@ -127,6 +127,7 @@ class pointObject{
 		void init(int x, int y, float theta);
 		void draw();
 		void draw(ofImage &texture);
+        void draw(ofShader &shader);
 		inline void setTextureScale(int scale){ //引数は％(デフォルト100) テクスチャの調整機能は必要に応じて実装
 			texture_scale = (scale/100) - 1;
 		}
@@ -160,6 +161,8 @@ class PMClass{
 		ofImage pointObjectTexture;
         ofImage backGroundImg;
         ofFbo backGroundFbo;
+        ofShader fieldShader;
+        ofShader objectShader;
 
 		/* 3Dobjects */
 		std::array<pointObject,3> p_object;
@@ -168,6 +171,11 @@ class PMClass{
 		/* effect, bullet */
 		bullets bullet;
 		ofImage bulletImg;  //ここに置く？
+    
+        /* time control */
+        float startTime;
+        float currentTime;
+        float time;
 
 		/* cameras */
 		std::array<ofCamera,2> cam;

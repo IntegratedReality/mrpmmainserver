@@ -16,6 +16,10 @@ void PMx::setup() {
 	PM.bulletImg.load("blue.png");  //image for bullet
     PM.backGroundImg.load("bg.jpg");
     //PM.createFieldBgFbo();
+    
+    PM.fieldShader.load("test.vert", "water.frag");
+    PM.objectShader.load("test.vert", "cloud.frag");
+    PM.startTime = ofGetElapsedTimef();
 }
 
 void PMx::keyPressed(int key) {
@@ -115,6 +119,18 @@ void PMx::drawFieldTexture() {
     PM.cam[1].end();
 }
 
+void PMx::drawShaderField(){
+    // screen 1
+    PM.cam[0].begin(PM.viewPort[0]);
+    _drawShaderField();
+    PM.cam[0].end();
+    
+    // screen 2
+    PM.cam[1].begin(PM.viewPort[1]);
+    _drawShaderField();
+    PM.cam[1].end();
+}
+
 void PMx::drawPO(int _id) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);
@@ -186,8 +202,20 @@ void PMx::_drawFieldTexture(){
     PM.backGroundFbo.draw(0,0);
 }
 
+void PMx::_drawShaderField(){
+    PM.currentTime = ofGetElapsedTimef();
+    PM.time = PM.currentTime - PM.startTime;
+    
+    PM.fieldShader.begin();
+    PM.fieldShader.setUniform1f("time", PM.time);
+    PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
+    ofDrawRectangle(0, 0, screen_height*2, screen_width);
+    PM.fieldShader.end();
+}
+
 void PMx::_drawPO(int _id) {
 	PM.p_object[_id].draw(PM.textureImg);
+//    PM.p_object[_id].draw(PM.objectShader);
 }
 
 void PMx::_drawRobot(double _x, double _y, double _theta, const RobotData *_data) {

@@ -14,6 +14,7 @@ class PMx {
 		void keyPressed(int key);
 		void drawField();
         void drawFieldTexture();
+        void drawShaderField();
 		void drawPO(int _id);
 		void drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void drawImg(double _x, double _y, double _theta, ofImage &_img);
@@ -25,6 +26,7 @@ class PMx {
 		// for one camera
 		void _drawField();
         void _drawFieldTexture();
+        void _drawShaderField();
 		void _drawPO(int _id);
 		void _drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void _drawImg(double _x, double _y, double _theta, ofImage &_img);

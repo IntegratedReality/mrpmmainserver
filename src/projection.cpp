@@ -49,6 +49,26 @@ void pointObject::draw(ofImage &texture){
 	ofPopMatrix();
 }
 
+void pointObject::draw(ofShader &shader){
+    ofPushMatrix();
+    ofTranslate(centerPoint);
+    ofRotateZ(angle);
+    ofDisableNormalizedTexCoords();
+    shader.begin();
+        shader.setUniform1f("time", ofGetElapsedTimef());
+        shader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
+    	//vbo.draw(GL_TRIANGLE_FAN, 0, 8);
+        mesh.drawFaces();
+    shader.end();
+    ofEnableNormalizedTexCoords();
+    
+    ofPushStyle();
+    ofSetColor(35, 106, 250);
+        mesh.drawWireframe();
+    ofPopStyle();
+    ofPopMatrix();
+}
+
 
 void pointObject::init(int x, int y, float theta){
 	centerPoint = ofVec2f(x,y);

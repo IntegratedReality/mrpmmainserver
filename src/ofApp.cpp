@@ -28,7 +28,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	manager.draw();
-	PM->drawFieldTexture();
+	PM->drawShaderField();
 }
 
 void ofApp::exit() {
