@@ -211,10 +211,18 @@ void PMx::_drawShaderField(){
     PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
     ofDrawRectangle(0, 0, screen_height*2, screen_width);
     PM.fieldShader.end();
+
+    ofNoFill();
+    ofPushStyle();
+    ofSetColor(50, 50, 250);
+    ofDrawRectangle(0,0,1,screen_height,screen_width);
+    ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
+    ofPopStyle();
+    ofFill();
 }
 
 void PMx::_drawPO(int _id) {
-	PM.p_object[_id].draw(PM.textureImg);
+	PM.p_object[_id].draw(PM.pointObjectTexture);
 //    PM.p_object[_id].draw(PM.objectShader);
 }
 
