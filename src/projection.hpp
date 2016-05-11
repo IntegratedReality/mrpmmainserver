@@ -73,7 +73,8 @@ class virtualWall{
 class robotModel{
 	/* variables */
 	public:
-		const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 11.7,height_top = 47;   //size of the robot
+		//const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 58.8;   //size of the robot
+		const int diameter_bottom = 68.8,diameter_top = 35.3,height_bottom = 1,height_top = 61.8;   //size of the robot
 		ofVec2f centerPoint;
 		ofMesh top_mesh,side_mesh;
 		ofVbo top_vbo,side_vbo;
@@ -111,7 +112,8 @@ class robotModel{
 class pointObject{
 	/* variables */
 	public:
-		const int diameter = 80,height_bottom = 3,height_top = 110;     //size of the point object
+		//const int diameter = 68.5,height_bottom = 1,height_top = 76.4;     //size of the point object
+		const int diameter = 68.5,height_bottom = 1,height_top = 110;
 
 		ofVec2f centerPoint;
 		float angle;
@@ -199,10 +201,10 @@ class PMClass{
 		PMClass(){
 			//--
 			/* set up viewPorts */
-			viewPortPosition1.x = 0;
-			viewPortPosition1.y = 0;
-			viewPortPosition2.x = 0;
-			viewPortPosition2.y = screen_height;
+			viewPortPosition1.x = 15;
+			viewPortPosition1.y = -30;
+			viewPortPosition2.x = 16;
+			viewPortPosition2.y = screen_height-34;
 
 			viewPort[0].setSize(screen_width,screen_height);
 			viewPort[1].setSize(screen_width,screen_height);
@@ -211,14 +213,14 @@ class PMClass{
 
 			//---
 			/* set up projector position */
-			projectorHeight = 1550;
+			projectorHeight = 2700;
 			cam[0].setPosition(ofVec3f(screen_height/2,screen_width/2,projectorHeight));
 			cam[1].setPosition(ofVec3f(screen_height*1.5,screen_width/2,projectorHeight));
 			cam[0].roll(90);
 			cam[1].roll(90);
 			/* カメラの視野の広さ(角度) */
-			camAngle = 35.5;
-			cam[0].setFov(camAngle);   //35.45
+			camAngle = 18;
+			cam[0].setFov(camAngle);
 			cam[1].setFov(camAngle);
 			cout << "cam0 : " << cam[0].getX() << ":" << cam[0].getY() << ":" << cam[0].getZ() << endl;
 			cout << "cam1 : " << cam[1].getX() << ":" << cam[1].getY() << ":" << cam[1].getZ() << endl;
