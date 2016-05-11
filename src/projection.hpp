@@ -172,6 +172,9 @@ class PMClass{
 		bullets bullet;
 		ofImage bulletImg;  //ここに置く？
     
+        /* text */
+        std::array<ofTrueTypeFont,35> font;
+    
         /* time control */
         float startTime;
         float currentTime;
@@ -184,8 +187,12 @@ class PMClass{
 		ofVec2f viewPortPosition2;
 		bool bConfPort1 = false;
 		bool bConfPort2 = false;
+        bool bConfShade1 = false;
+        bool bconfShade2 = false;
 		double camAngle;
 		int projectorHeight;
+        int shadeWidth1 = 0;
+        int shadeWidth2 = 0;
 
 		void initializeProjection();
 

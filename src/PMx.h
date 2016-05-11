@@ -18,6 +18,8 @@ class PMx {
 		void drawPO(int _id);
 		void drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void drawImg(double _x, double _y, double _theta, ofImage &_img);
+        void drawText(string content,int x,int y,int size = 24, ofColor textColor=ofColor(255,255,255));
+        void drawTextField(ofColor bgColor=ofColor(0,0,0,150));
 
 	private:
 		PMx() {};

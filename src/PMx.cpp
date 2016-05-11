@@ -19,6 +19,12 @@ void PMx::setup() {
     
     PM.fieldShader.load("test.vert", "water.frag");
     PM.objectShader.load("test.vert", "cloud.frag");
+    
+    /* load font */
+    for (int i = 1; i < 34; i++){
+        PM.font[i].load("Arial.ttf",i);
+    }
+    
     PM.startTime = ofGetElapsedTimef();
 }
 
@@ -34,6 +40,20 @@ void PMx::keyPressed(int key) {
 		PM.bConfPort2 = !PM.bConfPort2;
 		cout << "bConfPort2 : " << PM.bConfPort2 << endl;
 	}
+    if (key == 51){
+        PM.bConfShade1 = !PM.bConfShade1;
+        PM.bConfPort1 = false;
+        PM.bConfPort2 = false;
+        PM.bconfShade2 = false;
+        cout << "bConfShade1 : " << PM.bConfShade1 << endl;
+    }
+    if (key == 52){
+        PM.bconfShade2 = !PM.bconfShade2;
+        PM.bConfPort1 = false;
+        PM.bConfPort2 = false;
+        PM.bConfShade1 = false;
+        cout << "bConfShade2 : " << PM.bconfShade2 << endl;
+    }
 
 	if (PM.bConfPort1){
 		if (key == OF_KEY_RIGHT){
@@ -79,18 +99,45 @@ void PMx::keyPressed(int key) {
 			cout << "position2(y) : " << PM.viewPortPosition1.y << endl;
 		}
 	}
+    else if (PM.bConfShade1){
+        switch (key) {
+            case OF_KEY_UP:
+                PM.shadeWidth1 += 1;
+                cout << "shade1 : " << PM.shadeWidth1 << endl;
+                break;
+            case OF_KEY_DOWN:
+                PM.shadeWidth1 -= 1;
+                cout << "shade1 : " << PM.shadeWidth1 << endl;
+            default:
+                break;
+        }
+    }
+    else if (PM.bconfShade2){
+        switch (key) {
+            case OF_KEY_UP:
+                PM.shadeWidth2 += 1;
+                cout << "shade2 : " << PM.shadeWidth2 << endl;
+                break;
+            case OF_KEY_DOWN:
+                PM.shadeWidth2 -= 1;
+                cout << "shade2 : " << PM.shadeWidth2 << endl;
+                
+            default:
+                break;
+        }
+    }
 	else {
 		if (key == OF_KEY_RIGHT){
 			PM.camAngle += 0.5;
 			PM.cam[0].setFov(PM.camAngle);   //35.45
 			PM.cam[1].setFov(PM.camAngle);
-			cout << "camAngle : " << PM.camAngle;
+            cout << "camAngle : " << PM.camAngle << endl;
 		}
 		if (key == OF_KEY_LEFT){
 			PM.camAngle -= 0.5;
 			PM.cam[0].setFov(PM.camAngle);   //35.45
 			PM.cam[1].setFov(PM.camAngle);
-			cout << "camAngle : " << PM.camAngle;
+			cout << "camAngle : " << PM.camAngle << endl;
 		}
 	}
 }
@@ -227,3 +274,36 @@ void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img) {
 	PM.bullet.draw(_x, _y, _theta, _img);
 	ofEnableNormalizedTexCoords();
 }
+
+void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
+//        ofTranslate(0, 0, 600);
+    if (size > 34){
+        size = 34;
+    }
+    PM.cam[0].begin();
+        ofPushMatrix();
+        ofPushStyle();
+            ofSetColor(textColor);
+            ofTranslate(0,0,132);
+            ofRotateZ(90);
+            PM.font[size].drawString(content, PM.viewPortPosition1.x*0.5 - 105 + x*0.3, -PM.viewPortPosition1.y*0.5 - 50 - y*0.3);
+            PM.font[size].drawString(content, 200, 200);
+        ofPopStyle();
+        ofPopMatrix();
+    PM.cam[0].end();
+    
+}
+
+void PMx::drawTextField(ofColor bgColor){
+    PM.cam[0].begin();
+        ofPushMatrix();
+        ofPushStyle();
+            ofTranslate(0,0,130);
+            ofSetColor(bgColor);
+            ofFill();
+            ofDrawRectangle(-300,-300,768*2,1024);
+        ofPopStyle();
+        ofPopMatrix();
+    PM.cam[0].end();
+}
+

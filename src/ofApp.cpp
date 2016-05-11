@@ -29,6 +29,14 @@ void ofApp::update() {
 void ofApp::draw() {
 	manager.draw();
 	PM->drawShaderField();
+    
+    /* PM text-example */
+//    PM->drawTextField();
+//    PM->drawText("Left",0,0,10);
+//    PM->drawText("TextTest",10,300,20);
+//    PM->drawText("Right", 1024, 0,30);
+//    PM->drawText("Bottom",0,768, 5);
+    
 }
 
 void ofApp::exit() {
