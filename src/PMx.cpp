@@ -258,7 +258,15 @@ void PMx::_drawShaderField(){
     PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
     ofDrawRectangle(0, 0, screen_height*2, screen_width);
     PM.fieldShader.end();
-
+    ofPushMatrix();
+    ofPushStyle();
+        ofTranslate(0, 0, 1);
+        ofSetColor(0,0,0,125);
+        ofFill();
+        ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
+    ofPopStyle();
+    ofPopMatrix();
+    
     ofNoFill();
     ofPushStyle();
     ofSetColor(50, 50, 250);
