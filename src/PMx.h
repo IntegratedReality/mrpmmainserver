@@ -17,6 +17,7 @@ class PMx {
         void drawShaderField();
 		void drawPO(int _id);
 		void drawRobot(double _x, double _y, double _theta, const RobotData *_data);
+		void drawBullet(double _x, double _y, ETeam _team);
 		void drawImg(double _x, double _y, double _theta, ofImage &_img);
 
 	private:

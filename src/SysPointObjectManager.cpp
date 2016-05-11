@@ -17,3 +17,11 @@ void SysPointObjectManager::draw() {
 		pObjs[i].draw();
 	}
 }
+
+ETeam SysPointObjectManager::getOwner(int _id) {
+	return pObjs[_id].getOwner();
+}
+
+double SysPointObjectManager::getTeamPoint(int _id, ETeam _team) {
+	return pObjs[_id].getTeamPoint(_team);
+}

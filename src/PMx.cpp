@@ -155,6 +155,10 @@ void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data)
 	PM.cam[1].end();
 }
 
+void PMx::drawBullet(double _x, double _y, ETeam _team) {
+    drawImg(_x, _y, 0, PM.bulletImg);
+}
+
 void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);

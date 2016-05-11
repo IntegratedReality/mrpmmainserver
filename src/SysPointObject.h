@@ -7,11 +7,16 @@
 
 class SysPointObject : public CollisionObject {
 	public:
+		SysPointObject() {
+			isinit = false;
+		}
+
 		void init(int _id);
 		void update();
 		void draw();
 		ETeam getOwner();
-		
+		double getTeamPoint(ETeam _team);
+
 		// override CollisionObject
 		virtual void collisionListner(CollisionObject *other);
 	private:
@@ -22,4 +27,6 @@ class SysPointObject : public CollisionObject {
 
 		void changePoint(ETeam _team, int _point);
 		int point[2];
+
+		bool isinit;
 };
