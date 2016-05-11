@@ -25,15 +25,27 @@ const double scale = 0.57;
 class bullets{
 	/* images are drawn by these functions */
 	public:
-		inline void draw(int x, int y,int theta, ofImage &image){			
+		inline void draw(int x, int y,int theta, ofImage &image, int width, int height){
 			ofPushMatrix();
 			{
-				ofTranslate(y*scale,x*scale);
+				//ofTranslate(y*scale,x*scale);
+                ofTranslate(y,x,3);
 				ofRotate(theta*360/(2*M_PI));
-				image.draw(0,0);
+				image.getTexture().draw(0,0,width,height);
 			}
 			ofPopMatrix();
 		}
+    
+        inline void draw(int x, int y, int theta, ofImage &image){
+            ofPushMatrix();
+            {
+                //ofTranslate(y*scale,x*scale);
+                ofTranslate(y,x,3);
+                ofRotate(theta*360/(2*M_PI));
+                image.draw(0,0);
+            }
+            ofPopMatrix();
+        }
 /*
 		inline void draw(ofVec2f point, int theta, ofImage &image){
 			ofPushMatrix();
@@ -165,6 +177,7 @@ class PMClass{
         ofFbo backGroundFbo;
         ofShader fieldShader;
         ofShader objectShader;
+        ofShader alphaShader;
 
 		/* 3Dobjects */
 		std::array<pointObject,3> p_object;

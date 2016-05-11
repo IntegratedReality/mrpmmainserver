@@ -19,6 +19,7 @@ void PMx::setup() {
     
     PM.fieldShader.load("test.vert", "water.frag");
     PM.objectShader.load("test.vert", "cloud.frag");
+    PM.alphaShader.load("texture.vert","alpha.frag");
     
     /* load font */
     for (int i = 1; i < 34; i++){
@@ -202,17 +203,55 @@ void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data)
 	PM.cam[1].end();
 }
 
-void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img) {
+void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, float _duration, float _time) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);
-	_drawImg(_x, _y, _theta, _img);
+	_drawImg(_x, _y, _theta, _img, _duration, _time);
 	PM.cam[0].end();
 
 	// screen 2
 	PM.cam[1].begin(PM.viewPort[1]);
-	_drawImg(_x, _y, _theta, _img);
+	_drawImg(_x, _y, _theta, _img, _duration, _time);
 	PM.cam[1].end();
 }
+
+/* when changes the texture size */
+void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, int _width, int _height, float _duration, float _time) {
+    // screen 1
+    PM.cam[0].begin(PM.viewPort[0]);
+    _drawImg(_x, _y, _theta, _img, _width, _height, _duration, _time);
+    PM.cam[0].end();
+    
+    // screen 2
+    PM.cam[1].begin(PM.viewPort[1]);
+    _drawImg(_x, _y, _theta, _img, _width, _height, _duration, _time);
+    PM.cam[1].end();
+}
+
+void PMx::drawBullet(double _x, double _y, double _theta, float _duration, float _time){
+    // screen 1
+    PM.cam[0].begin(PM.viewPort[0]);
+    _drawImg(_x, _y, _theta, PM.bulletImg, _duration, _time);
+    PM.cam[0].end();
+    
+    // screen 2
+    PM.cam[1].begin(PM.viewPort[1]);
+    _drawImg(_x, _y, _theta, PM.bulletImg, _duration, _time);
+    PM.cam[1].end();
+}
+
+void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _height, float _duration, float _time){
+    // screen 1
+    PM.cam[0].begin(PM.viewPort[0]);
+    _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
+    PM.cam[0].end();
+    
+    // screen 2
+    PM.cam[1].begin(PM.viewPort[1]);
+    _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
+    PM.cam[1].end();
+}
+
 
 void PMx::_drawField() {
 	ofNoFill();
@@ -285,10 +324,35 @@ void PMx::_drawRobot(double _x, double _y, double _theta, const RobotData *_data
 	PM.robot[_data->id].draw(_x, _y, _theta, PM.textureImg);
 }
 
-void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img) {
+void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, float duration, float time) {
 	ofDisableNormalizedTexCoords();
-	PM.bullet.draw(_x, _y, _theta, _img);
+    if (duration == 0){
+        PM.bullet.draw(_x, _y, _theta, _img);
+    }
+    else {
+        PM.alphaShader.begin();
+        PM.alphaShader.setUniformTexture("originTexture", _img.getTexture(), 1);
+        PM.alphaShader.setUniform1f("time", static_cast<float>((time / duration)*1000));
+        PM.bullet.draw(_x, _y, _theta, _img);
+        PM.alphaShader.end();
+    }
 	ofEnableNormalizedTexCoords();
+}
+
+/* when changes the texture size */
+void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, int _width, int _height ,float duration, float time) {
+    ofDisableNormalizedTexCoords();
+    if (duration == 0){
+        PM.bullet.draw(_x, _y, _theta, _img, _width, _height);
+    }
+    else {
+        PM.alphaShader.begin();
+        PM.alphaShader.setUniformTexture("originTexture", _img.getTexture(), 1);
+        PM.alphaShader.setUniform1f("time", static_cast<float>((time / duration)*1000));
+        PM.bullet.draw(_x, _y, _theta, _img, _width, _height);
+        PM.alphaShader.end();
+    }
+    ofEnableNormalizedTexCoords();
 }
 
 void PMx::drawText(string content, int x, int y, int size, ofColor textColor){

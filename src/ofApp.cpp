@@ -19,6 +19,7 @@ void ofApp::setup() {
 	//ofEnableAlphaBlending();
 
 	manager.init();
+//    startTime = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
@@ -30,6 +31,10 @@ void ofApp::update() {
 void ofApp::draw() {
 	manager.draw();
 	PM->drawShaderField();
+    
+    /* PM bullet-example */
+//    PM->drawBullet(500, 100, 0, 500, 500);
+//    PM->drawBullet(200, 200, double(0), float(5000), float(ofGetElapsedTimeMillis() - startTime));
     
     /* PM text-example */
 //    PM->drawTextField();
