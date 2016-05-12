@@ -194,10 +194,10 @@ class PMClass{
 		PMClass(){
 			//--
 			/* set up viewPorts */
-			viewPortPosition1.x = 15;
-			viewPortPosition1.y = -30;
+			viewPortPosition1.x = 27;
+			viewPortPosition1.y = -27;
 			viewPortPosition2.x = 16;
-			viewPortPosition2.y = screen_height-34;
+			viewPortPosition2.y = screen_height;
 
 			viewPort[0].setSize(screen_width,screen_height);
 			viewPort[1].setSize(screen_width,screen_height);
