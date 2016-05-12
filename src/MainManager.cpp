@@ -39,30 +39,32 @@ void MainManager::update() {
 		sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
 	}
 
-	if (mode != GAME) return;
+	if (mode == GAME) {
 
-	if (timer->getTime() >= 3 * 60 * 1000) {
-		mode = RESULT;
-		ofSetWindowTitle("RESULT");
-		judge.end();
-		sndMgr.stopBGM();
+		if (timer->getTime() >= 3 * 60 * 1000) {
+			mode = RESULT;
+			ofSetWindowTitle("RESULT");
+			judge.end();
+			sndMgr.stopBGM();
+		}
+
+		for (int i = 0; i < NUM_OF_ROBOT; i++) {
+			sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
+		}
+
+		sysRbtMgr.update();
+		sysPObjMgr.update();
+		vWllMgr.update();
+		itmMgr.update();
+		blltMgr.update();
+		sndMgr.update();
+		judge.update();
+
+		box2d->update();
+
+		RobotData data;
 	}
 
-	for (int i = 0; i < NUM_OF_ROBOT; i++) {
-		sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
-	}
-
-	sysRbtMgr.update();
-	sysPObjMgr.update();
-	vWllMgr.update();
-	itmMgr.update();
-	blltMgr.update();
-	sndMgr.update();
-	judge.update();
-
-	box2d->update();
-
-	RobotData data;
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		data = sysRbtMgr.getData(i);
 		mainSndr.sendData(data.id, data.time, data.pos.x, data.pos.y, data.pos.theta, data.HP, data.EN, data.state);
@@ -73,12 +75,6 @@ void MainManager::update() {
 		mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
 		judge.setPOOwner(i, sysPObjMgr.getOwner(i));
 	}
-
-	//time++;
-	//if (time == 300) {
-	//	itmMgr.makeItem(Position(WIDTH_OF_FIELD / 4, HEIGHT_OF_FIELD / 2, 0), SPEEDER);
-	//	time = 0;
-	//}
 }
 
 void MainManager::draw() {
@@ -87,7 +83,7 @@ void MainManager::draw() {
 	vWllMgr.draw();
 	itmMgr.draw();
 	blltMgr.draw();
-	
+
 	if (mode == RESULT) {
 
 	}
