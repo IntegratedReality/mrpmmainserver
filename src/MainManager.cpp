@@ -31,19 +31,24 @@ void MainManager::init() {
 }
 
 void MainManager::update() {
-	if (mode != GAME) return;
-	if (timer->getTime() >= 3 * 60 * 1000) {
-		mode = RESULT;
-		ofSetWindowTitle("RESULT");
-		judge.end();
-		sndMgr.stopBGM();
-	}
 	timer->update();
 
 	mainRcvr.update();
 
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
+	}
+
+	if (mode != GAME) return;
+
+	if (timer->getTime() >= 3 * 60 * 1000) {
+		mode = RESULT;
+		ofSetWindowTitle("RESULT");
+		judge.end();
+		sndMgr.stopBGM();
+	}
+
+	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
 	}
 
