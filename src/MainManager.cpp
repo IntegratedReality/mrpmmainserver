@@ -60,7 +60,7 @@ void MainManager::update() {
 	RobotData data;
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		data = sysRbtMgr.getData(i);
-		mainSndr.sendData(data.id, data.time, data.pos.x, data.pos.y, data.pos.theta, data.HP, data.EN);
+		mainSndr.sendData(data.id, data.time, data.pos.x, data.pos.y, data.pos.theta, data.HP, data.EN, data.state);
 		judge.setRobotState(i, data.state);
 	}
 

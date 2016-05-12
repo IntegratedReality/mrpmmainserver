@@ -12,7 +12,7 @@ void MainSender::init() {
 	sender[8].setup("PE27.local", PORT);
 }
 
-void MainSender::sendData(int _id, int _time, double _x, double _y, double _theta, double _HP, double _EN) {
+void MainSender::sendData(int _id, int _time, double _x, double _y, double _theta, double _HP, double _EN, EState _state) {
 	ofxOscMessage m;
 	m.setAddress("/main/position");
 	m.addInt32Arg(_id);
@@ -22,6 +22,7 @@ void MainSender::sendData(int _id, int _time, double _x, double _y, double _thet
 	m.addDoubleArg(_theta);
 	m.addDoubleArg(_HP);
 	m.addDoubleArg(_EN);
+	m.addInt32Arg((int)_state);
 	for (int i = 0; i < NUM_OF_ROBOT + 3; i++) {
 		sender[i].sendMessage(m);
 	}
