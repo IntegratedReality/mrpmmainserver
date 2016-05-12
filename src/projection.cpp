@@ -27,29 +27,44 @@ void PMClass::createFieldBgFbo(){
 //    backGroundFbo.end();
 }
 
-void pointObject::draw(){
+void pointObject::draw(int state){
 	ofPushMatrix();
 	ofTranslate(centerPoint);
 	ofRotateZ(angle);
 	vbo.draw(GL_TRIANGLE_FAN, 0, 8);
+    ofPushStyle();
+//        ofSetColor(35, 106, 250);
+        ofSetColor(this->teamColor[state]);
+        mesh.drawWireframe();
+
+    ofPopStyle();
 	ofPopMatrix();
 }
 
-void pointObject::draw(ofImage &texture){
+void pointObject::draw(ofImage &texture, int state){
 	ofPushMatrix();
 	ofTranslate(centerPoint);
 	ofRotateZ(angle);
 	texture.bind();
 	vbo.draw(GL_TRIANGLE_FAN, 0, 8);
 	texture.unbind();
-    ofPushStyle();
-        ofSetColor(35, 106, 250);
-        mesh.drawWireframe();
+
+    ofPushStyle();  //draw occupied team color
+    
+    ofSetColor(this->teamColor[state]);
+    mesh.drawWireframe();
+    ofTranslate(0, 0, 2);
+    ofRotate(ofGetElapsedTimef() * 8);
+    for (int i = 0; i < 6; i++){
+        ofRotate(60);
+        ofDrawCircle(100, 0, 18);
+    }
+
     ofPopStyle();
 	ofPopMatrix();
 }
 
-void pointObject::draw(ofShader &shader){
+void pointObject::draw(ofShader &shader, int state){
     ofPushMatrix();
     ofTranslate(centerPoint);
     ofRotateZ(angle);
@@ -63,7 +78,8 @@ void pointObject::draw(ofShader &shader){
     ofEnableNormalizedTexCoords();
     
     ofPushStyle();
-    ofSetColor(35, 106, 250);
+//    ofSetColor(35, 106, 250);
+        ofSetColor(this->teamColor[state]);
         mesh.drawWireframe();
     ofPopStyle();
     ofPopMatrix();

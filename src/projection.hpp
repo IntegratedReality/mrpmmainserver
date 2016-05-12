@@ -132,6 +132,9 @@ class pointObject{
 		ofMesh mesh;
 		ofVbo vbo;
 		int texture_scale = 0;
+    
+        std::array<ofColor,3> teamColor;
+
 
 	private:
 		std::array<ofVec3f,7> vertices;    //オブジェクトの形状(固定)
@@ -139,9 +142,9 @@ class pointObject{
 		/* functions */
 	public:
 		void init(int x, int y, float theta);
-		void draw();
-		void draw(ofImage &texture);
-        void draw(ofShader &shader);
+		void draw(int score);
+		void draw(ofImage &texture, int score);
+        void draw(ofShader &shader, int score);
 		inline void setTextureScale(int scale){ //引数は％(デフォルト100) テクスチャの調整機能は必要に応じて実装
 			texture_scale = (scale/100) - 1;
 		}
@@ -163,6 +166,11 @@ class pointObject{
 			mesh.addTexCoord(ofVec2f(0,1));
 			mesh.addTexCoord(ofVec2f(0.5,1));
 			mesh.addTexCoord(ofVec2f(1,1));
+            
+            /* set team color */
+            teamColor[0] = ofColor(0,191,255,180);
+            teamColor[1] = ofColor(255,165,0, 180);
+            teamColor[2] = ofColor(255,255,255, 125);
 		}
 };
 
@@ -187,6 +195,9 @@ class PMClass{
 		bullets bullet;
 		ofImage bulletImg;  //ここに置く？
     
+        /* color config */
+        std::array<ofColor,3> teamColor;
+    
         /* text */
         std::array<ofTrueTypeFont,35> font;
     
@@ -204,6 +215,7 @@ class PMClass{
 		bool bConfPort2 = false;
         bool bConfShade1 = false;
         bool bconfShade2 = false;
+        bool bShowFieldFrame = true;
 		double camAngle;
 		int projectorHeight;
         int shadeWidth1 = 0;
@@ -249,6 +261,11 @@ class PMClass{
 			p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
 
 			bulletImg.setAnchorPercent(0.5, 0.5);   //中心で指定できるように
+            
+            /* set team color */
+            teamColor[0] = ofColor(0,191,255);
+            teamColor[1] = ofColor(255,165,0);
+            teamColor[2] = ofColor(255,255,255);
 		}
 };
 

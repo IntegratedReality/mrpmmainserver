@@ -29,8 +29,8 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
+    PM->drawShaderField();
 	manager.draw();
-	PM->drawShaderField();
     
     /* PM bullet-example */
 //    PM->drawBullet(500, 100, 0, 500, 500);

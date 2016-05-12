@@ -55,6 +55,10 @@ void PMx::keyPressed(int key) {
         PM.bConfShade1 = false;
         cout << "bConfShade2 : " << PM.bconfShade2 << endl;
     }
+    
+    if (key == 'f'){
+        PM.bShowFieldFrame = !PM.bShowFieldFrame;
+    }
 
 	if (PM.bConfPort1){
 		if (key == OF_KEY_RIGHT){
@@ -179,15 +183,15 @@ void PMx::drawShaderField(){
     PM.cam[1].end();
 }
 
-void PMx::drawPO(int _id) {
+void PMx::drawPO(int _id, int state) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);
-	_drawPO(_id);
+	_drawPO(_id, state);
 	PM.cam[0].end();
 
 	// screen 2
 	PM.cam[1].begin(PM.viewPort[1]);
-	_drawPO(_id);
+	_drawPO(_id, state);
 	PM.cam[1].end();
 }
 
@@ -269,13 +273,15 @@ void PMx::_drawFieldTexture(){
     ofDisableNormalizedTexCoords();
     PM.backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
     ofEnableNormalizedTexCoords();
-    ofNoFill();
-    ofPushStyle();
-    ofSetColor(50, 50, 250);
-    ofDrawRectangle(0,0,1,screen_height,screen_width);
-    ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
-    ofPopStyle();
-    ofFill();
+    if (PM.bShowFieldFrame){
+        ofNoFill();
+        ofPushStyle();
+        ofSetColor(50, 50, 250);
+        ofDrawRectangle(0,0,1,screen_height,screen_width);
+        ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
+        ofPopStyle();
+        ofFill();
+    }
     
     /* minimum example for animation */
     ofPushMatrix();
@@ -297,15 +303,16 @@ void PMx::_drawShaderField(){
     PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
     ofDrawRectangle(0, 0, screen_height*2, screen_width);
     PM.fieldShader.end();
-    ofPushMatrix();
-    ofPushStyle();
-        ofTranslate(0, 0, 1);
-        ofSetColor(0,0,0,125);
-        ofFill();
-        ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
-    ofPopStyle();
-    ofPopMatrix();
-    
+    if (PM.bShowFieldFrame){
+        ofPushMatrix();
+        ofPushStyle();
+            ofTranslate(0, 0, 1);
+            ofSetColor(0,0,0,125);
+            ofFill();
+            ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
+        ofPopStyle();
+        ofPopMatrix();
+    }
     ofNoFill();
     ofPushStyle();
     ofSetColor(50, 50, 250);
@@ -315,8 +322,8 @@ void PMx::_drawShaderField(){
     ofFill();
 }
 
-void PMx::_drawPO(int _id) {
-	PM.p_object[_id].draw(PM.pointObjectTexture);
+void PMx::_drawPO(int _id, int state) {
+	PM.p_object[_id].draw(PM.pointObjectTexture, state);
 //    PM.p_object[_id].draw(PM.objectShader);
 }
 

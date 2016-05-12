@@ -41,10 +41,17 @@ void SysPointObject::draw() {
 	else if (getOwner() == TEAM_B) ofSetColor(0, 0, 255, 255);
 	ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
 	ofSetColor(255, 255, 255, 255);
-	ofNoFill();
 
 	ofFill();
-	PM->drawPO(id);
+    if (getOwner() == TEAM_A){
+        PM->drawPO(id, 0);
+    }
+    else if (getOwner() == TEAM_B){
+        PM->drawPO(id, 1);
+    }
+    else {
+        PM->drawPO(id, 2);
+    }
 }
 
 ETeam SysPointObject::getOwner() {

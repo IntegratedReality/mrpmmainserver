@@ -15,7 +15,7 @@ class PMx {
 		void drawField();
         void drawFieldTexture();
         void drawShaderField();
-		void drawPO(int _id);
+		void drawPO(int _id, int state);
 		void drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void drawImg(double _x, double _y, double _theta, ofImage &_img, float duration = 0.0, float time = 0.0);   //unit of duration is [ms]
         void drawImg(double _x, double _y, double _theta, ofImage &_img, int width, int height,  float duration = 0, float time = 0.0);
@@ -32,7 +32,7 @@ class PMx {
 		void _drawField();
         void _drawFieldTexture();
         void _drawShaderField();
-		void _drawPO(int _id);
+		void _drawPO(int _id, int state);
 		void _drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void _drawImg(double _x, double _y, double _theta, ofImage &_img, float duration, float time);
         void _drawImg(double _x, double _y, double _theta, ofImage &_img, int width, int height, float duration, float time);
