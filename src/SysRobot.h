@@ -31,7 +31,7 @@ class SysRobot : public CollisionObject {
 		Timer *timer;
 
 		void sufferDamage(int _damage);
-		int HP;
+		double HP;
 		double energy; // 弾の発射に必要なエネルギー
 		int thermo; // ダメージを受けると熱上昇し、体力が自然回復しなくなる
 		int coolTime; // 1射撃後のフレーム数を記録

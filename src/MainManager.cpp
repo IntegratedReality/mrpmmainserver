@@ -60,12 +60,12 @@ void MainManager::update() {
 	RobotData data;
 	for (int i = 0; i < NUM_OF_ROBOT; i++) {
 		data = sysRbtMgr.getData(i);
-		mainSndr.sendData(data.id, data.time, data.pos.x, data.pos.y, data.pos.theta);
+		mainSndr.sendData(data.id, data.time, data.pos.x, data.pos.y, data.pos.theta, data.HP, data.EN);
 		judge.setRobotState(i, data.state);
 	}
 
 	for (int i = 0; i < NUM_OF_POINT_OBJ; i++) {
-		//mainSndr.setPOOwner(i, sysPObjMgr.getOwner(i));
+		mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
 		judge.setPOOwner(i, sysPObjMgr.getOwner(i));
 	}
 

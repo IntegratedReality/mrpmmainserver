@@ -149,6 +149,8 @@ int SysRobot::getId() {
 }
 
 RobotData SysRobot::getData() {
+	data.HP = HP;
+	data.EN = energy;
 	return data;
 }
 
