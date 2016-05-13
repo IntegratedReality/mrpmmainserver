@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RobotData.h"
+#include "ETeam.h"
 #include "projection.hpp"
 
 class PMx {
@@ -16,6 +17,7 @@ class PMx {
         void drawFieldTexture();
         void drawShaderField();
 		void drawPO(int _id, int state);
+        void initRobot(int _id, ETeam team);
 		void drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void drawImg(double _x, double _y, double _theta, ofImage &_img, float duration = 0.0, float time = 0.0);   //unit of duration is [ms]
         void drawImg(double _x, double _y, double _theta, ofImage &_img, int width, int height,  float duration = 0, float time = 0.0);

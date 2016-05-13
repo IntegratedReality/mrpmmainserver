@@ -26,6 +26,8 @@ void SysRobot::init(int _id, ETeam _team) {
 	b2dCircle.setData(this);
 
 	PM = PMx::getInstance();
+    PM-> initRobot(_id, _team);
+    
 }
 
 void SysRobot::setPos(Position _pos) {

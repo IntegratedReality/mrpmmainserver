@@ -12,7 +12,7 @@ void PMClass::initializeProjection(){
 	ofEnableSmoothing();
 	ofEnableDepthTest();
 	glEnable(GL_POINT_SMOOTH);
-	ofSetVerticalSync(true);
+//	ofSetVerticalSync(true);
 	ofEnableNormalizedTexCoords();  //textureを持つあらゆるクラスの設定を変更し干渉するので注意
 }
 
@@ -34,7 +34,7 @@ void pointObject::draw(int state){
 	vbo.draw(GL_TRIANGLE_FAN, 0, 8);
     ofPushStyle();
 //        ofSetColor(35, 106, 250);
-        ofSetColor(this->teamColor[state]);
+        ofSetColor(teamColor[state]);
         mesh.drawWireframe();
 
     ofPopStyle();
@@ -51,7 +51,7 @@ void pointObject::draw(ofImage &texture, int state){
 
     ofPushStyle();  //draw occupied team color
     
-    ofSetColor(this->teamColor[state]);
+    ofSetColor(teamColor[state]);
     mesh.drawWireframe();
     ofTranslate(0, 0, 2);
     ofRotate(ofGetElapsedTimef() * 8);
@@ -79,7 +79,7 @@ void pointObject::draw(ofShader &shader, int state){
     
     ofPushStyle();
 //    ofSetColor(35, 106, 250);
-        ofSetColor(this->teamColor[state]);
+        ofSetColor(teamColor[state]);
         mesh.drawWireframe();
     ofPopStyle();
     ofPopMatrix();
@@ -117,7 +117,7 @@ void pointObject::init(int x, int y, float theta){
 
 // _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-void robotModel::draw(int x, int y, float theta, ofImage &texture){
+void robotModel::draw(int x, int y, float theta, ofImage &texture, const RobotData *data){
 
 	ofPushMatrix();
 	ofTranslate(y*scale,x*scale);
@@ -135,16 +135,87 @@ void robotModel::draw(int x, int y, float theta, ofImage &texture){
 	ofPopMatrix();
 }
 
-void robotModel::draw(int x, int y, float theta){
+void robotModel::draw(int x, int y, float theta, const RobotData *data){
+    if (currentState != data->state){
+        switch (data->state) {
+            case NORMAL:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, teamColor[team]);
+                }
+                top_mesh.setColor(0, enhancedTeamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, teamColor[team]);
+                }
+                side_mesh.setColor(0, enhancedTeamColor[team]);
+                
+                ofPushStyle();
+                    ofSetLineWidth(2);
+                    ofSetColor(40,40,40);
+                    top_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            case DEAD:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, killedColor[team]);
+                }
+                top_mesh.setColor(0, teamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, killedColor[team]);
+                }
+                side_mesh.setColor(0, teamColor[team]);
+                
+                ofPushStyle();
+                ofSetLineWidth(2);
+                    ofSetColor(teamColor[team]);
+                    top_mesh.drawWireframe();
+                    side_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            case RECOVERY:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, teamColor[team]);
+                }
+                top_mesh.setColor(0, teamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, teamColor[team]);
+                }
+                side_mesh.setColor(0, enhancedTeamColor[team]);
+                
+                ofPushStyle();
+                ofSetLineWidth(2);
+                ofSetColor(recoveryColor);   //team colorに変える
+                top_mesh.drawWireframe();
+                side_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            default:
+                break;
+        }
+    }
 	ofPushMatrix();
 	ofTranslate(y*scale,x*scale);
 	ofRotateZ(-theta*360/(2*M_PI));
 	side_mesh.draw();
-	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
-	ofPopMatrix();
+    top_mesh.draw();
+//	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
+//    ofPushStyle();
+//        ofSetLineWidth(2);
+//        ofSetColor(130, 130, 130);   //team colorに変える
+//        top_mesh.drawWireframe();
+//        side_mesh.drawWireframe();
+//    ofPopStyle();
+//	ofPopMatrix();
 }
 
-void robotModel::init(){
+void robotModel::init(ETeam team){
+    this->team = team;
+    this->currentState = NORMAL;
 	for (int i = 0; i < 6; i++){
 		top_mesh.addVertex(ofVec3f(vertices_top[i].x, vertices_top[i].y, vertices_top[i].z));
 		side_mesh.addVertex(ofVec3f(vertices_top[i].x, vertices_top[i].y, vertices_top[i].z));
@@ -166,15 +237,18 @@ void robotModel::init(){
 	top_mesh.addTexCoord(ofVec2f(0.9,0.75));
 	top_mesh.addTexCoord(ofVec2f(0.5,1));
 	top_mesh.addTexCoord(ofVec2f(0.1,0.75));
-	top_mesh.addTexCoord(ofVec2f(0.1,0.25));
+	top_mesh.addTexCoord(ofVec2f(0.1,0.25));    
 
-	/* 伸びずに表示される例 */
-	//    top_mesh.addTexCoord(ofVec2f(0.5,0));
-	//    top_mesh.addTexCoord(ofVec2f(0.9,0.25));
-	//    top_mesh.addTexCoord(ofVec2f(0.9,0.75));
-	//    top_mesh.addTexCoord(ofVec2f(0.5,1));
-	//    top_mesh.addTexCoord(ofVec2f(0.1,0.75));
-	//    top_mesh.addTexCoord(ofVec2f(0.1,0.25));
+    for (int i = 0; i < 6; i++){
+        top_mesh.addColor(teamColor[this->team]);
+    }
+
+    for (int i = 0; i < 14; i ++){
+        side_mesh.addColor(teamColor[this->team]);
+    }
+    top_mesh.setColor(0, enhancedTeamColor[this->team]);
+    side_mesh.setColor(0, enhancedTeamColor[this->team]);
+    side_mesh.setColor(2, enhancedTeamColor[this->team]);
 
 	/* triangle_stripで側面を作っている */
 	side_mesh.addIndex(6);

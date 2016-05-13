@@ -10,6 +10,8 @@
 #define projection_hpp
 
 #include "ofMain.h"
+#include "RobotData.h"
+#include "EState.h"
 #include <stdio.h>
 #include <array>
 #include <cmath>
@@ -21,6 +23,24 @@ const int screen_height = 768;
 //const int screen_width = 1800;
 //const int screen_height = 1350;
 const double scale = 0.57;
+
+/* set team color */
+const std::array<ofColor,3> teamColor = {
+    ofColor(0,191,255,255),
+    ofColor(255,163,0,255),
+    ofColor(255,255,255,255)
+};
+const std::array<ofColor,3> enhancedTeamColor = {
+    ofColor(40,220,255,255),
+    ofColor(255,190,40,255),
+    ofColor(255,255,255,255)
+};
+const std::array<ofColor,3> killedColor = {
+    ofColor(0,80,150,180),
+    ofColor(180,70,180),
+    ofColor(255,255,255,180)
+};
+const ofColor recoveryColor = ofColor(255,255,0);
 
 class bullets{
 	/* images are drawn by these functions */
@@ -69,6 +89,8 @@ class bullets{
 			ofPopStyle();
 			ofPopMatrix();
 		}
+    
+        void createBullet(ofColor &color);
 
 		bullets(){
 		}
@@ -77,8 +99,10 @@ class bullets{
 class virtualWall{
 
     public:
+    void draw(ofVec2f coord);
+    virtualWall(){
         
-
+    }
 
 };
 
@@ -90,15 +114,17 @@ class robotModel{
 		ofVec2f centerPoint;
 		ofMesh top_mesh,side_mesh;
 		ofVbo top_vbo,side_vbo;
+        ETeam team;
+        EState currentState;
 	private:
 		std::array<ofVec3f,6> vertices_bottom;
 		std::array<ofVec3f,6> vertices_top;
 
-		/* functions */
+    /* functions */
 	public:
-		void draw(int x, int y, float theta);
-		void draw(int x, int y, float theta, ofImage &texture);
-		void init();
+		void draw(int x, int y, float theta, const RobotData *robdata);
+		void draw(int x, int y, float theta, ofImage &texture, const RobotData *robdata);
+		void init(const ETeam _team);
 
 		robotModel(){
 			/* set a 3D-model */
@@ -118,6 +144,7 @@ class robotModel{
 
 			top_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
 			side_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+            
 		}
 };
 
@@ -132,9 +159,6 @@ class pointObject{
 		ofMesh mesh;
 		ofVbo vbo;
 		int texture_scale = 0;
-    
-        std::array<ofColor,3> teamColor;
-
 
 	private:
 		std::array<ofVec3f,7> vertices;    //オブジェクトの形状(固定)
@@ -166,11 +190,6 @@ class pointObject{
 			mesh.addTexCoord(ofVec2f(0,1));
 			mesh.addTexCoord(ofVec2f(0.5,1));
 			mesh.addTexCoord(ofVec2f(1,1));
-            
-            /* set team color */
-            teamColor[0] = ofColor(0,191,255,180);
-            teamColor[1] = ofColor(255,165,0, 180);
-            teamColor[2] = ofColor(255,255,255, 125);
 		}
 };
 
@@ -186,6 +205,7 @@ class PMClass{
         ofShader fieldShader;
         ofShader objectShader;
         ofShader alphaShader;
+        ofShader robotShader;
 
 		/* 3Dobjects */
 		std::array<pointObject,3> p_object;
@@ -194,9 +214,6 @@ class PMClass{
 		/* effect, bullet */
 		bullets bullet;
 		ofImage bulletImg;  //ここに置く？
-    
-        /* color config */
-        std::array<ofColor,3> teamColor;
     
         /* text */
         std::array<ofTrueTypeFont,35> font;
@@ -251,21 +268,12 @@ class PMClass{
 			cout << "cam1 : " << cam[1].getX() << ":" << cam[1].getY() << ":" << cam[1].getZ() << endl;
 			//---
 
-			/* initialize robots */
-			for (int i = 0; i < 6; i++){
-				robot[i].init();
-			}
 			/* set point objects(x,y,theta) */
 			p_object[0].init(screen_height/2,screen_width/4, 2); //(x,y,theta)
 			p_object[1].init(screen_height,screen_width/2, 1);
 			p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
 
 			bulletImg.setAnchorPercent(0.5, 0.5);   //中心で指定できるように
-            
-            /* set team color */
-            teamColor[0] = ofColor(0,191,255);
-            teamColor[1] = ofColor(255,165,0);
-            teamColor[2] = ofColor(255,255,255);
 		}
 };
 

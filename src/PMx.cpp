@@ -20,6 +20,7 @@ void PMx::setup() {
     PM.fieldShader.load("test.vert", "water.frag");
     PM.objectShader.load("test.vert", "cloud.frag");
     PM.alphaShader.load("texture.vert","alpha.frag");
+    PM.robotShader.load("test.vert","robot.frag");
     
     /* load font */
     for (int i = 1; i < 34; i++){
@@ -256,6 +257,13 @@ void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _heigh
     PM.cam[1].end();
 }
 
+/* initialize robot */
+void PMx::initRobot(int _id, ETeam team){
+    /* initialize robots */
+    PM.robot[_id].init(team);
+}
+
+
 
 void PMx::_drawField() {
 	ofNoFill();
@@ -328,7 +336,7 @@ void PMx::_drawPO(int _id, int state) {
 }
 
 void PMx::_drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
-	PM.robot[_data->id].draw(_x, _y, _theta, PM.textureImg);
+	PM.robot[_data->id].draw(_x, _y, _theta, PM.textureImg, _data);
 }
 
 void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, float duration, float time) {
