@@ -21,8 +21,8 @@ void MainManager::init() {
     sysRbtMgr.init();
     sysPObjMgr.init();
     time = 0;
-    itmMgr.init();
-    vWllMgr.init();
+ //   itmMgr.init();
+//    vWllMgr.init();
     blltMgr.init();
     sndMgr.init();
     judge.init();
@@ -56,8 +56,8 @@ void MainManager::update() {
 
         sysRbtMgr.update();
         sysPObjMgr.update();
-        vWllMgr.update();
-        itmMgr.update();
+ //       vWllMgr.update();
+ //      itmMgr.update();
         blltMgr.update();
         sndMgr.update();
         judge.update();
@@ -82,8 +82,8 @@ void MainManager::update() {
 void MainManager::draw() {
     sysRbtMgr.draw();
     sysPObjMgr.draw();
-    vWllMgr.draw();
-    itmMgr.draw();
+//    vWllMgr.draw();
+//    itmMgr.draw();
     blltMgr.draw();
 
 //    if (mode == RESULT) {
