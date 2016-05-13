@@ -82,8 +82,8 @@ void MainManager::update() {
 void MainManager::draw() {
     sysRbtMgr.draw();
     sysPObjMgr.draw();
-    vWllMgr.draw();
-    itmMgr.draw();
+//    vWllMgr.draw();
+//    itmMgr.draw();
     blltMgr.draw();
 
     if (mode == RESULT) {
