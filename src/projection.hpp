@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "RobotData.h"
 #include "EState.h"
+#include "ETeam.h"
 #include "const.h"
 #include <stdio.h>
 #include <array>
@@ -27,7 +28,7 @@ const double scale = 0.57;
 
 /* set team color */
 const std::array<ofColor,3> teamColor = {
-    ofColor(0,191,255,255),
+    ofColor(0,131,255,255),
     ofColor(255,163,0,255),
     ofColor(255,255,255,255)
 };
@@ -78,28 +79,28 @@ class bullets{
 			ofPopMatrix();
 		}
 */
-		inline void draw(int x, int y, int theta, ofColor color){
+		inline void draw(int x, int y, int theta, ETeam team){
 			ofPushMatrix();
 			ofPushStyle();
 			{
 				ofTranslate(y, x);
 				ofRotate(theta*360/(2*M_PI));
-                bulletFbo.draw(0,0);
+                bulletFbo[team].draw(0,0);
 			}
 			ofPopStyle();
 			ofPopMatrix();
 		}
     
-        void initBullet(ofColor color);
-        ofFbo bulletFbo;
+        void initBullet(int _id);
+        ofFbo bulletFbo[3];
     
-        inline ofTexture getTexture(){
-            return bulletFbo.getTexture();
-        }
+//        inline ofTexture getTexture(){
+//            return bulletFbo.getTexture();
+//        }
 
 		bullets(){
             for (int i = 0; i < 3; i++){
-                initBullet(teamColor[i]);
+                initBullet(i);
             }
 		}
 };

@@ -27,19 +27,19 @@ void PMClass::createFieldBgFbo(){
 //    backGroundFbo.end();
 }
 
-void bullets::initBullet(ofColor color){
-    bulletFbo.allocate(50,50,GL_RGBA);
-    bulletFbo.begin();
+void bullets::initBullet(int _id){
+    bulletFbo[_id].allocate(50,50,GL_RGBA);
+    bulletFbo[_id].begin();
         ofPushMatrix();
             ofTranslate(25, 25);
             ofFill();
             for (int i = 0; i < 18; i++){
-                ofSetColor(color.r,color.g,color.b,70 + 8 * i);
+                ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b,70 + 8 * i);
                 ofDrawCircle(0, 0, 18 - i);
             }
             ofNoFill();
             ofSetLineWidth(2);
-            ofSetColor(color);
+            ofSetColor(teamColor[_id]);
             ofSetCircleResolution(6);
             ofRotateZ(30);
             ofDrawCircle(0, 0, 20);
@@ -55,7 +55,7 @@ void bullets::initBullet(ofColor color){
             ofSetCircleResolution(64);
             
         ofPopMatrix();
-    bulletFbo.end();
+    bulletFbo[_id].end();
 }
 
 void pointObject::draw(int state){
@@ -347,7 +347,7 @@ void robotModel::init(ETeam team){
     }
     top_mesh.setColor(0, enhancedTeamColor[this->team]);
     side_mesh.setColor(0, enhancedTeamColor[this->team]);
-    side_mesh.setColor(2, enhancedTeamColor[this->team]);
+    side_mesh.setColor(1, enhancedTeamColor[this->team]);
 
 	/* triangle_stripで側面を作っている */
 	side_mesh.addIndex(6);
