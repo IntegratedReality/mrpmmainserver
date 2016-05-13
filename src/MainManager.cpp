@@ -90,18 +90,18 @@ void MainManager::draw() {
         PM->drawTextField();
         switch (judge.getWinner()) {
             case TEAM_A:
-                PM->drawText("WIN", 0, 0);
+                PM->drawText("WIN", 1200, 700, 49, ofColor(255, 120, 0, 200)); 
                 break;
             case TEAM_B:
-                PM->drawText("LOSE", 0, 0);
+                PM->drawText("LOSE", 1200, 700, 49, ofColor(0, 120, 255, 200));
                 break;
             case NEUTRAL:
-                PM->drawText("DRAW", 0, 0);
+                PM->drawText("DRAW", 1200, 700, 49, ofColor(0, 120, 0, 200));
                 break;
         }
     } else if (mode == STANDBY) {
         PM->drawTextField();
-        PM->drawText("MRPM", 0, 0);
+        PM->drawText("MRPM", 1200, 700, 49, ofColor(220, 120, 0, 200));
     }
 }
 
