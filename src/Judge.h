@@ -13,6 +13,7 @@ class Judge {
 		void setRobotState(int _id, EState _state);
 		void start();
 		ETeam end();
+		ETeam getWinner();
 	private:
 		bool playing;
 		double score[2];

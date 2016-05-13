@@ -13,6 +13,7 @@
 #include "Timer.h"
 #include "EMode.h"
 #include "Judge.h"
+#include "PMx.h"
 
 class MainManager {
 	public:
@@ -23,6 +24,7 @@ class MainManager {
 	private:
 		ofxBox2d *box2d;
 		Timer *timer;
+        PMx *PM;
 
 		MainSender mainSndr;
 		MainReceiver mainRcvr;
