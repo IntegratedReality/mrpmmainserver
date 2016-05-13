@@ -121,7 +121,7 @@ class robotModel{
 	/* variables */
 	public:
 		//const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 58.8;   //size of the robot
-		const int diameter_bottom = 68.8,diameter_top = 35.3,height_bottom = 1,height_top = 61.8;   //size of the robot
+		const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 61.8;   //size of the robot
 		ofVec2f centerPoint;
 		ofMesh top_mesh,side_mesh;
 		ofVbo top_vbo,side_vbo;
@@ -163,7 +163,7 @@ class pointObject{
 	/* variables */
 	public:
 		//const int diameter = 68.5,height_bottom = 1,height_top = 76.4;     //size of the point object
-		const int diameter = 68.5,height_bottom = 1,height_top = 110;
+		const int diameter = 70.5,height_bottom = 1,height_top = 110;
 
 		ofVec2f centerPoint;
 		float angle;
