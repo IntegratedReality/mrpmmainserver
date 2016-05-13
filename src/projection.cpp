@@ -34,12 +34,12 @@ void bullets::initBullet(ofColor color){
             ofTranslate(25, 25);
             ofFill();
             for (int i = 0; i < 18; i++){
-                ofSetColor(0,0,255,70 + 8 * i);
+                ofSetColor(color.r,color.g,color.b,70 + 8 * i);
                 ofDrawCircle(0, 0, 18 - i);
             }
             ofNoFill();
             ofSetLineWidth(2);
-            ofSetColor(0,0,255,100);
+            ofSetColor(color);
             ofSetCircleResolution(6);
             ofRotateZ(30);
             ofDrawCircle(0, 0, 20);

@@ -223,7 +223,7 @@ class PMClass{
 		ofImage bulletImg;  //ここに置く？
     
         /* text */
-        std::array<ofTrueTypeFont,35> font;
+        std::array<ofTrueTypeFont,51> font;
     
         /* time control */
         float startTime;

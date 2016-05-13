@@ -23,7 +23,7 @@ void PMx::setup() {
     PM.robotShader.load("test.vert","robot.frag");
     
     /* load font */
-    for (int i = 1; i < 34; i++){
+    for (int i = 1; i < 50; i++){
         PM.font[i].load("Arial.ttf",i);
     }
     
@@ -387,8 +387,8 @@ void PMx::_drawTexture(double _x, double _y, double _theta, ofTexture tex, float
 
 void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
 //        ofTranslate(0, 0, 600);
-    if (size > 34){
-        size = 34;
+    if (size > 51){
+        size = 50;
     }
     PM.cam[0].begin();
         ofPushMatrix();
@@ -411,7 +411,7 @@ void PMx::drawTextField(ofColor bgColor){
             ofTranslate(0,0,130);
             ofSetColor(bgColor);
             ofFill();
-            ofDrawRectangle(-300,-300,768*2,1024);
+            ofDrawRectangle(-300,-300,768*2.5,1500);
         ofPopStyle();
         ofPopMatrix();
     PM.cam[0].end();
