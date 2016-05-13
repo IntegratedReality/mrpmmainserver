@@ -170,6 +170,7 @@ void robotModel::draw(int x, int y, float theta, const RobotData *data){
                     side_mesh.setColor(i, teamColor[team]);
                 }
                 side_mesh.setColor(0, enhancedTeamColor[team]);
+                side_mesh.setColor(1, enhancedTeamColor[team]);
                 
                 ofPushStyle();
                 ofSetLineWidth(2);

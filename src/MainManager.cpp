@@ -86,23 +86,23 @@ void MainManager::draw() {
 //    itmMgr.draw();
     blltMgr.draw();
 
-    if (mode == RESULT) {
-        PM->drawTextField();
-        switch (judge.getWinner()) {
-            case TEAM_A:
-                PM->drawText("WIN", 1200, 700, 49, ofColor(255, 120, 0, 200)); 
-                break;
-            case TEAM_B:
-                PM->drawText("LOSE", 1200, 700, 49, ofColor(0, 120, 255, 200));
-                break;
-            case NEUTRAL:
-                PM->drawText("DRAW", 1200, 700, 49, ofColor(0, 120, 0, 200));
-                break;
-        }
-    } else if (mode == STANDBY) {
-        PM->drawTextField();
-        PM->drawText("MRPM", 1200, 700, 49, ofColor(220, 120, 0, 200));
-    }
+//    if (mode == RESULT) {
+//        PM->drawTextField();
+//        switch (judge.getWinner()) {
+//            case TEAM_A:
+//                PM->drawText("WIN", 1200, 700, 49, ofColor(255, 120, 0, 200)); 
+//                break;
+//            case TEAM_B:
+//                PM->drawText("LOSE", 1200, 700, 49, ofColor(0, 120, 255, 200));
+//                break;
+//            case NEUTRAL:
+//                PM->drawText("DRAW", 1200, 700, 49, ofColor(0, 120, 0, 200));
+//                break;
+//        }
+//    } else if (mode == STANDBY) {
+//        PM->drawTextField();
+//        PM->drawText("MRPM", 1200, 700, 49, ofColor(220, 120, 0, 200));
+//    }
 }
 
 void MainManager::keyPressed(int key) {

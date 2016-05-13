@@ -38,6 +38,6 @@ class PMx {
 		void _drawPO(int _id, int state);
 		void _drawRobot(double _x, double _y, double _theta, const RobotData *_data);
 		void _drawImg(double _x, double _y, double _theta, ofImage &_img, float duration, float time);
-        void _drawBulletTexture(double _x, double _y, double _theta, ETeam team, float duration, float time);
+        void _drawBulletTexture(double _x, double _y, double _theta, ETeam team, float duration=0, float time=0.0);
         void _drawImg(double _x, double _y, double _theta, ofImage &_img, int width, int height, float duration, float time);
 };

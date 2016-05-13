@@ -32,6 +32,10 @@ void ofApp::draw() {
     PM->drawShaderField();
 	manager.draw();
     
+    PM->drawBullet(500, 1000, 0, ETeam(0));
+    
+    PM->drawVWall(500,1000,50,600);
+    
     /* PM bullet-example */
 //    PM->drawBullet(500, 100, 0, 500, 500);
 //    PM->drawBullet(200, 200, double(0), float(5000), float(ofGetElapsedTimeMillis() - startTime));
