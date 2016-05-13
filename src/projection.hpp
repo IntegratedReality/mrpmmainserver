@@ -77,23 +77,29 @@ class bullets{
 			ofPopMatrix();
 		}
 */
-		inline void draw(int x, int y, int theta){
+		inline void draw(int x, int y, int theta, ofColor color){
 			ofPushMatrix();
 			ofPushStyle();
 			{
-				ofTranslate(y*scale, x*scale);
+				ofTranslate(y, x);
 				ofRotate(theta*360/(2*M_PI));
-				/* of上で弾を作成して表示する場合はここに記述 */
-				ofDrawCircle(y*scale, x*scale, 20);
+                bulletFbo.draw(0,0);
 			}
 			ofPopStyle();
 			ofPopMatrix();
 		}
     
-        void initBullet(ofColor &color);
+        void initBullet(ofColor color);
         ofFbo bulletFbo;
+    
+        inline ofTexture getTexture(){
+            return bulletFbo.getTexture();
+        }
 
 		bullets(){
+            for (int i = 0; i < 3; i++){
+                initBullet(teamColor[i]);
+            }
 		}
 };
 

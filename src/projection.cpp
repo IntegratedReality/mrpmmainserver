@@ -27,26 +27,35 @@ void PMClass::createFieldBgFbo(){
 //    backGroundFbo.end();
 }
 
-void bullets::initBullet(ofColor &color){
+void bullets::initBullet(ofColor color){
     bulletFbo.allocate(50,50,GL_RGBA);
     bulletFbo.begin();
-    ofPushMatrix();
-    ofFill();
-    for (int i = 0; i < 15; i++){
-        ofSetColor(color.r,color.g,color.b,100);
-        ofDrawCircle(25, 25, 15 - i);
-    }
-    ofNoFill();
-    
-    ofDrawCircle(25, 25, 20);
-    ofSetLineWidth(3);
-    for (int i = 0; i < 6; i++){
         ofPushMatrix();
-            ofRotateZ(60);
-            ofDrawLine(0, 5, 0, 15);
+            ofTranslate(25, 25);
+            ofFill();
+            for (int i = 0; i < 18; i++){
+                ofSetColor(0,0,255,70 + 8 * i);
+                ofDrawCircle(0, 0, 18 - i);
+            }
+            ofNoFill();
+            ofSetLineWidth(2);
+            ofSetColor(0,0,255,100);
+            ofSetCircleResolution(6);
+            ofRotateZ(30);
+            ofDrawCircle(0, 0, 20);
+            ofRotateZ(-30);
+            ofSetCircleResolution(64);
+            
+            ofPushMatrix();
+                for (int i = 0; i < 6; i++){
+                    ofDrawLine(0, 10, 0, 25);
+                    ofRotateZ(60);
+                }
+            ofPopMatrix();
+            ofSetCircleResolution(64);
+            
         ofPopMatrix();
-    }
-    ofPopMatrix();
+    bulletFbo.end();
 }
 
 void pointObject::draw(int state){

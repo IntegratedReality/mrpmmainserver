@@ -46,7 +46,7 @@ void Bullet::draw() {
 	//ofFill();
 	ofDrawCircle(p.x * SCALE, p.y * SCALE, radius * SCALE);
 	//ofNoFill();
-    PM->drawBullet(p.x, p.y, team);
+    PM->drawBullet(p.x, p.y, 0, team);
 }
 
 bool Bullet::getDeleteFlag() {

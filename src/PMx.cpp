@@ -233,7 +233,7 @@ void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, int _width
     PM.cam[1].end();
 }
 
-void PMx::drawBullet(double _x, double _y, double _theta, float _duration, float _time){
+void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _duration, float _time){
     // screen 1
     PM.cam[0].begin(PM.viewPort[0]);
     _drawImg(_x, _y, _theta, PM.bulletImg, _duration, _time);
@@ -365,6 +365,21 @@ void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, int _widt
         PM.alphaShader.setUniformTexture("originTexture", _img.getTexture(), 1);
         PM.alphaShader.setUniform1f("time", static_cast<float>((time / duration)*1000));
         PM.bullet.draw(_x, _y, _theta, _img, _width, _height);
+        PM.alphaShader.end();
+    }
+    ofEnableNormalizedTexCoords();
+}
+
+void PMx::_drawTexture(double _x, double _y, double _theta, ofTexture tex, float duration, float time){
+    ofDisableNormalizedTexCoords();
+    if (duration == 0){
+        PM.bullet.bulletFbo.draw(_x, _y);
+    }
+    else {
+        PM.alphaShader.begin();
+        PM.alphaShader.setUniformTexture("originTexture", PM.bullet.bulletFbo.getTexture(), 1);
+        PM.alphaShader.setUniform1f("time", static_cast<float>((time / duration)*1000));
+        PM.bullet.bulletFbo.getTexture().draw(_x, _y);
         PM.alphaShader.end();
     }
     ofEnableNormalizedTexCoords();
