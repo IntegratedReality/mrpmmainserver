@@ -59,7 +59,7 @@ void SysRobot::setShot(bool _shot) {
 }
 
 void SysRobot::sufferDamage(int _damage) {
-	HP -= _damage;
+	HP -= _damage - 1;
 	thermo = 1000;
 }
 
