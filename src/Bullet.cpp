@@ -3,8 +3,10 @@
 #include "Const.h"
 #include "SysBox2D.h"
 #include <cmath>
+#include <iostream>
+using namespace std;
 
-void Bullet::init(Position _pos, ETeam _team) {
+void Bullet::init(Position _pos, ETeam _team, bool _deathshot) {
 	type = BULLET;
 	team = _team;
 	damage = 50;
@@ -13,15 +15,21 @@ void Bullet::init(Position _pos, ETeam _team) {
 	this->count = 0;
 	this->radius = 25;
 
+	if (_deathshot) sustain = 70;
+	else sustain = 330;
+
 	b2dCircle.setPhysics(3.0, 0.53, 0.1);
 	this->b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う
 	this->b2dCircle.setup(SysBox2D::getInstance()->getWorld(), pos.x, pos.y, radius - 5);
 	//b2dCircle.body->SetBullet(true);
 	b2dCircle.setData(this);
+	timer = Timer::getInstance();
+
+    PM = PMx::getInstance();
 }
 
 void Bullet::update() {
-	this->count += 1;
+	this->count += timer->getDiff();
 	b2dCircle.setVelocity(50 * cos(pos.theta), 50 * sin(pos.theta));
 	pos.x = b2dCircle.getPosition().x;
 	pos.y = b2dCircle.getPosition().y;
@@ -34,12 +42,15 @@ void Bullet::update() {
 void Bullet::draw() {
 	if (deleteFlag) return;
 	Position &p = this->pos;
-	ofSetColor(255 * (team == TEAM_A), 0, 255 * (team == TEAM_B), 255);
+	ofSetColor(255 * (team == TEAM_A), 120, 255 * (team == TEAM_B), 255);
+	//ofFill();
 	ofDrawCircle(p.x * SCALE, p.y * SCALE, radius * SCALE);
+	//ofNoFill();
+    PM->drawBullet(p.x, p.y, team);
 }
 
 bool Bullet::getDeleteFlag() {
-	deleteFlag |= count > 30;
+	deleteFlag |= count > sustain;
 	deleteFlag |= pos.x < 0 || WIDTH_OF_FIELD < pos.x;
 	deleteFlag |= pos.y < 0 || HEIGHT_OF_FIELD < pos.y;
 	return deleteFlag;

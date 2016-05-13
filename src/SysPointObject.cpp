@@ -24,12 +24,14 @@ void SysPointObject::init(int _id) {
 			pos.y = POINT_OBJ_2_Y;
 			break;
 	}
+	if (isinit) return;
 	b2dCircle.setPhysics(3.0, 0.53, 0.1);
 	this->b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う
 	this->b2dCircle.setup(SysBox2D::getInstance()->getWorld(), pos.x, pos.y, RADIUS_OF_POINT_OBJ);
 	b2dCircle.setData(this);
 
 	PM = PMx::getInstance();
+	isinit = true;
 }
 
 void SysPointObject::update() {
@@ -60,6 +62,20 @@ ETeam SysPointObject::getOwner() {
 	else return NEUTRAL;
 }
 
+double SysPointObject::getTeamPoint(ETeam _team) {
+	switch (_team) {
+		case TEAM_A:
+			return point[0] / (double)ALL_OF_POINT;
+			break;
+		case TEAM_B:
+			return point[1] / (double)ALL_OF_POINT;
+			break;
+		case NEUTRAL:
+			return (ALL_OF_POINT - point[0] - point[1]) / (double)ALL_OF_POINT;
+			break;
+	}
+}
+
 // override CollisionObject::collisionListner
 void SysPointObject::collisionListner(CollisionObject *other) {
 	switch (other->getType()) {
@@ -71,6 +87,7 @@ void SysPointObject::collisionListner(CollisionObject *other) {
 
 void SysPointObject::changePoint(ETeam _team, int _point) {
 	point[_team] += _point;
+	if (point[_team] >= POINT_TO_OWN) point[_team] = ALL_OF_POINT;
 	if (point[_team] > ALL_OF_POINT) point[_team] = ALL_OF_POINT;
 	if (point[TEAM_A] + point[TEAM_B] > ALL_OF_POINT) point[!_team] = ALL_OF_POINT - point[_team];
 }

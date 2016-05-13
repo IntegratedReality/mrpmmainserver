@@ -1,13 +1,24 @@
 #include "ofApp.h"
 #include "SysRobot.h"
 #include "BulletManager.h"
+#include "SoundManager.h"
 #include "SysBox2D.h"
 #include <cmath>
+#include <algorithm>
+#include <iostream>
+using namespace std;
 
 #define MAX_HP 100
-#define TIME_SHOT_TO_SHOT 15
-#define TIME_DEAD_TO_RECOVERY 30
-#define TIME_RECOVERY_TO_NORMAL 30
+#define MAX_ENG 100
+
+#define ENG_TO_SHOT 33 
+
+#define GAIN_HP_KAIHUKU 0.03
+#define GAIN_ENG_KAIHUKU 0.02
+
+#define TIME_SHOT_TO_SHOT 500
+#define TIME_DEAD_TO_RECOVERY 6000
+#define TIME_RECOVERY_TO_NORMAL 3000
 
 void SysRobot::init(int _id, ETeam _team) {
 	type = ROBOT;
@@ -16,18 +27,23 @@ void SysRobot::init(int _id, ETeam _team) {
 	team = _team;
 
 	HP = MAX_HP;
+	energy = 100;
+
 	recoveyTime = 0;
 	coolTime = 0;
 	thermo = 0;
 
+	if (isinit) return;
 	b2dCircle.setPhysics(3.0, 0.53, 0.1);
 	b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う
 	b2dCircle.setup(SysBox2D::getInstance()->getWorld(), data.pos.x, data.pos.y, RADIUS_OF_ROBOT + 10);
 	b2dCircle.setData(this);
+	isinit = true;
 
 	PM = PMx::getInstance();
     PM-> initRobot(_id, _team);
     
+	timer = Timer::getInstance();
 }
 
 void SysRobot::setPos(Position _pos) {
@@ -44,7 +60,7 @@ void SysRobot::setShot(bool _shot) {
 
 void SysRobot::sufferDamage(int _damage) {
 	HP -= _damage;
-	thermo = 30;
+	thermo = 1000;
 }
 
 void SysRobot::update() {
@@ -62,18 +78,19 @@ void SysRobot::update() {
 	// ステート毎の処理
 	switch (data.state) {
 		case DEAD:
-			deadTime++;
+			deadTime += timer->getDiff();
 			if (deadTime >= TIME_DEAD_TO_RECOVERY) {
 				data.state = RECOVERY;
 				deadTime = 0;
 				HP = MAX_HP;
 				coolTime = 0;
 				thermo = 0;
+				energy = 100;
 			}
 			break;
 
 		case RECOVERY:
-			recoveyTime++;
+			recoveyTime += timer->getDiff();
 			if (recoveyTime >= TIME_RECOVERY_TO_NORMAL) {
 				data.state = NORMAL;
 				recoveyTime = 0;
@@ -84,19 +101,27 @@ void SysRobot::update() {
 			if (HP <= 0) {
 				HP = 0;
 				data.state = DEAD;
+				Position p = data.pos;
+				for (int i = 0; i < 8; i++) {
+					p.theta += M_PI / 4;
+					BulletManager::makeBullet(p, (ETeam)!team, true);
+				}
 				break;
 			}
 
 			// 体力の自然回復と放熱
-			if (thermo == 0 && HP < MAX_HP) HP += 1;
-			else thermo--;
+			if (thermo == 0 && HP < MAX_HP) HP += timer->getDiff() * GAIN_HP_KAIHUKU;
+			else thermo = max(0, thermo - timer->getDiff());
 
 			// 弾の生成
-			if (data.operation.shot && coolTime == 0) {
+			if (data.operation.shot && coolTime == 0 && energy >= ENG_TO_SHOT) {
+				SoundManager::makeSE(SHOT);
 				BulletManager::makeBullet(data.pos, team);
 				coolTime = TIME_SHOT_TO_SHOT;
-			} else if (coolTime != 0) {
-				coolTime--;
+				energy -= ENG_TO_SHOT;
+			} else {
+				if (coolTime != 0) coolTime = 0 > coolTime - timer->getDiff() ? 0 : coolTime - timer->getDiff();
+				if (energy < 100) energy = min(100., energy + timer->getDiff() * GAIN_ENG_KAIHUKU);
 			}
 
 			break;
@@ -126,6 +151,8 @@ int SysRobot::getId() {
 }
 
 RobotData SysRobot::getData() {
+	data.HP = HP;
+	data.EN = energy;
 	return data;
 }
 
@@ -133,7 +160,10 @@ RobotData SysRobot::getData() {
 void SysRobot::collisionListner(CollisionObject *other) {
 	switch (other->getType()) {
 		case BULLET:
-			if (data.state != DEAD && data.state != RECOVERY && team != other->getTeam()) sufferDamage(other->getValue());
+			if (data.state != DEAD && data.state != RECOVERY && team != other->getTeam()) {
+				sufferDamage(other->getValue());
+				SoundManager::makeSE(DAMAGE);
+			}
 			break;
 		case ITEM:
 			data.item = (EItem)other->getValue();

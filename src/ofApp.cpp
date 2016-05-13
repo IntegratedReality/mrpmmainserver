@@ -55,7 +55,7 @@ void ofApp::keyPressed(int key) {
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	manager.keyPressed(key);
 }
 
 //--------------------------------------------------------------

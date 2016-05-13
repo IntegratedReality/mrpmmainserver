@@ -14,4 +14,6 @@ struct RobotData {
 	Position pos;
 	Operation operation;
 	long time;
+	double HP;
+	double EN;
 };
