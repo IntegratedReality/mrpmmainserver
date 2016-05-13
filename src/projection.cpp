@@ -145,6 +145,16 @@ void pointObject::init(int x, int y, float theta){
 
 	vbo.setMesh(mesh,GL_STREAM_DRAW);
 }
+// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+void virtualWall::init(){
+//    mesh[0].addVertex(ofVec3f(500,1000,0));
+//    mesh[0].addVertex(ofVec3f(550,1000,0));
+//    mesh[0].addVertex(ofVec3f(WIDTH_OF_FIELD - 1600,HEIGHT_OF_FIELD - 550,0));
+//    mesh[0].addVertex(ofVec3f(x+w,y+h,0));
+}
+
+void virtualWall::draw(){
+}
 
 // _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 

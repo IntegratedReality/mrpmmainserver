@@ -2,6 +2,7 @@
 
 #include "ofxBox2d.h"
 #include "CollisionObject.h"
+#include "PMx.h"
 
 class VirtualWall : public CollisionObject {
 	public:
@@ -13,4 +14,5 @@ class VirtualWall : public CollisionObject {
 	private:
 		int x, y, w, h;
 		ofxBox2dRect b2dRect;
+        PMx *PM;
 };

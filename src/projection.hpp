@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "RobotData.h"
 #include "EState.h"
+#include "const.h"
 #include <stdio.h>
 #include <array>
 #include <cmath>
@@ -106,7 +107,9 @@ class bullets{
 class virtualWall{
 
     public:
-    void draw(ofVec2f coord);
+    void draw();
+    void init();
+    
     virtualWall(){
         
     }
@@ -208,6 +211,7 @@ class PMClass{
 		ofImage textureImg;
 		ofImage pointObjectTexture;
         ofImage backGroundImg;
+        ofImage virtualWallTexture;
         ofFbo backGroundFbo;
         ofShader fieldShader;
         ofShader objectShader;

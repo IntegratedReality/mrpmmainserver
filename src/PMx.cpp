@@ -15,6 +15,7 @@ void PMx::setup() {
 	PM.pointObjectTexture.load("texture.jpg");  //example texture
 	PM.bulletImg.load("blue.png");  //image for bullet
     PM.backGroundImg.load("bg.jpg");
+    PM.virtualWallTexture.load("mesh.jpg");
     //PM.createFieldBgFbo();
     
     PM.fieldShader.load("test.vert", "water.frag");
@@ -263,6 +264,21 @@ void PMx::initRobot(int _id, ETeam team){
     PM.robot[_id].init(team);
 }
 
+void PMx::drawVWall(int x, int y, int w, int h){
+    PM.cam[0].begin(PM.viewPort[0]);
+    ofPushMatrix();
+    ofTranslate(y*1024/1800, x*768*2/2700, 2);
+    ofDrawRectangle(0, 0, h, w);
+    ofPopMatrix();
+    PM.cam[0].end();
+
+    PM.cam[1].begin(PM.viewPort[1]);
+    ofPushMatrix();
+    ofTranslate(y*1024/1800, x*768*2/2700, 2);
+    ofDrawRectangle(0, 0, h, w);
+    ofPopMatrix();
+    PM.cam[1].end();
+}
 
 
 void PMx::_drawField() {
