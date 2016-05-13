@@ -117,25 +117,78 @@ void pointObject::init(int x, int y, float theta){
 
 // _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-void robotModel::draw(int x, int y, float theta, ofImage &texture, const RobotData *data){
-
-	ofPushMatrix();
-	ofTranslate(y*scale,x*scale);
-	ofRotateZ(-theta*360/(2*M_PI));
-	texture.bind();
-	side_vbo.drawElements(GL_TRIANGLE_STRIP,14);
-	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
-	texture.unbind();
-    ofPushStyle();
-        ofSetLineWidth(2);
-        ofSetColor(35, 106, 250);
-        top_mesh.drawWireframe();
-//        side_mesh.drawWireframe();
-    ofPopStyle();
-	ofPopMatrix();
+void robotModel::draw(int x, int y, float theta, const RobotData *data){
+    if (currentState != data->state){
+        switch (data->state) {
+            case NORMAL:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, teamColor[team]);
+                }
+                top_mesh.setColor(0, enhancedTeamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, teamColor[team]);
+                }
+                side_mesh.setColor(0, enhancedTeamColor[team]);
+                
+                ofPushStyle();
+                ofSetLineWidth(2);
+                ofSetColor(40,40,40);
+                top_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            case DEAD:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, killedColor[team]);
+                }
+                top_mesh.setColor(0, teamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, killedColor[team]);
+                }
+                side_mesh.setColor(0, teamColor[team]);
+                
+                ofPushStyle();
+                ofSetLineWidth(2);
+                ofSetColor(teamColor[team]);
+                top_mesh.drawWireframe();
+                side_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            case RECOVERY:
+                for (int i = 0; i < 6; i++){
+                    top_mesh.setColor(i, teamColor[team]);
+                }
+                top_mesh.setColor(0, teamColor[team]);
+                for (int i = 0; i < 14; i++){
+                    side_mesh.setColor(i, teamColor[team]);
+                }
+                side_mesh.setColor(0, enhancedTeamColor[team]);
+                
+                ofPushStyle();
+                ofSetLineWidth(2);
+                ofSetColor(recoveryColor);   //team colorに変える
+                top_mesh.drawWireframe();
+                side_mesh.drawWireframe();
+                ofPopStyle();
+                ofPopMatrix();
+                break;
+                
+            default:
+                break;
+        }
+    }
+    ofPushMatrix();
+    ofTranslate(y*scale,x*scale);
+    ofRotateZ(-theta*360/(2*M_PI));
+    side_mesh.draw();
+    top_mesh.draw();
+    ofPopMatrix();
 }
 
-void robotModel::draw(int x, int y, float theta, const RobotData *data){
+void robotModel::draw(int x, int y, float theta, ofImage &texture, const RobotData *data){
     if (currentState != data->state){
         switch (data->state) {
             case NORMAL:
@@ -201,8 +254,12 @@ void robotModel::draw(int x, int y, float theta, const RobotData *data){
 	ofPushMatrix();
 	ofTranslate(y*scale,x*scale);
 	ofRotateZ(-theta*360/(2*M_PI));
-	side_mesh.draw();
-    top_mesh.draw();
+    texture.bind();
+        side_mesh.draw();
+        top_mesh.draw();
+    texture.unbind();
+    ofPopMatrix();
+    
 //	top_vbo.drawElements(GL_TRIANGLE_STRIP,6);
 //    ofPushStyle();
 //        ofSetLineWidth(2);
@@ -212,6 +269,7 @@ void robotModel::draw(int x, int y, float theta, const RobotData *data){
 //    ofPopStyle();
 //	ofPopMatrix();
 }
+
 
 void robotModel::init(ETeam team){
     this->team = team;
