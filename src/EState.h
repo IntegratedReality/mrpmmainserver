@@ -4,4 +4,5 @@ enum EState {
 	NORMAL,
 	DEAD,
 	RECOVERY,
+    STANDBY2
 };

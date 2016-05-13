@@ -24,7 +24,7 @@ class PMx {
         void drawBullet(double _x, double _y, double _theta, ETeam team, float duration = 0, float time = 0.0);
         void drawBullet(double _x, double _y, double _theta, int width, int height,  float duration = 0, float time = 0.0);
         void drawText(string content,int x,int y,int size = 24, ofColor textColor=ofColor(255,255,255));
-        void drawTextField(ofColor bgColor=ofColor(0,0,0,150));
+        void drawTextField(ofColor bgColor=ofColor(0,0,0,80));
 
 	private:
 		PMx() {};

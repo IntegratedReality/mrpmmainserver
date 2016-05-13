@@ -80,3 +80,18 @@ ETeam Judge::end() {
 		return NEUTRAL;
 	}
 }
+
+ETeam Judge::getWinner() {
+	if (score[TEAM_A] > score[TEAM_B]) {
+		cout << "HUMAN win" << endl;
+		return TEAM_A;
+	}
+	else if (score[TEAM_A] < score[TEAM_B]) {
+		cout << "AI win" << endl;
+		return TEAM_B;
+	}
+	else if (score[TEAM_A] == score[TEAM_B]) {
+		cout << "draw" << endl;
+		return NEUTRAL;
+	}
+}
