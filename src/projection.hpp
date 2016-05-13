@@ -90,7 +90,8 @@ class bullets{
 			ofPopMatrix();
 		}
     
-        void createBullet(ofColor &color);
+        void initBullet(ofColor &color);
+        ofFbo bulletFbo;
 
 		bullets(){
 		}

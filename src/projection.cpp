@@ -27,6 +27,28 @@ void PMClass::createFieldBgFbo(){
 //    backGroundFbo.end();
 }
 
+void bullets::initBullet(ofColor &color){
+    bulletFbo.allocate(50,50,GL_RGBA);
+    bulletFbo.begin();
+    ofPushMatrix();
+    ofFill();
+    for (int i = 0; i < 15; i++){
+        ofSetColor(color.r,color.g,color.b,100);
+        ofDrawCircle(25, 25, 15 - i);
+    }
+    ofNoFill();
+    
+    ofDrawCircle(25, 25, 20);
+    ofSetLineWidth(3);
+    for (int i = 0; i < 6; i++){
+        ofPushMatrix();
+            ofRotateZ(60);
+            ofDrawLine(0, 5, 0, 15);
+        ofPopMatrix();
+    }
+    ofPopMatrix();
+}
+
 void pointObject::draw(int state){
 	ofPushMatrix();
 	ofTranslate(centerPoint);
@@ -55,10 +77,10 @@ void pointObject::draw(ofImage &texture, int state){
     mesh.drawWireframe();
     ofTranslate(0, 0, 2);
     ofRotate(ofGetElapsedTimef() * 8);
-    for (int i = 0; i < 6; i++){
-        ofRotate(60);
-        ofDrawCircle(100, 0, 18);
-    }
+    for (int i = 0; i < 3; i++){
+        ofRotate(120);
+        ofDrawTriangle(0, 100, -15, 75, 15, 75);
+        }
 
     ofPopStyle();
 	ofPopMatrix();
