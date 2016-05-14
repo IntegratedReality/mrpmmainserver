@@ -12,7 +12,7 @@ void PMx::setup() {
 
 	/* load images if needed */
 //	PM.textureImg.load("281.gif");
-    PM.textureImg.load("border.jpg");
+    PM.textureImg.load("pattern.png");
 	PM.pointObjectTexture.load("texture.jpg");  //example texture
 	PM.bulletImg.load("blue.png");  //image for bullet
     PM.backGroundImg.load("bg.jpg");
@@ -241,7 +241,7 @@ void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _dura
     PM.cam[0].begin(PM.viewPort[0]);
     ofPushMatrix();
     ofTranslate(0, 0,5);
-    _drawBulletTexture(_x*scale, _y*scale, _theta, team);
+    _drawBulletTexture(_y*scale, _x*scale, _theta, team);
     ofPopMatrix();
     PM.cam[0].end();
     
@@ -249,7 +249,7 @@ void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _dura
     PM.cam[1].begin(PM.viewPort[1]);
     ofPushMatrix();
     ofTranslate(0, 0,5);
-    _drawBulletTexture(_x*scale, _y*scale, _theta, team);
+    _drawBulletTexture(_y*scale, _x*scale, _theta, team);
     ofPopMatrix();
     PM.cam[1].end();
 }
@@ -341,7 +341,7 @@ void PMx::_drawShaderField(){
         ofPushMatrix();
         ofPushStyle();
             ofTranslate(0, 0, 1);
-            ofSetColor(0,0,0,125);
+            ofSetColor(0,0,0,80);
             ofFill();
             ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
         ofPopStyle();

@@ -20,3 +20,5 @@ constexpr int POINT_OBJ_2_X = WIDTH_OF_FIELD / 2 + WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 
 constexpr int PORT = 8000;
+
+extern bool sim;

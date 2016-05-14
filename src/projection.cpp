@@ -34,7 +34,7 @@ void bullets::initBullet(int _id){
             ofTranslate(25, 25);
             ofFill();
             for (int i = 0; i < 18; i++){
-                ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b,70 + 8 * i);
+                ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b,130 + 6 * i);
                 ofDrawCircle(0, 0, 18 - i);
             }
             ofNoFill();
@@ -346,9 +346,9 @@ void robotModel::init(ETeam team){
     for (int i = 0; i < 14; i ++){
         side_mesh.addColor(teamColor[this->team]);
     }
-    top_mesh.setColor(0, enhancedTeamColor[this->team]);
-    side_mesh.setColor(0, enhancedTeamColor[this->team]);
-    side_mesh.setColor(1, enhancedTeamColor[this->team]);
+    top_mesh.setColor(3, enhancedTeamColor[this->team]);
+    side_mesh.setColor(7, enhancedTeamColor[this->team]);
+//    side_mesh.setColor(, enhancedTeamColor[this->team]);
 
 	/* triangle_stripで側面を作っている */
 	side_mesh.addIndex(6);

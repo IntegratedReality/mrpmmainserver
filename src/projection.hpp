@@ -281,8 +281,8 @@ class PMClass{
 			//---
 
 			/* set point objects(x,y,theta) */
-			p_object[0].init(screen_height/2,screen_width/4, 2); //(x,y,theta)
-			p_object[1].init(screen_height,screen_width/2, 1);
+			p_object[1].init(screen_height/2,screen_width/4, 2); //(x,y,theta)
+			p_object[0].init(screen_height,screen_width/2, 1);
 			p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
 
 			bulletImg.setAnchorPercent(0.5, 0.5);   //中心で指定できるように

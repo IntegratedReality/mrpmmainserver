@@ -44,7 +44,7 @@ void Bullet::draw() {
 	Position &p = this->pos;
 	ofSetColor(255 * (team == TEAM_A), 120, 255 * (team == TEAM_B), 255);
 	//ofFill();
-	ofDrawCircle(p.x * SCALE, p.y * SCALE, radius * SCALE);
+	if (sim) ofDrawCircle(p.x * SCALE, p.y * SCALE, radius * SCALE);
 	//ofNoFill();
     PM->drawBullet(p.x, p.y, 0, team);
 }
