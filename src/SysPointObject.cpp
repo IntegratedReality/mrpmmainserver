@@ -82,6 +82,7 @@ void SysPointObject::collisionListner(CollisionObject *other) {
 		case BULLET:
 			changePoint(other->getTeam(), 1);
 			break;
+    default:;
 	}
 }
 

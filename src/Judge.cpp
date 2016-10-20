@@ -37,6 +37,7 @@ void Judge::setPOOwner(int _id, ETeam _owner) {
 		case TEAM_B:
 			score[1] += timer->getDiff() * GAIN_OWN;
 			break;
+    case NEUTRAL:;
 	}
 }
 
@@ -63,6 +64,7 @@ ETeam Judge::end() {
 			case TEAM_B:
 				score[1] += GAIN_BONUS;
 				break;
+      default:;
 		}
 	}
 	cout << "HUMAN: " << score[0];

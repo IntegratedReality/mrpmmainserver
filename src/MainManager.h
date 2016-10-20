@@ -16,16 +16,16 @@
 #include "PMx.h"
 
 class MainManager {
-	public:
+public:
 		void init();
 		void update();
 		void draw();
 		void keyPressed(int key);
-	private:
+private:
 		ofxBox2d *box2d;
-		Timer *timer;
-        PMx *PM;
-
+  Timer *timer;
+  PMx *PM;
+  
 		MainSender mainSndr;
 		MainReceiver mainRcvr;
 		SysRobotManager sysRbtMgr;
@@ -36,7 +36,7 @@ class MainManager {
 		CollisionListener collisionListener;
 		SoundManager sndMgr;
 		Judge judge;
-
+  
 		int time;
 		EMode mode;
 };

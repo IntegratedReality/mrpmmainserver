@@ -70,6 +70,9 @@ void Bullet::collisionListner(CollisionObject *other) {
 			break;
 		case BULLET:
 			if (team != other->getTeam()) deleteFlag = true;
+      break;
+    case ITEM:
+      ;
 	}
 }
 

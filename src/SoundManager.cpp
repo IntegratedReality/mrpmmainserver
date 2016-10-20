@@ -3,16 +3,16 @@
 vector<ofSoundPlayer> SoundManager::SEs;
 
 void SoundManager::init() {
-	bgm.loadSound("bgm.mp3");
+	bgm.load("bgm.mp3");
 	bgm.setMultiPlay(false);
 	bgm.setLoop(false);
 
 	SEs.emplace_back();
-	SEs[0].loadSound("shot.wav");
+	SEs[0].load("shot.wav");
 	SEs.emplace_back();
-	SEs[1].loadSound("damage.wav");
+	SEs[1].load("damage.wav");
 
-	for (auto se : SEs) {
+	for (auto& se : SEs) {
 		se.setMultiPlay(true);
 		se.setLoop(false);
 	}

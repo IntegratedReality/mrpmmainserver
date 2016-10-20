@@ -125,6 +125,7 @@ void SysRobot::update() {
 			}
 
 			break;
+    default:;
 	}
 }
 
@@ -169,5 +170,6 @@ void SysRobot::collisionListner(CollisionObject *other) {
 			data.item = (EItem)other->getValue();
 			itemTime = 0;
 			break;
+    default:;
 	}
 }

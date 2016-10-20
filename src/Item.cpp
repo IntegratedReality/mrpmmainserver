@@ -32,6 +32,7 @@ void Item::collisionListner(CollisionObject *other) {
 		case ROBOT:
 			deleteFlag = true;
 			break;
+    default:;
 	}
 }
 

@@ -13,7 +13,7 @@ void MainReceiver::init() {
 			while (1) {
 				if (receiver.hasWaitingMessages()) {
 					ofxOscMessage m;
-					receiver.getNextMessage(&m);
+					receiver.getNextMessage(m);
 					if (m.getAddress() == "/camera/position") {
 						int id = m.getArgAsInt32(0);
 						int time = m.getArgAsInt32(1);
