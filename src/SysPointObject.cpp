@@ -41,7 +41,7 @@ void SysPointObject::draw() {
 	ofFill();
 	if (getOwner() == TEAM_A) ofSetColor(255, 0, 0, 255);
 	else if (getOwner() == TEAM_B) ofSetColor(0, 0, 255, 255);
-	ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
+	if (sim) ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
 	ofSetColor(255, 255, 255, 255);
 
 	ofFill();

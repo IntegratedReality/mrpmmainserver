@@ -11,10 +11,12 @@ void PMx::setup() {
 	//    PM.p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
 
 	/* load images if needed */
-	PM.textureImg.load("281.gif");
+//	PM.textureImg.load("281.gif");
+    PM.textureImg.load("pattern.png");
 	PM.pointObjectTexture.load("texture.jpg");  //example texture
 	PM.bulletImg.load("blue.png");  //image for bullet
     PM.backGroundImg.load("bg.jpg");
+    PM.virtualWallTexture.load("mesh.jpg");
     //PM.createFieldBgFbo();
     
     PM.fieldShader.load("test.vert", "water.frag");
@@ -23,7 +25,7 @@ void PMx::setup() {
     PM.robotShader.load("test.vert","robot.frag");
     
     /* load font */
-    for (int i = 1; i < 34; i++){
+    for (int i = 1; i < 50; i++){
         PM.font[i].load("Arial.ttf",i);
     }
     
@@ -199,11 +201,12 @@ void PMx::drawPO(int _id, int state) {
 void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
 	// screen 1
 	PM.cam[0].begin(PM.viewPort[0]);
-	_drawRobot(_x, _y, _theta, _data);
+    _drawRobot(_x, _y, _theta, _data);
 	PM.cam[0].end();
 
 	// screen 2
 	PM.cam[1].begin(PM.viewPort[1]);
+    ofDrawCircle(500,200,100);
 	_drawRobot(_x, _y, _theta, _data);
 	PM.cam[1].end();
 }
@@ -233,22 +236,31 @@ void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, int _width
     PM.cam[1].end();
 }
 
-void PMx::drawBullet(double _x, double _y, double _theta, float _duration, float _time){
+void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _duration, float _time){
     // screen 1
     PM.cam[0].begin(PM.viewPort[0]);
-    _drawImg(_x, _y, _theta, PM.bulletImg, _duration, _time);
+    ofPushMatrix();
+    ofTranslate(0, 0,5);
+    _drawBulletTexture(_y*scale, _x*scale, _theta, team);
+    ofPopMatrix();
     PM.cam[0].end();
     
     // screen 2
     PM.cam[1].begin(PM.viewPort[1]);
-    _drawImg(_x, _y, _theta, PM.bulletImg, _duration, _time);
+    ofPushMatrix();
+    ofTranslate(0, 0,5);
+    _drawBulletTexture(_y*scale, _x*scale, _theta, team);
+    ofPopMatrix();
     PM.cam[1].end();
 }
 
 void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _height, float _duration, float _time){
     // screen 1
     PM.cam[0].begin(PM.viewPort[0]);
+    ofTranslate(0, 0,10);
+    ofDrawCircle(500, 300, 30);
     _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
+        ofTranslate(0, 0,-10);
     PM.cam[0].end();
     
     // screen 2
@@ -263,6 +275,20 @@ void PMx::initRobot(int _id, ETeam team){
     PM.robot[_id].init(team);
 }
 
+void PMx::drawVWall(int x, int y, int w, int h){
+//       ofDrawBox(x*scale, y*scale, 0, w, h, 10);
+//    PM.cam[0].begin(PM.viewPort[0]);
+//    ofSetColor(0,0,0,140);
+//    ofFill();
+//    ofDrawBox(x*scale, y*scale, 0, w, h, 10);
+//    PM.cam[0].end();
+//
+//    PM.cam[1].begin(PM.viewPort[1]);
+//    ofDrawBox(x*scale, y*scale, 0, w, h, 10);
+//    PM.cam[1].end();
+    
+    ofSetColor(255, 255, 255);
+}
 
 
 void PMx::_drawField() {
@@ -315,7 +341,7 @@ void PMx::_drawShaderField(){
         ofPushMatrix();
         ofPushStyle();
             ofTranslate(0, 0, 1);
-            ofSetColor(0,0,0,125);
+            ofSetColor(0,0,0,80);
             ofFill();
             ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
         ofPopStyle();
@@ -370,10 +396,32 @@ void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, int _widt
     ofEnableNormalizedTexCoords();
 }
 
+void PMx::_drawBulletTexture(double _x, double _y, double _theta, ETeam team, float duration, float time){
+    ofDisableNormalizedTexCoords();
+    if (duration == 0){
+        ofPushMatrix();
+        ofTranslate(0, 0, 3);
+        PM.bullet.bulletFbo[team].getTexture().draw(_x, _y,40,40);
+        ofPopMatrix();
+    }
+    else {
+        ofPushMatrix();
+        ofTranslate(0, 0, 3);
+        PM.alphaShader.begin();
+        PM.alphaShader.setUniformTexture("originTexture", PM.bullet.bulletFbo[team].getTexture(), 1);
+        PM.alphaShader.setUniform1f("time", static_cast<float>((time / duration)*1000));
+        PM.bullet.bulletFbo[team].getTexture().draw(_x, _y);
+        ofDrawCircle(_x,_y,30);
+        PM.alphaShader.end();
+        ofPopMatrix();
+    }
+    ofEnableNormalizedTexCoords();
+}
+
 void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
 //        ofTranslate(0, 0, 600);
-    if (size > 34){
-        size = 34;
+    if (size > 51){
+        size = 50;
     }
     PM.cam[0].begin();
         ofPushMatrix();
@@ -396,7 +444,7 @@ void PMx::drawTextField(ofColor bgColor){
             ofTranslate(0,0,130);
             ofSetColor(bgColor);
             ofFill();
-            ofDrawRectangle(-300,-300,768*2,1024);
+            ofDrawRectangle(-300,-300,768*2.5,1500);
         ofPopStyle();
         ofPopMatrix();
     PM.cam[0].end();

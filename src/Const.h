@@ -3,7 +3,7 @@
 constexpr int FPS = 60;
 constexpr double TIME_PER_FRAME = 1.0 / FPS;
 
-constexpr int WIDTH_OF_FIELD = 1820;
+constexpr int WIDTH_OF_FIELD = 1800;
 constexpr int HEIGHT_OF_FIELD = 2700;
 constexpr double SCALE = 0.25;
 
@@ -20,3 +20,5 @@ constexpr int POINT_OBJ_2_X = WIDTH_OF_FIELD / 2 + WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 
 constexpr int PORT = 8000;
+
+extern bool sim;

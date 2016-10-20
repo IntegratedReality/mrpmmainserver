@@ -134,13 +134,13 @@ void SysRobot::draw() {
 	double r = RADIUS_OF_ROBOT;
 
 	ofSetColor(255 * (data.team == TEAM_A), 0, 255 * (data.team == TEAM_B), 255);
-	ofDrawLine(p.x * SCALE, p.y * SCALE, (p.x + r * cos(p.theta)) * SCALE, (p.y + r * sin(p.theta)) * SCALE);
+	if (sim) ofDrawLine(p.x * SCALE, p.y * SCALE, (p.x + r * cos(p.theta)) * SCALE, (p.y + r * sin(p.theta)) * SCALE);
 
 	if (data.state == DEAD) ofSetColor(50, 50, 50, 255);
 	else if (data.state == RECOVERY) ofSetColor(255, 255, 0, 255);
 	else ofSetColor(255, 255 * HP / MAX_HP, 255 * HP / MAX_HP, 255);
 
-	ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
+	if (sim) ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
 
 	ofSetColor(255, 255, 255, 255);
 
