@@ -12,14 +12,14 @@
 // 用済みになったらdeleteFlagをtrueにしてください．インスタンスが勝手に破壊されます
 
 class FX {
-	public:
-		void init(Position _pos, EFX _FXType);
-		void update();
-		void draw();
-		bool getDeleteFlag();
-	private:
-		ofImage img;
-		Position pos;
-		EFX FXType;
-		bool deleteFlag;
+public:
+  void init(Position _pos, EFX _FXType);
+  void update();
+  void draw();
+  bool getDeleteFlag();
+private:
+  ofImage img;
+  Position pos;
+  EFX FXType;
+  bool deleteFlag;
 };

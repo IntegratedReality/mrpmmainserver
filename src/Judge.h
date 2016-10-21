@@ -5,7 +5,7 @@
 #include "Timer.h"
 
 class Judge {
-	public:
+public:
 		void init();
 		void update();
 		int getScore(ETeam _team);
@@ -14,7 +14,7 @@ class Judge {
 		void start();
 		ETeam end();
 		ETeam getWinner();
-	private:
+private:
 		bool playing;
 		double score[2];
 		ETeam POOwner[3];

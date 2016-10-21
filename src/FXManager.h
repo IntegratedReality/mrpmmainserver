@@ -5,11 +5,11 @@
 #include <vector>
 
 class FXManager {
-	public:
+public:
 		void init();
 		void update();
 		void draw();
 		static void makeFX(Position _pos, EFX _FX);
-	private:
+private:
 		static std::vector<FX*> FXs;
 };

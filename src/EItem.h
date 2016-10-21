@@ -1,7 +1,7 @@
 #pragma once
 
 enum EItem {
-	NO_ITEM,
-	SPEEDER,
-	BARRIER
+  NO_ITEM,
+  SPEEDER,
+  BARRIER
 };

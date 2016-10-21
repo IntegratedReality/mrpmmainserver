@@ -17,26 +17,26 @@
 
 class MainManager {
 public:
-		void init();
-		void update();
-		void draw();
-		void keyPressed(int key);
+  void init();
+  void update();
+  void draw();
+  void keyPressed(int key);
 private:
-		ofxBox2d *box2d;
+  ofxBox2d *box2d;
   Timer *timer;
   PMx *PM;
   
-		MainSender mainSndr;
-		MainReceiver mainRcvr;
-		SysRobotManager sysRbtMgr;
-		SysPointObjectManager sysPObjMgr;
-		ItemManager itmMgr;
-		VirtualWallManager vWllMgr;
-		BulletManager blltMgr;
-		CollisionListener collisionListener;
-		SoundManager sndMgr;
-		Judge judge;
+  MainSender mainSndr;
+  MainReceiver mainRcvr;
+  SysRobotManager sysRbtMgr;
+  SysPointObjectManager sysPObjMgr;
+  ItemManager itmMgr;
+  VirtualWallManager vWllMgr;
+  BulletManager blltMgr;
+  CollisionListener collisionListener;
+  SoundManager sndMgr;
+  Judge judge;
   
-		int time;
-		EMode mode;
+  int time;
+  EMode mode;
 };

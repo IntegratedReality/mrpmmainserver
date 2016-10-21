@@ -1,6 +1,6 @@
 #pragma once
 
 enum ESE {
-	SHOT,
-	DAMAGE
+  SHOT,
+  DAMAGE
 };
