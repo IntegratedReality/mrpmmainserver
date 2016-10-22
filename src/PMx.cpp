@@ -34,24 +34,24 @@ void PMx::setup() {
 
 void PMx::keyPressed(int key) {
   /* simple calibration utils */
-  if (key == 49){
+  if (key == 49){ //'1'
     PM.bConfPort2 = 0;
     PM.bConfPort1 = !PM.bConfPort1;
     cout << "bConfPort1 : " << PM.bConfPort1 << endl;
   }
-  if (key == 50){
+  if (key == 50){ //'2'
     PM.bConfPort1 = 0;
     PM.bConfPort2 = !PM.bConfPort2;
     cout << "bConfPort2 : " << PM.bConfPort2 << endl;
   }
-  if (key == 51){
+  if (key == 51){ //'3'
     PM.bConfShade1 = !PM.bConfShade1;
     PM.bConfPort1 = false;
     PM.bConfPort2 = false;
     PM.bconfShade2 = false;
     cout << "bConfShade1 : " << PM.bConfShade1 << endl;
   }
-  if (key == 52){
+  if (key == 52){ //'4'
     PM.bconfShade2 = !PM.bconfShade2;
     PM.bConfPort1 = false;
     PM.bConfPort2 = false;
