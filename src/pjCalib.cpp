@@ -25,7 +25,9 @@ void PJLattice::drawHorizontalLine(int y){
 
 void PJLattice::draw(){
   if(isOn){
+    ofPushStyle();
     ofSetColor(lineColor);
+    ofSetLineWidth(lineWidth);
     {
       int i{0};
       while(i*unit<wndWidth){
@@ -40,6 +42,7 @@ void PJLattice::draw(){
         ++i;
       }
     }
+    ofPopStyle();
   }
 }
 
