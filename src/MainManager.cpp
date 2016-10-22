@@ -105,6 +105,10 @@ void MainManager::draw() {
     PMx->drawTextField();
     PMx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
   }
+  
+  //added by sakabe
+  //カメラやビューポートと独立に描画したい
+  PMx->drawLatticeIfNeeded();
 }
 
 void MainManager::keyPressed(int key) {

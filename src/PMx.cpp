@@ -33,6 +33,12 @@ void PMx::setup() {
 }
 
 void PMx::keyPressed(int key) {
+  //pjlattice toggle by 'L' key
+  //added by sakabe
+  if (key=='l'){
+    pjlattice.toggle();
+  }
+  
   /* simple calibration utils */
   if (key == 49){ //'1'
     PM.bConfPort2 = 0;

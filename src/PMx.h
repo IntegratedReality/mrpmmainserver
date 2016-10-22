@@ -3,6 +3,7 @@
 #include "RobotData.h"
 #include "ETeam.h"
 #include "projection.hpp"
+#include "pjCalib.h"
 
 class PMx {
 public:
@@ -27,9 +28,13 @@ public:
     void drawTextField(ofColor bgColor=ofColor(0,0,0,80));
     void drawVWall(int x1,int y1, int w, int h);
     
+    inline void drawLatticeIfNeeded(){
+        pjlattice.draw();
+    }
 private:
     PMx() {};
     PMClass PM;
+    PJLattice pjlattice;    //歪み観察用格子
     
     // for one camera
     void _drawField();
