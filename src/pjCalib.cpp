@@ -10,7 +10,7 @@
 
 PJLattice::PJLattice()
 {
-  lineColor=ofColor::red;
+  lineColor=ofColor::orange;
   wndWidth=ofGetWidth();
   wndHeight=ofGetHeight();
 }
@@ -24,18 +24,21 @@ void PJLattice::drawHorizontalLine(int y){
 }
 
 void PJLattice::draw(){
-  {
-    int i{0};
-    while(i*unit<wndWidth){
-      drawVerticalLine(i*unit);
-      ++i;
+  if(isOn){
+    ofSetColor(lineColor);
+    {
+      int i{0};
+      while(i*unit<wndWidth){
+        drawVerticalLine(i*unit);
+        ++i;
+      }
     }
-  }
-  {
-    int i{0};
-    while(i*unit<wndHeight){
-      drawHorizontalLine(i*unit);
-      ++i;
+    {
+      int i{0};
+      while(i*unit<wndHeight){
+        drawHorizontalLine(i*unit);
+        ++i;
+      }
     }
   }
 }
