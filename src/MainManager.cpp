@@ -29,7 +29,7 @@ void MainManager::init() {
   
   mode = STANDBY;
   
-  PM = PMx::getInstance();
+  PMx = PMx::getInstance();
   
   sim = false;
 }
@@ -89,21 +89,21 @@ void MainManager::draw() {
   blltMgr.draw();
   
   if (mode == RESULT) {
-    PM->drawTextField();
+    PMx->drawTextField();
     switch (judge.getWinner()) {
       case TEAM_A:
-        PM->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
+        PMx->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
         break;
       case TEAM_B:
-        PM->drawText("LOSE", 1500, 700, 49, ofColor(0, 120, 255, 200));
+        PMx->drawText("LOSE", 1500, 700, 49, ofColor(0, 120, 255, 200));
         break;
       case NEUTRAL:
-        PM->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
+        PMx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
         break;
     }
   } else if (mode == STANDBY) {
-    PM->drawTextField();
-    PM->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
+    PMx->drawTextField();
+    PMx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
   }
 }
 

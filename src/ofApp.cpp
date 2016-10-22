@@ -10,8 +10,8 @@ void ofApp::setup() {
   ofSetWindowPosition(1680, 0);
   
   // PM
-  PM = PMx::getInstance();
-  PM->setup();
+  PMx = PMx::getInstance();
+  PMx->setup();
   
   //ofNoFill();
   //ofBackground(0, 0, 0);
@@ -29,7 +29,7 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-  PM->drawShaderField();
+  PMx->drawShaderField();
   manager.draw();
   
   //    PM->drawBullet(500, 1000, 0, ETeam(0));
@@ -54,7 +54,7 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-  PM->keyPressed(key);
+  PMx->keyPressed(key);
 }
 
 //--------------------------------------------------------------

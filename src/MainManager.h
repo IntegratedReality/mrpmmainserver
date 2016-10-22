@@ -24,7 +24,7 @@ public:
 private:
   ofxBox2d *box2d;
   Timer *timer;
-  PMx *PM;
+  PMx *PMx;
   
   MainSender mainSndr;
   MainReceiver mainRcvr;

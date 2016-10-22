@@ -23,5 +23,5 @@ public:
   
 private:
 		MainManager manager;
-		PMx *PM;
+		PMx *PMx;
 };
