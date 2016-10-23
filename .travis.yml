@@ -1,0 +1,13 @@
+language: c++
+dist: trusty
+sudo: required
+before_script:
+  - wget http://openframeworks.cc/versions/v0.9.5/of_v0.9.5_linux64_release.tar.gz -O /tmp/of.tar.gz
+  - tar -xvf /tmp/of.tar.gz
+  - pushd /tmp/of && ./scripts/linux/ubuntu/install_dependencies.sh && ./scripts/linux/compileOF.sh -j2 && popd
+  - pushd /tmp/of/addons && git clone --depth 1 https://github.com/vanderlin/ofxBox2d && popd
+
+script:
+  - mkdir -p /tmp/of/apps/myApps/mrpmmainserver
+  - mv * /tmp/of/apps/myApps/mrpmmainserver/
+  - pushd /tmp/of/apps/myApps/mrpmmainserver/ && make
