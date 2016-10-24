@@ -2,8 +2,9 @@ language: c++
 dist: trusty
 sudo: required
 before_script:
+  - sudo apt-get -qq update
   - wget http://openframeworks.cc/versions/v0.9.5/of_v0.9.5_linux64_release.tar.gz -O /tmp/of.tar.gz
-  - pushd ~ && tar -xvf /tmp/of.tar.gz && mv of_v0.9.5_linux64_release of && popd
+  - pushd ~ && tar -xvf /tmp/of.tar.gz >/dev/null 2>&1 && mv of_v0.9.5_linux64_release of && popd
   - pushd ~/of && sudo ./scripts/linux/ubuntu/install_dependencies.sh && ./scripts/linux/compileOF.sh -j2 && popd
   - pushd ~/of/addons && git clone --depth 1 https://github.com/vanderlin/ofxBox2d && popd
 
