@@ -29,7 +29,7 @@ void MainManager::init() {
   
   mode = STANDBY;
   
-  PMx = PMx::getInstance();
+  pmx = PMx::getInstance();
   
   sim = false;
 }
@@ -89,26 +89,26 @@ void MainManager::draw() {
   blltMgr.draw();
   
   if (mode == RESULT) {
-    PMx->drawTextField();
+    pmx->drawTextField();
     switch (judge.getWinner()) {
       case TEAM_A:
-        PMx->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
+        pmx->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
         break;
       case TEAM_B:
-        PMx->drawText("LOSE", 1500, 700, 49, ofColor(0, 120, 255, 200));
+        pmx->drawText("LOSE", 1500, 700, 49, ofColor(0, 120, 255, 200));
         break;
       case NEUTRAL:
-        PMx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
+        pmx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
         break;
     }
   } else if (mode == STANDBY) {
-    PMx->drawTextField();
-    PMx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
+    pmx->drawTextField();
+    pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
   }
   
   //added by sakabe
   //カメラやビューポートと独立に描画したい
-  PMx->drawLatticeIfNeeded();
+  pmx->drawLatticeIfNeeded();
 }
 
 void MainManager::keyPressed(int key) {
