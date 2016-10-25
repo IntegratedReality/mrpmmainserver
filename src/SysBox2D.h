@@ -3,11 +3,11 @@
 #include "ofxBox2d.h"
 
 class SysBox2D {
-	public:
+public:
 		static ofxBox2d* getInstance() {
-			static ofxBox2d box2d;
-			return &box2d;
-		}
-	private:
+      static ofxBox2d box2d;
+      return &box2d;
+    }
+private:
 		SysBox2D();
 };

@@ -30,7 +30,7 @@ void SysPointObject::init(int _id) {
   this->b2dCircle.setup(SysBox2D::getInstance()->getWorld(), pos.x, pos.y, RADIUS_OF_POINT_OBJ);
   b2dCircle.setData(this);
   
-  PM = PMx::getInstance();
+  pmx = PMx::getInstance();
   isinit = true;
 }
 
@@ -39,20 +39,27 @@ void SysPointObject::update() {
 
 void SysPointObject::draw() {
   ofFill();
-  if (getOwner() == TEAM_A) ofSetColor(255, 0, 0, 255);
-  else if (getOwner() == TEAM_B) ofSetColor(0, 0, 255, 255);
-  if (sim) ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
+  if (getOwner() == TEAM_A) {
+    ofSetColor(255, 0, 0, 255);
+  }
+  else if (getOwner() == TEAM_B){
+    ofSetColor(0, 0, 255, 255);
+  }
+  if (sim) {
+    ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
+  }
+  
   ofSetColor(255, 255, 255, 255);
   
   ofFill();
   if (getOwner() == TEAM_A){
-    PM->drawPO(id, 0);
+    pmx->drawPO(id, 0);
   }
   else if (getOwner() == TEAM_B){
-    PM->drawPO(id, 1);
+    pmx->drawPO(id, 1);
   }
   else {
-    PM->drawPO(id, 2);
+    pmx->drawPO(id, 2);
   }
 }
 

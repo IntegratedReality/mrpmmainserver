@@ -15,8 +15,11 @@ void Bullet::init(Position _pos, ETeam _team, bool _deathshot) {
   this->count = 0;
   this->radius = 25;
   
-  if (_deathshot) sustain = 70;
-  else sustain = 330;
+  if (_deathshot) {
+    sustain = 70;
+  } else {
+    sustain = 330;
+  }
   
   b2dCircle.setPhysics(3.0, 0.53, 0.1);
   this->b2dCircle.fixture.isSensor = true; // 衝突検知のみを行う

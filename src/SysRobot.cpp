@@ -29,7 +29,7 @@ void SysRobot::init(int _id, ETeam _team) {
   HP = MAX_HP;
   energy = 100;
   
-  recoveyTime = 0;
+  recoveryTime = 0;
   coolTime = 0;
   thermo = 0;
   
@@ -40,8 +40,8 @@ void SysRobot::init(int _id, ETeam _team) {
   b2dCircle.setData(this);
   isinit = true;
   
-  PM = PMx::getInstance();
-  PM-> initRobot(_id, _team);
+  pmx = PMx::getInstance();
+  pmx-> initRobot(_id, _team);
   
   timer = Timer::getInstance();
 }
@@ -90,10 +90,10 @@ void SysRobot::update() {
       break;
       
     case RECOVERY:
-      recoveyTime += timer->getDiff();
-      if (recoveyTime >= TIME_RECOVERY_TO_NORMAL) {
+      recoveryTime += timer->getDiff();
+      if (recoveryTime >= TIME_RECOVERY_TO_NORMAL) {
         data.state = NORMAL;
-        recoveyTime = 0;
+        recoveryTime = 0;
       }
       // breakせず下に続く
       
@@ -134,17 +134,27 @@ void SysRobot::draw() {
   double r = RADIUS_OF_ROBOT;
   
   ofSetColor(255 * (data.team == TEAM_A), 0, 255 * (data.team == TEAM_B), 255);
-  if (sim) ofDrawLine(p.x * SCALE, p.y * SCALE, (p.x + r * cos(p.theta)) * SCALE, (p.y + r * sin(p.theta)) * SCALE);
+  if (sim){
+    ofDrawLine(p.x * SCALE, p.y * SCALE, (p.x + r * cos(p.theta)) * SCALE, (p.y + r * sin(p.theta)) * SCALE);
+  }
   
-  if (data.state == DEAD) ofSetColor(50, 50, 50, 255);
-  else if (data.state == RECOVERY) ofSetColor(255, 255, 0, 255);
-  else ofSetColor(255, 255 * HP / MAX_HP, 255 * HP / MAX_HP, 255);
+  if (data.state == DEAD){
+    ofSetColor(50, 50, 50, 255);
+  }
+  else if (data.state == RECOVERY) {
+    ofSetColor(255, 255, 0, 255);
+  }
+  else {
+  ofSetColor(255, 255 * HP / MAX_HP, 255 * HP / MAX_HP, 255);
+  }
   
-  if (sim) ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
+  if (sim) {
+    ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
+  }
   
   ofSetColor(255, 255, 255, 255);
   
-  PM->drawRobot(p.x, p.y, p.theta, &data);
+  pmx->drawRobot(p.x, p.y, p.theta, &data);
 }
 
 int SysRobot::getId() {

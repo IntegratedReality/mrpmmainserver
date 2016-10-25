@@ -26,7 +26,7 @@ public:
 private:
   RobotData data;
   ofxBox2dCircle b2dCircle;
-  PMx *PM;
+  PMx *pmx;
   
   Timer *timer;
   
@@ -37,7 +37,7 @@ private:
   int coolTime; // 1射撃後のフレーム数を記録
   
   int deadTime; // dead状態のフレーム数を記録
-  int recoveyTime; // recovery状態のフレーム数を記録
+  int recoveryTime; // recovery状態のフレーム数を記録
   int itemTime; // itemを取得してからのフレーム数を記録
   
   bool isinit;
