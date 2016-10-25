@@ -1,14 +1,16 @@
 #pragma once
 
 #include "Bullet.h"
+#include "Position.h"
 #include <vector>
 
 class BulletManager {
 public:
-		void init();
-		void update();
-		void draw();
-		static void makeBullet(Position _pos, ETeam _team, bool _deathshot = false);
+    void init();
+    void update();
+    void draw();
+    static void makeBullet(Position _pos, ETeam _team, bool _deathshot = false);
+    std::vector<Position> getPositionsVec();
 private:
-		static std::vector<Bullet*> bullets;
+    static std::vector<unique_ptr<Bullet>> bullets;
 };

@@ -6,36 +6,43 @@
 using namespace std;
 
 void BulletManager::init() {
-  for (int i = 0; i < BulletManager::bullets.size(); i++) {
-    if (BulletManager::bullets[i] != nullptr) delete BulletManager::bullets[i];
-  }
   BulletManager::bullets.clear();
 }
 
 void BulletManager::update() {
-  for (int i = 0; i < BulletManager::bullets.size(); i++) {
-    BulletManager::bullets[i]->update();
+  for (auto& e:bullets) {
+    e->update();
   }
-  for (int i = 0; i < BulletManager::bullets.size(); i++) {
-    if (BulletManager::bullets[i]->getDeleteFlag()) {
-      delete BulletManager::bullets[i];
-      BulletManager::bullets.erase(BulletManager::bullets.begin() + i);
+  for (auto it=bullets.begin();
+       it!=bullets.end();
+       ++it) {
+    if((*it)->getDeleteFlag()){
+      it = bullets.erase(it);
     }
   }
 }
 
 void BulletManager::draw() {
-  for (int i = 0; i < BulletManager::bullets.size(); i++) {
-    BulletManager::bullets[i]->draw();
+  for(auto& e: bullets){
+    e->draw();
   }
 }
 
-vector<Bullet*> BulletManager::bullets;
+std::vector<unique_ptr<Bullet>> BulletManager::bullets;
+
+std::vector<Position> BulletManager::getPositionsVec(){
+  std::vector<Position> vec;
+  vec.reserve(bullets.size());
+  for(auto& e:bullets){
+    vec.emplace_back(e->getPosition()); //unique_ptr化
+  }
+  return vec;
+}
 
 void BulletManager::makeBullet(Position _pos, ETeam _team, bool _deathshot) {
   Bullet *bullet = new Bullet();
   _pos.x += (RADIUS_OF_POINT_OBJ + 10) * cos(_pos.theta);
   _pos.y += (RADIUS_OF_POINT_OBJ + 10) * sin(_pos.theta);
   bullet->init(_pos, _team, _deathshot);
-  BulletManager::bullets.push_back(bullet);
+  BulletManager::bullets.emplace_back(bullet);
 }
