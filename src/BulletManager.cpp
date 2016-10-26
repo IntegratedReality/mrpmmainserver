@@ -13,13 +13,17 @@ void BulletManager::update() {
   for (auto& e:bullets) {
     e->update();
   }
-  for (auto it=bullets.begin();
-       it!=bullets.end();
-       ++it) {
-    if((*it)->getDeleteFlag()){
-      it = bullets.erase(it);
-    }
-  }
+  
+  //remove-eraseイディオム
+  //http://faithandbrave.hateblo.jp/entry/20111020/1319093073
+  bullets.erase(std::remove_if
+                (bullets.begin(),
+                 bullets.end(),
+                 [](unique_ptr<Bullet>& b){
+                   return b->getDeleteFlag();
+                 }
+                 ),
+                bullets.end());
 }
 
 void BulletManager::draw() {
