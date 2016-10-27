@@ -33,7 +33,7 @@ private:
 //    ItemManager itmMgr;
 //    VirtualWallManager vWllMgr;
 //    BulletManager blltMgr;
-    CollisionListener collisionListener;
+//    CollisionListener collisionListener;
 //    SoundManager sndMgr;
 //    Judge judge;
     

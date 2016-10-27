@@ -14,7 +14,7 @@ void MainManager::init() {
   box2d->init();
   box2d->setGravity(0, 0);
   box2d->setFPS(FPS);
-  box2d->getWorld()->SetContactListener(&collisionListener);
+//  box2d->getWorld()->SetContactListener(&collisionListener);
   
   mainSndr.init();
   mainRcvr.init();
