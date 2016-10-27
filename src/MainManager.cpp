@@ -19,13 +19,12 @@ void MainManager::init() {
   mainSndr.init();
   mainRcvr.init();
   sysRbtMgr.init();
-  sysPObjMgr.init();
-  time = 0;
+//  sysPObjMgr.init();
   //   itmMgr.init();
   //    vWllMgr.init();
-  blltMgr.init();
-  sndMgr.init();
-  judge.init();
+//  blltMgr.init();
+//  sndMgr.init();
+//  judge.init();
   
   mode = STANDBY;
   
@@ -48,8 +47,8 @@ void MainManager::update() {
     if (timer->getTime() >= 3 * 60 * 1000) {
       mode = RESULT;
       ofSetWindowTitle("RESULT");
-      judge.end();
-      sndMgr.stopBGM();
+//      judge.end();
+//      sndMgr.stopBGM();
     }
     
     for (int i = 0; i < NUM_OF_ROBOT; i++) {
@@ -57,47 +56,51 @@ void MainManager::update() {
     }
     
     sysRbtMgr.update();
-    sysPObjMgr.update();
+//    sysPObjMgr.update();
     //       vWllMgr.update();
     //      itmMgr.update();
-    blltMgr.update();
-    sndMgr.update();
-    judge.update();
+//    blltMgr.update();
+//    sndMgr.update();
+//    judge.update();
     
     box2d->update();
     
   }
   
+  
+  //ロボットデータ配布
   RobotData data;
   for (int i = 0; i < NUM_OF_ROBOT; i++) {
     data = sysRbtMgr.getData(i);
     mainSndr.sendData
     (data.id,
-     data.time,
+     static_cast<int>(data.time),
      data.pos.x,
      data.pos.y,
      data.pos.theta,
      data.HP,
      data.EN,
      mode != GAME ? STANDBY2 : data.state);
-    judge.setRobotState(i, data.state);
+//    judge.setRobotState(i, data.state);
   }
   
+  //PO占有者を配布
   for (int i = 0; i < NUM_OF_POINT_OBJ; i++) {
-    mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
-    judge.setPOOwner(i, sysPObjMgr.getOwner(i));
+//    mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
+//    judge.setPOOwner(i, sysPObjMgr.getOwner(i));
   }
 }
 
 void MainManager::draw() {
   sysRbtMgr.draw();
-  sysPObjMgr.draw();
+//  sysPObjMgr.draw();
   //    vWllMgr.draw();
   //    itmMgr.draw();
-  blltMgr.draw();
+//  blltMgr.draw();
   
   if (mode == RESULT) {
     pmx->drawTextField();
+    /*
     switch (judge.getWinner()) {
       case TEAM_A:
         pmx->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
@@ -109,6 +112,7 @@ void MainManager::draw() {
         pmx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
         break;
     }
+     */
   } else if (mode == STANDBY) {
     pmx->drawTextField();
     pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
@@ -126,39 +130,37 @@ void MainManager::keyPressed(int key) {
       if (key == OF_KEY_RETURN) {
         mode = GAME;
         ofSetWindowTitle("GAME");
-        sndMgr.startBGM();
+//        sndMgr.startBGM();
         timer->init();
         sysRbtMgr.init();
-        sysPObjMgr.init();
-        blltMgr.init();
-        judge.start();
+//        sysPObjMgr.init();
+//        blltMgr.init();
+//        judge.start();
       }
       break;
     case GAME:
       if (key == 'q') {
         mode = STANDBY;
         ofSetWindowTitle("STANDBY");
-        sndMgr.stopBGM();
+//        sndMgr.stopBGM();
         timer->init();
         sysRbtMgr.init();
-        sysPObjMgr.init();
-        blltMgr.init();
-        judge.end();
+//        sysPObjMgr.init();
+//        blltMgr.init();
+//        judge.end();
       } else if (key == OF_KEY_RETURN) {
-        //mode = RESULT;
-        //ofSetWindowTitle("RESULT");
-        //sndMgr.stopBGM();
+        
       }
       break;
     case RESULT:
       if (key == OF_KEY_RETURN) {
         mode = STANDBY;
         ofSetWindowTitle("STANDBY");
-        sndMgr.stopBGM();
+//        sndMgr.stopBGM();
         timer->init();
         sysRbtMgr.init();
-        sysPObjMgr.init();
-        blltMgr.init();
+//        sysPObjMgr.init();
+//        blltMgr.init();
       }
       break;
   }
