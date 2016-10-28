@@ -68,6 +68,37 @@ void MRPMMainManager::update() {
     
   }
   
+  //data sending ------------------
+  
+  //send to ctrlrs
+  {
+    MRPMPackMainToCtrlr pack;
+    pack.positionsVec = blltMgr.getPositionsVec();
+    pack.velocitiesVec = blltMgr.getVelocitiesVec();
+    mainSndr.sendToCtrlrs(pack);
+  }
+  
+  //send to robot
+  for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+    MRPMPackMainToRobot pack;
+    auto roboData = sysRbtMgr.getData(i);
+    pack.time = static_cast<int>(roboData.time);
+    pack.x = roboData.pos.x;
+    pack.y = roboData.pos.y;
+    pack.theta = roboData.pos.theta;
+    pack.permissions.fill(true);  //とりあえず全部許可しとく
+    
+    mainSndr.sendToOneRobot(i, pack);
+  }
+  
+  //send to AIs
+  {
+    MRPMPackMainToAI pack;
+    
+    mainSndr.sendToAIs(pack);
+  }
+  
+  /*
   RobotData data;
   for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
     data = sysRbtMgr.getData(i);
@@ -87,6 +118,7 @@ void MRPMMainManager::update() {
     mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
     judge.setPOOwner(i, sysPObjMgr.getOwner(i));
   }
+   */
 }
 
 void MRPMMainManager::draw() {
