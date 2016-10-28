@@ -1,7 +1,7 @@
 #pragma once
 
-#include "MainSender.h"
-#include "MainReceiver.h"
+#include "MRPMMainSender.h"
+#include "MRPMMainReceiver.h"
 #include "SysRobotManager.h"
 #include "SysPointObjectManager.h"
 #include "BulletManager.h"
@@ -26,8 +26,8 @@ private:
   Timer *timer;
   PMx *pmx;
   
-  MainSender mainSndr;
-  MainReceiver mainRcvr;
+  MRPMMainSender mainSndr;
+  MRPMMainReceiver mainRcvr;
   SysRobotManager sysRbtMgr;
   SysPointObjectManager sysPObjMgr;
   ItemManager itmMgr;

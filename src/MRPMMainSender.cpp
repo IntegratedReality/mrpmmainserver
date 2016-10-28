@@ -1,4 +1,4 @@
-#include "MainSender.h"
+#include "MRPMMainSender.h"
 
 template <typename T>
 void addArg(ofxOscMessage& _m, T _arg){
@@ -29,7 +29,7 @@ const std::initializer_list<std::string> ctrlrList{
 };
 
 
-void MainSender::init() {
+void MRPMMainSender::init() {
   for(auto& t:robotList){
     ofxOscSender sender;
     sender.setup(t, PORT);
@@ -42,7 +42,7 @@ void MainSender::init() {
   }
 }
 
-void MainSender::sendToRobots(PackMainToRobot _p){
+void MRPMMainSender::sendToRobots(PackMainToRobot _p){
   ofxOscMessage m;
   m.setAddress("/main/foobar");
   
@@ -52,7 +52,7 @@ void MainSender::sendToRobots(PackMainToRobot _p){
   }
 }
 
-void MainSender::sendToCtrlrs(PackMainToCtrlr _p){
+void MRPMMainSender::sendToCtrlrs(PackMainToCtrlr _p){
   ofxOscMessage m;
   m.setAddress("/main/bazbaz");
   for(auto& s: sendersToCtrlrs){  //全台に同じ情報が必要か?
@@ -60,7 +60,7 @@ void MainSender::sendToCtrlrs(PackMainToCtrlr _p){
   }
 }
 
-void MainSender::sendData
+void MRPMMainSender::sendData
 (int _id,
  int _time,
  double _x,
@@ -86,7 +86,7 @@ void MainSender::sendData
 //  }
 }
 
-void MainSender::sendPOOwner(int _id, ETeam _team) {
+void MRPMMainSender::sendPOOwner(int _id, ETeam _team) {
   std::cerr<<"sendPOOwner() is deprecated" << std::endl;
   ofxOscMessage m;
   m.setAddress("/main/poowner");

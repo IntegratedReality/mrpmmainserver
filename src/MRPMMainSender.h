@@ -7,7 +7,7 @@
 
 #include "dataPack.h"
 
-class MainSender {
+class MRPMMainSender {
 public:
     void init();
     

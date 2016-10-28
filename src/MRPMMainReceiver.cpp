@@ -1,4 +1,4 @@
-#include "MainReceiver.h"
+#include "MRPMMainReceiver.h"
 #include <thread>
 #include <mutex>
 #include <iostream>
@@ -7,7 +7,7 @@ using namespace std;
 
 std::mutex mtx;
 
-void MainReceiver::init() {
+void MRPMMainReceiver::init() {
   receiver.setup(PORT);
   auto th = std::thread([this]{
     while (1) {
@@ -44,10 +44,10 @@ void MainReceiver::init() {
   th.detach();
 }
 
-void MainReceiver::update() {
+void MRPMMainReceiver::update() {
 }
 
-RobotData MainReceiver::getData(int _id) {
+RobotData MRPMMainReceiver::getData(int _id) {
   mtx.lock();
   RobotData tmp_data = data[_id];
   mtx.unlock();

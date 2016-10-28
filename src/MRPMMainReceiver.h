@@ -4,7 +4,7 @@
 #include "RobotData.h"
 #include "ofxOscReceiver.h"
 
-class MainReceiver {
+class MRPMMainReceiver {
 	public:
 		void init();
 		void update();

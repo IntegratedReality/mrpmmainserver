@@ -2,7 +2,7 @@
 
 #include "Const.h"
 #include "SysRobot.h"
-#include "MainReceiver.h"
+#include "MRPMMainReceiver.h"
 
 class SysRobotManager {
 public:
