@@ -12,7 +12,13 @@
 #include "Bullet.h"
 
 struct MRPMPackMainToRobot {
-  
+  int time;
+  double x;
+  double y;
+  double theta;
+  double HP;
+  double EN;
+  EState state;
 };
 
 struct MRPMPackMainToCtrlr{
@@ -21,5 +27,4 @@ struct MRPMPackMainToCtrlr{
 };
 
 struct MRPMPackMainToAI{
-  
 };

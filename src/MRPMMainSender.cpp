@@ -41,23 +41,31 @@ void MRPMMainSender::init() {
   }
 }
 
-void MRPMMainSender::sendToRobots(MRPMPackMainToRobot _p){
-  ofxOscMessage m;
-  m.setAddress("/main/toRobot");
+void MRPMMainSender::sendToOneRobot
+(int _id,
+ MRPMPackMainToRobot _p){
   
-
   //各ロボットそれぞれだけに、各動作
   //(前進・後退・信地回転)が可能か通達する
   
-//  for(auto& s: sendersToRobots){  //全台に同じ情報が必要か?
-//    s.sendMessage(m);
-//  }
+  ofxOscMessage m;
+  m.setAddress("/main/toRobot");
+  
+  addArg(m,_p.time);
+  addArg(m,_p.x);
+  addArg(m,_p.y);
+  addArg(m,_p.theta);
+  addArg(m,_p.HP);
+  addArg(m,_p.EN);
+  addArg(m,static_cast<int>(_p.state));
+
+  sendersToRobots[_id].sendMessage(m);
 }
 
 void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr _p){
   
   ofxOscMessage m;
-  m.setAddress("/main/toCtrl/bullets");
+  m.setAddress("/main/toCtrlr/bullets");
   size_t bulletsNum = _p.positionsVec.size();
   
   //int 弾のカウント,
@@ -78,9 +86,7 @@ void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr _p){
 
 void MRPMMainSender::sendToAIs(MRPMPackMainToAI _p){
   ofxOscMessage m;
-  
-  
-  
+  m.setAddress("main/toAI");
   for(auto& s: sendersToAIs){
     s.sendMessage(m);
   }

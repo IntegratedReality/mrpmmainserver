@@ -12,7 +12,9 @@ class MRPMMainSender {
 public:
     void init();
     
-    void sendToRobots(MRPMPackMainToRobot _p);
+    void sendToOneRobot
+    (int _id,
+     MRPMPackMainToRobot _p);
     void sendToCtrlrs(MRPMPackMainToCtrlr _p);
     void sendToAIs(MRPMPackMainToAI _p);
     

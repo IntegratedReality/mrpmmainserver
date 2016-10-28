@@ -11,6 +11,7 @@
 const std::vector<robotHostConfig>
 hostsConfig::hostsList{
   //rpiHostName, isAI, operator HostName
+  //若い番号から人間,AIの順番を要請
   {"mrpmpi0.local", false, "PE25.local"},
   {"mrpmpi1.local", false, "PE26.local"},
   {"mrpmpi2.local", false, "PE27.local"},
