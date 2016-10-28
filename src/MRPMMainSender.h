@@ -6,13 +6,15 @@
 #include "EState.h"
 
 #include "dataPack.h"
+#include "MRPMHostsConfig.h"
 
 class MRPMMainSender {
 public:
     void init();
     
-    void sendToRobots(PackMainToRobot _p);
-    void sendToCtrlrs(PackMainToCtrlr _p);
+    void sendToRobots(MRPMPackMainToRobot _p);
+    void sendToCtrlrs(MRPMPackMainToCtrlr _p);
+    void sendToAIs(MRPMPackMainToAI _p);
     
     //deprecated
     void sendData
@@ -31,5 +33,6 @@ public:
 private:
     std::vector<ofxOscSender>
     sendersToRobots,
-    sendersToCtrlrs;
+    sendersToCtrlrs,
+    sendersToAIs;
 };

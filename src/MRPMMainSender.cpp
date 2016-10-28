@@ -14,48 +14,74 @@ void addArg<double>(ofxOscMessage& _m, double _arg) {
 }
 
 
-const std::initializer_list<std::string> robotList{
-  "mrpmpi0.local",
-  "mrpmpi1.local",
-  "mrpmpi2.local",
-  "mrpmpi3.local",
-  "mrpmpi4.local",
-  "mrpmpi5.local"};
-  
-const std::initializer_list<std::string> ctrlrList{
-  "PE25.local",
-  "PE26.local",
-  "PE27.local",
-};
-
-
 void MRPMMainSender::init() {
-  for(auto& t:robotList){
+  sendersToRobots.reserve(hostsConfig::NUM_OF_ROBOT);
+  for(auto& t:hostsConfig::hostsList){
     ofxOscSender sender;
-    sender.setup(t, PORT);
+    sender.setup(t.rpiHostName, PORT_ROBOT);
     sendersToRobots.push_back(sender);
   }
-  for(auto& t:ctrlrList){
-    ofxOscSender sender;
-    sender.setup(t, PORT);
-    sendersToCtrlrs.push_back(sender);
+  
+  sendersToCtrlrs.reserve(hostsConfig::NUM_OF_HUMAN);
+  for(auto& t:hostsConfig::hostsList){
+    if(!(t.isAI)){
+      ofxOscSender sender;
+      sender.setup(t.operatorHostName, PORT_OPERATOR);
+      sendersToCtrlrs.push_back(sender);
+    }
+  }
+  
+  sendersToAIs.reserve(hostsConfig::NUM_OF_AI);
+  for(auto& t:hostsConfig::hostsList){
+    if(t.isAI){
+      ofxOscSender sender;
+      sender.setup(t.operatorHostName, PORT_OPERATOR);
+      sendersToCtrlrs.push_back(sender);
+    }
   }
 }
 
-void MRPMMainSender::sendToRobots(PackMainToRobot _p){
+void MRPMMainSender::sendToRobots(MRPMPackMainToRobot _p){
   ofxOscMessage m;
-  m.setAddress("/main/foobar");
+  m.setAddress("/main/toRobot");
   
+
+  //各ロボットそれぞれだけに、各動作
+  //(前進・後退・信地回転)が可能か通達する
   
-  for(auto& s: sendersToRobots){  //全台に同じ情報が必要か?
+//  for(auto& s: sendersToRobots){  //全台に同じ情報が必要か?
+//    s.sendMessage(m);
+//  }
+}
+
+void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr _p){
+  
+  ofxOscMessage m;
+  m.setAddress("/main/toCtrl/bullets");
+  size_t bulletsNum = _p.positionsVec.size();
+  
+  //int 弾のカウント,
+  //double 位置x, 位置y, 速度x, 速度y, ....
+  addArg(m, static_cast<int>(bulletsNum));
+  for(size_t i = 0; i<bulletsNum; ++i){
+    addArg(m, _p.positionsVec[i].x);
+    addArg(m, _p.positionsVec[i].y);
+    addArg(m, _p.velocitiesVec[i].x);
+    addArg(m, _p.velocitiesVec[i].y);
+  }
+  
+  //全Ctrlrに送信
+  for(auto& s: sendersToCtrlrs){
     s.sendMessage(m);
   }
 }
 
-void MRPMMainSender::sendToCtrlrs(PackMainToCtrlr _p){
+void MRPMMainSender::sendToAIs(MRPMPackMainToAI _p){
   ofxOscMessage m;
-  m.setAddress("/main/bazbaz");
-  for(auto& s: sendersToCtrlrs){  //全台に同じ情報が必要か?
+  
+  
+  
+  for(auto& s: sendersToAIs){
     s.sendMessage(m);
   }
 }

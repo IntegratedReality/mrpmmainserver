@@ -7,7 +7,6 @@ constexpr int WIDTH_OF_FIELD = 1800;
 constexpr int HEIGHT_OF_FIELD = 2700;
 constexpr double SCALE = 0.25;
 
-constexpr int NUM_OF_ROBOT = 6;
 constexpr int RADIUS_OF_ROBOT = 100;
 
 constexpr int NUM_OF_POINT_OBJ = 3;
@@ -19,6 +18,11 @@ constexpr int POINT_OBJ_1_Y = HEIGHT_OF_FIELD / 2 - HEIGHT_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_X = WIDTH_OF_FIELD / 2 + WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 
-constexpr int PORT = 8000;
+//in
+constexpr int PORT_MAINRCV = 8000;
+
+//out
+constexpr int PORT_ROBOT = 8000;
+constexpr int PORT_OPERATOR = 8001;
 
 extern bool sim;

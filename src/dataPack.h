@@ -8,10 +8,18 @@
 //
 #pragma once
 
-struct PackMainToRobot {
+#include "ofMain.h"
+#include "Bullet.h"
+
+struct MRPMPackMainToRobot {
   
 };
 
-struct PackMainToCtrlr{
+struct MRPMPackMainToCtrlr{
+  std::vector<Position> positionsVec;
+  std::vector<ofVec2f> velocitiesVec;
+};
 
+struct MRPMPackMainToAI{
+  
 };

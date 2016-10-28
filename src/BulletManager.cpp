@@ -38,7 +38,16 @@ std::vector<Position> BulletManager::getPositionsVec(){
   std::vector<Position> vec;
   vec.reserve(bullets.size());
   for(auto& e:bullets){
-    vec.emplace_back(e->getPosition()); //unique_ptr化
+    vec.emplace_back(e->getPosition());
+  }
+  return vec;
+}
+
+std::vector<ofVec2f> BulletManager::getVelocitiesVec(){
+  std::vector<ofVec2f> vec;
+  vec.reserve(bullets.size());
+  for(auto& e:bullets){
+    vec.emplace_back(e->getVelocity());
   }
   return vec;
 }

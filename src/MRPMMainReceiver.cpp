@@ -8,7 +8,11 @@ using namespace std;
 std::mutex mtx;
 
 void MRPMMainReceiver::init() {
-  receiver.setup(PORT);
+  
+  data.resize(hostsConfig::NUM_OF_ROBOT);
+  prev_data.resize(hostsConfig::NUM_OF_ROBOT);
+  
+  receiver.setup(PORT_MAINRCV);
   auto th = std::thread([this]{
     while (1) {
       if (receiver.hasWaitingMessages()) {
@@ -31,7 +35,7 @@ void MRPMMainReceiver::init() {
           prev_data[id].pos.x = x;
           prev_data[id].pos.y = y;
           prev_data[id].pos.theta = theta;
-        } else if (m.getAddress() == "/robot/shot") {
+        } else if (m.getAddress() == "/ctrlr/shot") {
           int id = m.getArgAsInt32(0);
           bool shot = m.getArgAsBool(1);
           mtx.lock();

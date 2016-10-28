@@ -34,6 +34,8 @@ void Bullet::init(Position _pos, ETeam _team, bool _deathshot) {
 void Bullet::update() {
   this->count += timer->getDiff();
   b2dCircle.setVelocity(50 * cos(pos.theta), 50 * sin(pos.theta));
+  vel={static_cast<float>(50 * cos(pos.theta)),
+    static_cast<float>(50 * sin(pos.theta))};
   pos.x = b2dCircle.getPosition().x;
   pos.y = b2dCircle.getPosition().y;
   //int v = 1000;
