@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "MainManager.h"
+#include "MRPMMainManager.h"
 #include "PMx.h"
 
 class ofApp : public ofBaseApp{
@@ -22,6 +22,6 @@ public:
 		void gotMessage(ofxOscMessage msg);
   
 private:
-		MainManager manager;
+		MRPMMainManager manager;
 		PMx *pmx;
 };

@@ -15,7 +15,7 @@
 #include "Judge.h"
 #include "PMx.h"
 
-class MainManager {
+class MRPMMainManager {
 public:
   void init();
   void update();

@@ -1,10 +1,10 @@
-#include "MainManager.h"
+#include "MRPMMainManager.h"
 #include "ofApp.h"
 
 #include <iostream>
 using namespace std;
 
-void MainManager::init() {
+void MRPMMainManager::init() {
   ofSetWindowTitle("STANDBY");
   
   timer = Timer::getInstance();
@@ -34,7 +34,7 @@ void MainManager::init() {
   sim = false;
 }
 
-void MainManager::update() {
+void MRPMMainManager::update() {
   timer->update();
   
   mainRcvr.update();
@@ -89,7 +89,7 @@ void MainManager::update() {
   }
 }
 
-void MainManager::draw() {
+void MRPMMainManager::draw() {
   sysRbtMgr.draw();
   sysPObjMgr.draw();
   //    vWllMgr.draw();
@@ -119,7 +119,7 @@ void MainManager::draw() {
   pmx->drawLatticeIfNeeded();
 }
 
-void MainManager::keyPressed(int key) {
+void MRPMMainManager::keyPressed(int key) {
   if (key == 's') sim = !sim;
   switch (mode) {
     case STANDBY:
