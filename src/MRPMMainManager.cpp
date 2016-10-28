@@ -39,7 +39,7 @@ void MRPMMainManager::update() {
   
   mainRcvr.update();
   
-  for (int i = 0; i < NUM_OF_ROBOT; i++) {
+  for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
     sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
   }
   
@@ -52,7 +52,7 @@ void MRPMMainManager::update() {
       sndMgr.stopBGM();
     }
     
-    for (int i = 0; i < NUM_OF_ROBOT; i++) {
+    for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
       sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
     }
     
@@ -69,7 +69,7 @@ void MRPMMainManager::update() {
   }
   
   RobotData data;
-  for (int i = 0; i < NUM_OF_ROBOT; i++) {
+  for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
     data = sysRbtMgr.getData(i);
     mainSndr.sendData
     (data.id,

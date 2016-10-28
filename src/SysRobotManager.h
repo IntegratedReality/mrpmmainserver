@@ -3,6 +3,7 @@
 #include "Const.h"
 #include "SysRobot.h"
 #include "MRPMMainReceiver.h"
+#include "MRPMHostsConfig.h"
 
 class SysRobotManager {
 public:
@@ -13,5 +14,5 @@ public:
 		void setShot(int _id, bool _shot);
 		RobotData getData(int _id);
 private:
-		SysRobot sysRobots[NUM_OF_ROBOT];
+    std::vector<SysRobot> sysRobots;
 };

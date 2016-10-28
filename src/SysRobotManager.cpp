@@ -1,20 +1,22 @@
 #include "SysRobotManager.h"
 
 void SysRobotManager::init() {
-  for (int i = 0; i < NUM_OF_ROBOT; i++) {
-    sysRobots[i].init(i, (i < 3 ? TEAM_A : TEAM_B));
+  sysRobots.resize(hostsConfig::NUM_OF_ROBOT);
+  for(int i=0; i<sysRobots.size(); ++i){
+    sysRobots[i].init
+    (i, (i < hostsConfig::NUM_OF_HUMAN ? TEAM_A : TEAM_B));
   }
 }
 
 void SysRobotManager::update() {
-  for (int i = 0; i < NUM_OF_ROBOT; i++) {
-    sysRobots[i].update();
+  for (auto& e: sysRobots) {
+    e.update();
   }
 }
 
 void SysRobotManager::draw() {
-  for (int i = 0; i < NUM_OF_ROBOT; i++) {
-    sysRobots[i].draw();
+  for (auto& e: sysRobots) {
+    e.draw();
   }
 }
 
