@@ -16,9 +16,6 @@ struct MRPMPackMainToRobot {
   double x;
   double y;
   double theta;
-  double HP;
-  double EN;
-  EState state;
 };
 
 struct MRPMPackMainToCtrlr{

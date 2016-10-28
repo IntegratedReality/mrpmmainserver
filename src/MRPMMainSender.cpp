@@ -55,9 +55,6 @@ void MRPMMainSender::sendToOneRobot
   addArg(m,_p.x);
   addArg(m,_p.y);
   addArg(m,_p.theta);
-  addArg(m,_p.HP);
-  addArg(m,_p.EN);
-  addArg(m,static_cast<int>(_p.state));
 
   sendersToRobots[_id].sendMessage(m);
 }
