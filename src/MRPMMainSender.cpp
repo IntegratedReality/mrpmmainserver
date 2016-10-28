@@ -12,6 +12,11 @@ template <>
 void addArg<double>(ofxOscMessage& _m, double _arg) {
   _m.addDoubleArg(_arg);
 }
+template <>
+void addArg<bool>(ofxOscMessage& _m, bool _arg) {
+  _m.addBoolArg(_arg);
+}
+
 
 
 void MRPMMainSender::init() {
@@ -55,6 +60,9 @@ void MRPMMainSender::sendToOneRobot
   addArg(m,_p.x);
   addArg(m,_p.y);
   addArg(m,_p.theta);
+  for(auto& p: _p.permissions){
+    addArg(m, p);
+  }
 
   sendersToRobots[_id].sendMessage(m);
 }

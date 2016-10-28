@@ -16,6 +16,7 @@ struct MRPMPackMainToRobot {
   double x;
   double y;
   double theta;
+  std::array<bool,8> permissions;
 };
 
 struct MRPMPackMainToCtrlr{
