@@ -14,9 +14,9 @@ public:
     
     void sendToOneRobot
     (int _id,
-     MRPMPackMainToRobot _p);
-    void sendToCtrlrs(MRPMPackMainToCtrlr _p);
-    void sendToAIs(MRPMPackMainToAI _p);
+     MRPMPackMainToRobot& _p);
+    void sendToCtrlrs(MRPMPackMainToCtrlr& _p);
+    void sendToAIs(MRPMPackMainToAI& _p);
     
     //deprecated
     void sendData

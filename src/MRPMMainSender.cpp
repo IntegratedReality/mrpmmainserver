@@ -48,7 +48,7 @@ void MRPMMainSender::init() {
 
 void MRPMMainSender::sendToOneRobot
 (int _id,
- MRPMPackMainToRobot _p){
+ MRPMPackMainToRobot& _p){
   
   //各ロボットそれぞれだけに、各動作
   //(前進・後退・信地回転)が可能か通達する
@@ -67,7 +67,7 @@ void MRPMMainSender::sendToOneRobot
   sendersToRobots[_id].sendMessage(m);
 }
 
-void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr _p){
+void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr& _p){
   
   ofxOscMessage m;
   m.setAddress("/main/toCtrlr/bullets");
@@ -89,7 +89,7 @@ void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr _p){
   }
 }
 
-void MRPMMainSender::sendToAIs(MRPMPackMainToAI _p){
+void MRPMMainSender::sendToAIs(MRPMPackMainToAI& _p){
   ofxOscMessage m;
   m.setAddress("main/toAI");
   for(auto& s: sendersToAIs){
