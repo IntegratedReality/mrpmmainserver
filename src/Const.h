@@ -8,6 +8,7 @@ constexpr int HEIGHT_OF_FIELD = 2700;
 constexpr double SCALE = 0.25;
 
 constexpr int RADIUS_OF_ROBOT = 100;
+constexpr int MARGIN_OF_COLLISION = 30;
 
 constexpr int NUM_OF_POINT_OBJ = 3;
 constexpr int RADIUS_OF_POINT_OBJ = 125;

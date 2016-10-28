@@ -14,6 +14,8 @@
 #include "EMode.h"
 #include "Judge.h"
 #include "PMx.h"
+#include "Operation.h"
+
 
 class MRPMMainManager {
 public:
@@ -39,5 +41,10 @@ private:
   
   int time;
   EMode mode;
+    
+    permsAry checkMovability
+    (Position _pos);
+    
+
 
 };

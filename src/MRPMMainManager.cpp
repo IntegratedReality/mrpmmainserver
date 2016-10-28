@@ -88,6 +88,9 @@ void MRPMMainManager::update() {
     pack.theta = roboData.pos.theta;
     pack.permissions.fill(true);  //とりあえず全部許可しとく
     
+    //pack.permissions = checkMovability(roboData.pos);
+    //TODO: 全許可で動作確認とれたら UNCOMMENT
+    
     mainSndr.sendToOneRobot(i, pack);
   }
   
@@ -194,4 +197,82 @@ void MRPMMainManager::keyPressed(int key) {
       }
       break;
   }
+}
+
+permsAry checkMovability
+(Position _pos){
+  //mrpmRobotから移管
+  
+  permsAry ary;
+  enableAll(ary);
+  
+  double vx = cos(_pos.theta), vy = sin(_pos.theta);
+  ofVec2f velocity(vx, vy);
+  
+  const int radAndMargin = RADIUS_OF_ROBOT + MARGIN_OF_COLLISION;
+  
+  // フィールド上辺
+  if (_pos.y < radAndMargin) {
+    if (vy < 0){
+      disableForward(ary);
+    }else{
+      disableBackward(ary);
+    }
+      //_F = false;
+    //else _B = false;
+  }
+  
+  // 右辺
+  if (_pos.x > WIDTH_OF_FIELD - radAndMargin) {
+    if (vx > 0){
+      disableForward(ary);
+    }else{
+      disableBackward(ary);
+    }
+      //_F = false;
+    //else _B = false;
+  }
+  
+  // 下辺
+  if (_pos.y > HEIGHT_OF_FIELD - radAndMargin) {
+    if (vy > 0){
+      disableForward(ary);
+    }else{
+      disableBackward(ary);
+    }
+      //_F = false;
+    //else _B = false;
+  }
+  
+  // 左辺
+  if (_pos.x < radAndMargin) {
+    if (vx < 0){
+      disableForward(ary);
+    }else{
+      disableBackward(ary);
+    }
+      //_F = false;
+//    else _B = false;
+  }
+  /*
+  // ポイントオブジェクト1
+  if (distance(_pos, p1) < 125 + 100 + 30) {
+    Eigen::Vector2f dirToObj(p1.x-_pos.x, p1.y-_pos.y);
+    if (dirToObj.dot(velocity) > 0) _F = false;
+    else _B = false;
+  }
+  // ポイントオブジェクト2
+  if (distance(_pos, p2) < 125 + 100 + 30) {
+    Eigen::Vector2f dirToObj(p2.x-_pos.x, p2.y-_pos.y);
+    if (dirToObj.dot(velocity) > 0) _F = false;
+    else _B = false;
+  }
+  // ポイントオブジェクト3
+  if (distance(_pos, p3) < 125 + 100 + 30) {
+    Eigen::Vector2f dirToObj(p3.x-_pos.x, p3.y-_pos.y);
+    if (dirToObj.dot(velocity) > 0) _F = false;
+    else _B = false;
+  }
+  */
+  return ary;
 }
