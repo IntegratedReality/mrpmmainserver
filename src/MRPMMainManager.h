@@ -17,10 +17,10 @@
 
 class MRPMMainManager {
 public:
-  void init();
-  void update();
-  void draw();
-  void keyPressed(int key);
+    void init();
+    void update();
+    void draw();
+    void keyPressed(int key);
 private:
   ofxBox2d *box2d;
   Timer *timer;
@@ -39,4 +39,5 @@ private:
   
   int time;
   EMode mode;
+
 };
