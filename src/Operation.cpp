@@ -9,18 +9,21 @@
 
 void disableForward(permsAry& ary){
   for(int i:{1,2,8}){
+    //TOP, TOP_RIGHT, TOP_LEFT
     ary[i] = false;
   }
 }
 
 void disableBackward(permsAry& ary){
   for(int i:{4,5,6}){
+    //BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT
     ary[i] = false;
   }
 }
 
 void disablePivotTurn(permsAry& ary){
   for(int i:{3,7}){
+    //RIGHT,LEFT
     ary[i] = false;
   }
 }

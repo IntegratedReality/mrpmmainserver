@@ -10,18 +10,18 @@ void disableAll(permsAry& ary);
 void enableAll(permsAry& ary);
 
 enum EDirection {
-	NO_INPUT,
-	TOP,
-	TOP_RIGHT,
-	RIGHT,
-	BOTTOM_RIGHT,
-	BOTTOM,
-	BOTTOM_LEFT,
-	LEFT,
-	TOP_LEFT
+    NO_INPUT,
+    TOP,
+    TOP_RIGHT,
+    RIGHT,
+    BOTTOM_RIGHT,
+    BOTTOM,
+    BOTTOM_LEFT,
+    LEFT,
+    TOP_LEFT
 };
 
 struct Operation {
-	EDirection direction;
-	bool shot;
+    EDirection direction;
+    bool shot;
 };

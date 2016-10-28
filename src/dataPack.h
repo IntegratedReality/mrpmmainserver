@@ -10,13 +10,14 @@
 
 #include "ofMain.h"
 #include "Bullet.h"
+#include "Operation.h"
 
 struct MRPMPackMainToRobot {
   int time;
   double x;
   double y;
   double theta;
-  std::array<bool,9> permissions; //EDirectionの数だけ用意した
+  permsAry permissions; //EDirectionの数だけ用意した
 };
 
 struct MRPMPackMainToCtrlr{
