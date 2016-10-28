@@ -16,7 +16,7 @@ struct MRPMPackMainToRobot {
   double x;
   double y;
   double theta;
-  std::array<bool,8> permissions;
+  std::array<bool,9> permissions; //EDirectionの数だけ用意した
 };
 
 struct MRPMPackMainToCtrlr{
