@@ -19,12 +19,16 @@
 #include <cmath>
 
 const double root3 = sqrt(3);
-/* screen size (default : XGA) */
-const int screen_width = 1024;
-const int screen_height = 768;
-//const int screen_width = 1800;
-//const int screen_height = 1350;
-const double scale = 0.57;
+/* screen size (default : WVGA) */
+//const int screen_width = 1024;  //pixel
+//const int screen_height = 768;
+const int field_width = 1600;   //field size [mm]
+const int field_height = 2400;
+const int screen_width = 480;   //screen size of the projector [px]
+const int screen_height = 800;
+const double scale = screen_width/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 is a projection width[mm]
+const int screen_width_total = ceil(field_width*scale);
+const int screen_height_total = ceil(field_height*scale);
 
 /* set team color */
 const std::array<ofColor,3> teamColor = {
@@ -236,12 +240,16 @@ public:
   float time;
   
   /* cameras */
-  std::array<ofCamera,2> cam;
-  std::array<ofRectangle,2> viewPort;
-  ofVec2f viewPortPosition1;
-  ofVec2f viewPortPosition2;
-  bool bConfPort1 = false;
-  bool bConfPort2 = false;
+  std::array<ofCamera,4> cam;
+  std::array<ofRectangle,4> viewPort;
+  std::array<ofVec2f,4> viewPortPosition;
+  std::array<bool,4> bConfPort;
+  std::array<bool,4> bConfShade;
+  
+//  bool bConfPort1 = false;
+//  bool bConfPort2 = false;
+//  bool bConfPort3 = false;
+//  bool bConfPort4 = false;
   bool bConfShade1 = false;
   bool bconfShade2 = false;
   bool bShowFieldFrame = true;
@@ -254,36 +262,59 @@ public:
   
   PMClass(){
     //--
-    /* set up viewPorts */
-    viewPortPosition1.x = 27;
-    viewPortPosition1.y = -27;
-    viewPortPosition2.x = 16;
-    viewPortPosition2.y = screen_height;
+    // set up viewPorts
+    // 0: left top screen, 1: right top, 2: left bottom, 3: right bottom
+    viewPortPosition[0].x = 0;
+    viewPortPosition[0].y = 0;
+    viewPortPosition[1].x = screen_width_total - screen_width;
+    viewPortPosition[1].y = 0;
+    viewPortPosition[2].x = 0;
+    viewPortPosition[2].y = screen_height_total - screen_height;
+    viewPortPosition[3].x = screen_width_total - screen_width;
+    viewPortPosition[3].y = screen_height_total - screen_height;
     
-    viewPort[0].setSize(screen_width,screen_height);
-    viewPort[1].setSize(screen_width,screen_height);
-    viewPort[0].setPosition(viewPortPosition1.x, viewPortPosition1.y);
-    viewPort[1].setPosition(viewPortPosition2.x, viewPortPosition2.y);
+    // init view ports
+    for(int i =0; i < 4; i++){
+      viewPort[i].setSize(screen_width,screen_height);
+      viewPort[i].setPosition(viewPortPosition[i].x, viewPortPosition[i].y);
+    }
     
     //---
     /* set up projector position */
-    projectorHeight = 2700;
-    cam[0].setPosition(ofVec3f(screen_height/2,screen_width/2,projectorHeight));
-    cam[1].setPosition(ofVec3f(screen_height*1.5,screen_width/2,projectorHeight));
-    cam[0].roll(90);
+    projectorHeight = ceil(1000.0/scale);
+    cam[0].roll(90);    //to rotate cam around z-axis
     cam[1].roll(90);
+    cam[2].roll(90);
+    cam[3].roll(90);
+    cam[0].setPosition(ofVec3f(screen_height/2.0,screen_width/2.0,projectorHeight));    // coordinate is (y,x,z) (why?)
+    cam[1].setPosition(ofVec3f(screen_height/2.0,screen_width_total - screen_width/2.0,projectorHeight));
+    cam[2].setPosition(ofVec3f(screen_height_total - screen_height/2.0,screen_width/2.0,projectorHeight));
+    cam[3].setPosition(ofVec3f(screen_height_total - screen_height/2.0,screen_width_total - screen_width/2.0,projectorHeight));
+    
     /* カメラの視野の広さ(角度) */
-    camAngle = 18;
-    cam[0].setFov(camAngle);
-    cam[1].setFov(camAngle);
+    camAngle = 24;
+    for(int i = 0; i < 4; i++){
+      cam[i].setFov(camAngle);
+    }
     cout << "cam0 : " << cam[0].getX() << ":" << cam[0].getY() << ":" << cam[0].getZ() << endl;
     cout << "cam1 : " << cam[1].getX() << ":" << cam[1].getY() << ":" << cam[1].getZ() << endl;
+    cout << "cam2 : " << cam[2].getX() << ":" << cam[2].getY() << ":" << cam[2].getZ() << endl;
+    cout << "cam3 : " << cam[3].getX() << ":" << cam[3].getY() << ":" << cam[3].getZ() << endl;
+    cout << "port1 width : " << viewPort[0].getWidth() << endl;
+    cout << "port2 width : " << viewPort[1].getWidth() << endl;
+    cout << "port3 width : " << viewPort[2].getWidth() << endl;
+    cout << "port4 width : " << viewPort[3].getWidth() << endl;
+    cout << "port1 height : " << viewPort[0].getHeight() << endl;
+    cout << "port2 height : " << viewPort[1].getHeight() << endl;
+    cout << "port3 height : " << viewPort[2].getHeight() << endl;
+    cout << "port4 height : " << viewPort[3].getHeight() << endl;
+    cout << "position : " << cam[0].getZAxis() << ", " << cam[1].getZAxis() << ", " << cam[2].getZAxis() << ", " << cam[3].getZAxis() << endl;
     //---
     
     /* set point objects(x,y,theta) */
-    p_object[1].init(screen_height/2,screen_width/4, 2); //(x,y,theta)
-    p_object[0].init(screen_height,screen_width/2, 1);
-    p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
+    p_object[1].init(screen_height_total/4,screen_width_total/4, 2); //(x,y,theta)
+    p_object[0].init(screen_height_total/2,screen_width_total/2, 1);
+    p_object[2].init(screen_height_total*0.75,screen_width_total*0.75, 0.5);
     
     bulletImg.setAnchorPercent(0.5, 0.5);   //中心で指定できるように
   }

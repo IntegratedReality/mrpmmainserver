@@ -40,27 +40,49 @@ void PMx::keyPressed(int key) {
   }
   
   /* simple calibration utils */
+  
+  //position of the view port
   if (key == 49){ //'1'
-    PM.bConfPort2 = 0;
-    PM.bConfPort1 = !PM.bConfPort1;
-    cout << "bConfPort1 : " << PM.bConfPort1 << endl;
+    for (int i = 1; i < 4; i++){
+      PM.bConfPort[i] = false;
+    }
+    PM.bConfPort[0] = !PM.bConfPort[0];
+    cout << "bConfPort1 : " << PM.bConfPort[0] << endl;
   }
   if (key == 50){ //'2'
-    PM.bConfPort1 = 0;
-    PM.bConfPort2 = !PM.bConfPort2;
-    cout << "bConfPort2 : " << PM.bConfPort2 << endl;
+    PM.bConfPort[0] = false;
+    PM.bConfPort[2] = false;
+    PM.bConfPort[3] = false;
+    PM.bConfPort[1] = !PM.bConfPort[1];
+    cout << "bConfPort2 : " << PM.bConfPort[1] << endl;
   }
   if (key == 51){ //'3'
+    PM.bConfPort[0] = false;
+    PM.bConfPort[1] = false;
+    PM.bConfPort[3] = false;
+    PM.bConfPort[2] = !PM.bConfPort[2];
+    cout << "bConfPort3 : " << PM.bConfPort[2] << endl;
+  }
+  if (key == 52){ //'4'
+    for (int i = 0; i < 3; i++){
+      PM.bConfPort[i] = false;
+    }
+    PM.bConfPort[3] = !PM.bConfPort[3];
+    cout << "bConfPort4 : " << PM.bConfPort[3] << endl;
+  }
+  
+  //adjust the shade of overlaps
+  if (key == 53){ //'5'
     PM.bConfShade1 = !PM.bConfShade1;
-    PM.bConfPort1 = false;
-    PM.bConfPort2 = false;
+    PM.bConfPort[0] = false;
+    PM.bConfPort[1] = false;
     PM.bconfShade2 = false;
     cout << "bConfShade1 : " << PM.bConfShade1 << endl;
   }
-  if (key == 52){ //'4'
+  if (key == 54){ //'6'
     PM.bconfShade2 = !PM.bconfShade2;
-    PM.bConfPort1 = false;
-    PM.bConfPort2 = false;
+    PM.bConfPort[0] = false;
+    PM.bConfPort[1] = false;
     PM.bConfShade1 = false;
     cout << "bConfShade2 : " << PM.bconfShade2 << endl;
   }
@@ -69,48 +91,92 @@ void PMx::keyPressed(int key) {
     PM.bShowFieldFrame = !PM.bShowFieldFrame;
   }
   
-  if (PM.bConfPort1){
+  if (PM.bConfPort[0]){
     if (key == OF_KEY_RIGHT){
-      PM.viewPortPosition1.x += 1;
-      PM.viewPort[0].setPosition(PM.viewPortPosition1.x, PM.viewPortPosition1.y);
-      cout << "position1(x) : " << PM.viewPortPosition1.x << endl;
+      PM.viewPortPosition[0].x += 1;
+      PM.viewPort[0].setPosition(PM.viewPortPosition[0].x, PM.viewPortPosition[0].y);
+      cout << "position1(x) : " << PM.viewPortPosition[0].x << endl;
     }
     if (key == OF_KEY_LEFT){
-      PM.viewPortPosition1.x -= 1;
-      PM.viewPort[0].setPosition(PM.viewPortPosition1.x, PM.viewPortPosition1.y);
-      cout << "position1(x) : " << PM.viewPortPosition1.x << endl;
+      PM.viewPortPosition[0].x -= 1;
+      PM.viewPort[0].setPosition(PM.viewPortPosition[0].x, PM.viewPortPosition[0].y);
+      cout << "position1(x) : " << PM.viewPortPosition[0].x << endl;
     }
     if (key == OF_KEY_UP){
-      PM.viewPortPosition1.y -= 1;
-      PM.viewPort[0].setPosition(PM.viewPortPosition1.x, PM.viewPortPosition1.y);
-      cout << "position1(x) : " << PM.viewPortPosition1.y << endl;
+      PM.viewPortPosition[0].y -= 1;
+      PM.viewPort[0].setPosition(PM.viewPortPosition[0].x, PM.viewPortPosition[0].y);
+      cout << "position1(x) : " << PM.viewPortPosition[0].y << endl;
     }
     if (key == OF_KEY_DOWN){
-      PM.viewPortPosition1.y += 1;
-      PM.viewPort[0].setPosition(PM.viewPortPosition1.x, PM.viewPortPosition1.y);
-      cout << "position1(x) : " << PM.viewPortPosition1.y << endl;
+      PM.viewPortPosition[0].y += 1;
+      PM.viewPort[0].setPosition(PM.viewPortPosition[0].x, PM.viewPortPosition[0].y);
+      cout << "position1(x) : " << PM.viewPortPosition[0].y << endl;
     }
   }
-  else if (PM.bConfPort2){
+  else if (PM.bConfPort[1]){
     if (key == OF_KEY_RIGHT){
-      PM.viewPortPosition2.x += 1;
-      PM.viewPort[1].setPosition(PM.viewPortPosition2.x, PM.viewPortPosition2.y);
-      cout << "position2(x) : " << PM.viewPortPosition1.x << endl;
+      PM.viewPortPosition[1].x += 1;
+      PM.viewPort[1].setPosition(PM.viewPortPosition[1].x, PM.viewPortPosition[1].y);
+      cout << "position2(x) : " << PM.viewPortPosition[1].x << endl;
     }
     if (key == OF_KEY_LEFT){
-      PM.viewPortPosition2.x -= 1;
-      PM.viewPort[1].setPosition(PM.viewPortPosition2.x, PM.viewPortPosition2.y);
-      cout << "position2(x) : " << PM.viewPortPosition1.x << endl;
+      PM.viewPortPosition[1].x -= 1;
+      PM.viewPort[1].setPosition(PM.viewPortPosition[1].x, PM.viewPortPosition[1].y);
+      cout << "position2(x) : " << PM.viewPortPosition[1].x << endl;
     }
     if (key == OF_KEY_UP){
-      PM.viewPortPosition2.y -= 1;
-      PM.viewPort[1].setPosition(PM.viewPortPosition2.x, PM.viewPortPosition2.y);
-      cout << "position2(y) : " << PM.viewPortPosition1.y << endl;
+      PM.viewPortPosition[1].y -= 1;
+      PM.viewPort[1].setPosition(PM.viewPortPosition[1].x, PM.viewPortPosition[1].y);
+      cout << "position2(y) : " << PM.viewPortPosition[1].y << endl;
     }
     if (key == OF_KEY_DOWN){
-      PM.viewPortPosition2.y += 1;
-      PM.viewPort[1].setPosition(PM.viewPortPosition2.x, PM.viewPortPosition2.y);
-      cout << "position2(y) : " << PM.viewPortPosition1.y << endl;
+      PM.viewPortPosition[1].y += 1;
+      PM.viewPort[1].setPosition(PM.viewPortPosition[1].x, PM.viewPortPosition[1].y);
+      cout << "position2(y) : " << PM.viewPortPosition[1].y << endl;
+    }
+  }
+  else if (PM.bConfPort[2]){
+    if (key == OF_KEY_RIGHT){
+      PM.viewPortPosition[2].x += 1;
+      PM.viewPort[2].setPosition(PM.viewPortPosition[2].x, PM.viewPortPosition[2].y);
+      cout << "position3(x) : " << PM.viewPortPosition[2].x << endl;
+    }
+    if (key == OF_KEY_LEFT){
+      PM.viewPortPosition[2].x -= 1;
+      PM.viewPort[2].setPosition(PM.viewPortPosition[2].x, PM.viewPortPosition[2].y);
+      cout << "position3(x) : " << PM.viewPortPosition[2].x << endl;
+    }
+    if (key == OF_KEY_UP){
+      PM.viewPortPosition[2].y -= 1;
+      PM.viewPort[2].setPosition(PM.viewPortPosition[2].x, PM.viewPortPosition[2].y);
+      cout << "position3(y) : " << PM.viewPortPosition[2].y << endl;
+    }
+    if (key == OF_KEY_DOWN){
+      PM.viewPortPosition[2].y += 1;
+      PM.viewPort[2].setPosition(PM.viewPortPosition[2].x, PM.viewPortPosition[2].y);
+      cout << "position3(y) : " << PM.viewPortPosition[2].y << endl;
+    }
+  }
+  else if (PM.bConfPort[3]){
+    if (key == OF_KEY_RIGHT){
+      PM.viewPortPosition[3].x += 1;
+      PM.viewPort[3].setPosition(PM.viewPortPosition[3].x, PM.viewPortPosition[3].y);
+      cout << "position4(x) : " << PM.viewPortPosition[3].x << endl;
+    }
+    if (key == OF_KEY_LEFT){
+      PM.viewPortPosition[3].x -= 1;
+      PM.viewPort[3].setPosition(PM.viewPortPosition[3].x, PM.viewPortPosition[3].y);
+      cout << "position4(x) : " << PM.viewPortPosition[3].x << endl;
+    }
+    if (key == OF_KEY_UP){
+      PM.viewPortPosition[3].y -= 1;
+      PM.viewPort[3].setPosition(PM.viewPortPosition[3].x, PM.viewPortPosition[3].y);
+      cout << "position4(y) : " << PM.viewPortPosition[3].y << endl;
+    }
+    if (key == OF_KEY_DOWN){
+      PM.viewPortPosition[3].y += 1;
+      PM.viewPort[3].setPosition(PM.viewPortPosition[3].x, PM.viewPortPosition[3].y);
+      cout << "position4(y) : " << PM.viewPortPosition[3].y << endl;
     }
   }
   else if (PM.bConfShade1){
@@ -143,14 +209,16 @@ void PMx::keyPressed(int key) {
   else {
     if (key == OF_KEY_RIGHT){
       PM.camAngle += 0.5;
-      PM.cam[0].setFov(PM.camAngle);   //35.45
-      PM.cam[1].setFov(PM.camAngle);
+      for (int i = 0; i < 4; i++){
+        PM.cam[i].setFov(PM.camAngle);
+      }
       cout << "camAngle : " << PM.camAngle << endl;
     }
     if (key == OF_KEY_LEFT){
       PM.camAngle -= 0.5;
-      PM.cam[0].setFov(PM.camAngle);   //35.45
-      PM.cam[1].setFov(PM.camAngle);
+      for (int i = 0; i < 4; i++){
+        PM.cam[i].setFov(PM.camAngle);
+      }
       cout << "camAngle : " << PM.camAngle << endl;
     }
   }
@@ -190,6 +258,17 @@ void PMx::drawShaderField(){
   PM.cam[1].begin(PM.viewPort[1]);
   _drawShaderField();
   PM.cam[1].end();
+    
+  // screen 3
+  PM.cam[2].begin(PM.viewPort[2]);
+  _drawShaderField();
+  PM.cam[2].end();
+
+  // screen 4
+  PM.cam[3].begin(PM.viewPort[3]);
+  _drawShaderField();
+  PM.cam[3].end();
+  
 }
 
 void PMx::drawPO(int _id, int state) {
@@ -202,6 +281,16 @@ void PMx::drawPO(int _id, int state) {
   PM.cam[1].begin(PM.viewPort[1]);
   _drawPO(_id, state);
   PM.cam[1].end();
+  
+  // screen 3
+  PM.cam[2].begin(PM.viewPort[2]);
+  _drawPO(_id, state);
+  PM.cam[2].end();
+  
+  // screen 4
+  PM.cam[3].begin(PM.viewPort[3]);
+  _drawPO(_id, state);
+  PM.cam[3].end();
 }
 
 void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
@@ -212,9 +301,18 @@ void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data)
   
   // screen 2
   PM.cam[1].begin(PM.viewPort[1]);
-  ofDrawCircle(500,200,100);
   _drawRobot(_x, _y, _theta, _data);
   PM.cam[1].end();
+  
+  // screen 3
+  PM.cam[2].begin(PM.viewPort[2]);
+  _drawRobot(_x, _y, _theta, _data);
+  PM.cam[2].end();
+  
+  // screen 4
+  PM.cam[3].begin(PM.viewPort[3]);
+  _drawRobot(_x, _y, _theta, _data);
+  PM.cam[3].end();
 }
 
 void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, float _duration, float _time) {
@@ -258,6 +356,22 @@ void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _dura
   _drawBulletTexture(_y*scale, _x*scale, _theta, team);
   ofPopMatrix();
   PM.cam[1].end();
+  
+  // screen 3
+  PM.cam[2].begin(PM.viewPort[2]);
+  ofPushMatrix();
+  ofTranslate(0, 0,5);
+  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
+  ofPopMatrix();
+  PM.cam[2].end();
+  
+  // screen 4
+  PM.cam[3].begin(PM.viewPort[3]);
+  ofPushMatrix();
+  ofTranslate(0, 0,5);
+  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
+  ofPopMatrix();
+  PM.cam[3].end();
 }
 
 void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _height, float _duration, float _time){
@@ -338,10 +452,14 @@ void PMx::_drawShaderField(){
   PM.currentTime = ofGetElapsedTimef();
   PM.time = PM.currentTime - PM.startTime;
   
+  ofPushStyle();
+  ofSetColor(255, 255, 255);
+  ofDrawRectangle(-1000, -1000, -10, 10000, 10000);
+  ofPopStyle();
   PM.fieldShader.begin();
   PM.fieldShader.setUniform1f("time", PM.time);
-  PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
-  ofDrawRectangle(0, 0, screen_height*2, screen_width);
+  PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height_total, screen_width_total));
+  ofDrawRectangle(0, 0, screen_height_total, screen_width_total);
   PM.fieldShader.end();
   if (PM.bShowFieldFrame){
     ofPushMatrix();
@@ -349,15 +467,15 @@ void PMx::_drawShaderField(){
     ofTranslate(0, 0, 1);
     ofSetColor(0,0,0,80);
     ofFill();
-    ofDrawRectangle(screen_height - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width);
+    ofDrawRectangle(screen_height_total - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width_total);
     ofPopStyle();
     ofPopMatrix();
   }
   ofNoFill();
   ofPushStyle();
   ofSetColor(50, 50, 250);
-  ofDrawRectangle(0,0,1,screen_height,screen_width);
-  ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
+//  ofDrawRectangle(0,0,1,screen_height,screen_width);
+//  ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
   ofPopStyle();
   ofFill();
 }
@@ -435,7 +553,7 @@ void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
   ofSetColor(textColor);
   ofTranslate(0,0,132);
   ofRotateZ(90);
-  PM.font[size].drawString(content, PM.viewPortPosition1.x*0.5 - 105 + x*0.3, -PM.viewPortPosition1.y*0.5 - 50 - y*0.3);
+  PM.font[size].drawString(content, PM.viewPortPosition[0].x*0.5 - 105 + x*0.3, -PM.viewPortPosition[0].y*0.5 - 50 - y*0.3);
   PM.font[size].drawString(content, 200, 200);
   ofPopStyle();
   ofPopMatrix();
