@@ -72,20 +72,18 @@ void MRPMMainManager::update() {
   
   //send to ctrlrs
   {
-    MRPMPackMainToCtrlr pack;
+    static MRPMPackMainToCtrlr pack;
     pack.positionsVec = blltMgr.getPositionsVec();
     pack.velocitiesVec = blltMgr.getVelocitiesVec();
     mainSndr.sendToCtrlrs(pack);
   }
   
-  //send to robot
+  //send to each robot
   for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
-    MRPMPackMainToRobot pack;
+    static MRPMPackMainToRobot pack;
     auto roboData = sysRbtMgr.getData(i);
     pack.time = static_cast<int>(roboData.time);
-    pack.x = roboData.pos.x;
-    pack.y = roboData.pos.y;
-    pack.theta = roboData.pos.theta;
+    pack.pos = roboData.pos;
     pack.permissions.fill(true);  //とりあえず全部許可しとく
     
     //pack.permissions = checkMovability(roboData.pos);
@@ -94,12 +92,38 @@ void MRPMMainManager::update() {
     mainSndr.sendToOneRobot(i, pack);
   }
   
+  
   //send to AIs
-  {
-    MRPMPackMainToAI pack;
-    
-    mainSndr.sendToAIs(pack);
+  static std::vector<Position> posVec;
+  static std::array<int, NUM_OF_POINT_OBJ> poownerAry;
+  posVec = sysRbtMgr.getPosVec();
+  poownerAry = sysPObjMgr.getOwnersAry();
+  
+  
+  for(Position& p: posVec){
+    //for each AI (Dense)
+    mainSndr.sendToOneAI(p);
   }
+  
+  static SparseExecutor syncToAIs
+  (static_cast<int>(ofGetFrameRate()),
+   [&](){
+     MRPMPackMainToAI p;
+     p.robsPos=posVec;
+     p.POowners=poownerAry;
+     mainSndr.sendToAIsSparse(p);
+  });
+  syncToAIs.touch();  //touch()するとmod回に1回実行される
+  
+  
+  //sync judgement
+  for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+    judge.setRobotState(i, sysRbtMgr.getData(i).state);
+  }
+  for(int i=0; i<NUM_OF_POINT_OBJ; ++i){
+    judge.setPOOwner(i, static_cast<ETeam>(poownerAry[i]));
+  }
+  
   
   /*
   RobotData data;

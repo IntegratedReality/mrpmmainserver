@@ -18,7 +18,6 @@ void addArg<bool>(ofxOscMessage& _m, bool _arg) {
 }
 
 
-
 void MRPMMainSender::init() {
   sendersToRobots.reserve(hostsConfig::NUM_OF_ROBOT);
   for(auto& t:hostsConfig::hostsList){
@@ -57,9 +56,9 @@ void MRPMMainSender::sendToOneRobot
   m.setAddress("/main/toRobot");
   
   addArg(m,_p.time);
-  addArg(m,_p.x);
-  addArg(m,_p.y);
-  addArg(m,_p.theta);
+  addArg(m,_p.pos.x);
+  addArg(m,_p.pos.y);
+  addArg(m,_p.pos.theta);
   for(auto& p: _p.permissions){
     addArg(m, p);
   }
@@ -89,50 +88,34 @@ void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr& _p){
   }
 }
 
-void MRPMMainSender::sendToAIs(MRPMPackMainToAI& _p){
+void MRPMMainSender::sendToOneAI(Position& _pos){
   ofxOscMessage m;
-  m.setAddress("main/toAI");
+  m.setAddress("/main/toAI/yourpos");
+  addArg(m, _pos.x);
+  addArg(m, _pos.y);
+  addArg(m, _pos.theta);
   for(auto& s: sendersToAIs){
     s.sendMessage(m);
   }
 }
 
-/*
-void MRPMMainSender::sendData
-(int _id,
- int _time,
- double _x,
- double _y,
- double _theta,
- double _HP,
- double _EN,
- EState _state) {
-  std::cerr << "sendData() is deprecated" << std::endl;
-  ofxOscMessage m;
-  m.setAddress("/main/position");
-  m.addInt32Arg(_id);
-  m.addInt32Arg(_time);
-  m.addDoubleArg(_x);
-  m.addDoubleArg(_y);
-  m.addDoubleArg(_theta);
-  m.addDoubleArg(_HP);
-  m.addDoubleArg(_EN);
-  m.addInt32Arg((int)_state);
-//  
-//  for(auto& s: senders){
-//    s.sendMessage(m);
-//  }
+void MRPMMainSender::sendToAIsSparse(MRPMPackMainToAI& _p){
+  ofxOscMessage m1, m2;
+  
+  m1.setAddress("/main/toAI/allpos");
+  for(Position& e:_p.robsPos){
+    addArg(m1, e.x);
+    addArg(m1, e.y);
+    addArg(m1, e.theta);
+  }
+  
+  m2.setAddress("/main/toAI/POowner");
+  for(auto& e:_p.POowners){
+    addArg(m2, e);
+  }
+  
+  for(auto& s: sendersToAIs){
+    s.sendMessage(m1);
+    s.sendMessage(m2);
+  }
 }
-
-void MRPMMainSender::sendPOOwner(int _id, ETeam _team) {
-  std::cerr<<"sendPOOwner() is deprecated" << std::endl;
-  ofxOscMessage m;
-  m.setAddress("/main/poowner");
-  m.addInt32Arg(_id);
-  m.addInt32Arg((int)_team);
-//  
-//  for(auto& s: senders){
-//    s.sendMessage(m);
-//  }
-}
- */

@@ -35,7 +35,7 @@ void MRPMMainReceiver::init() {
           prev_data[id].pos.x = x;
           prev_data[id].pos.y = y;
           prev_data[id].pos.theta = theta;
-        } else if (m.getAddress() == "/ctrlr/shot") {
+        } else if (m.getAddress() == "/operator/shot") {
           int id = m.getArgAsInt32(0);
           bool shot = m.getArgAsBool(1);
           mtx.lock();

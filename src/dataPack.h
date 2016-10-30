@@ -11,12 +11,11 @@
 #include "ofMain.h"
 #include "Bullet.h"
 #include "Operation.h"
+#include "Const.h"
 
 struct MRPMPackMainToRobot {
   int time;
-  double x;
-  double y;
-  double theta;
+  Position pos;
   permsAry permissions; //EDirectionの数だけ用意した
 };
 
@@ -26,4 +25,6 @@ struct MRPMPackMainToCtrlr{
 };
 
 struct MRPMPackMainToAI{
+  std::vector<Position> robsPos;
+  std::array<int, NUM_OF_POINT_OBJ> POowners;
 };

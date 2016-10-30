@@ -31,3 +31,11 @@ void SysRobotManager::setShot(int _id, bool _shot) {
 RobotData SysRobotManager::getData(int _id) {
   return sysRobots[_id].getData();
 }
+
+std::vector<Position> SysRobotManager::getPosVec(){
+  std::vector<Position> vec;
+  for(auto& e:sysRobots){
+    vec.push_back(e.getData().pos);
+  }
+  return vec;
+}
