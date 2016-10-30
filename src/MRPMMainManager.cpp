@@ -169,8 +169,8 @@ void MRPMMainManager::draw() {
         break;
     }
   } else if (mode == STANDBY) {
-    pmx->drawTextField();
-    pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
+//    pmx->drawTextField();
+//    pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
   }
   
   //added by sakabe

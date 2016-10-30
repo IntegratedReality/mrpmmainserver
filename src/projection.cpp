@@ -17,7 +17,7 @@ void PMClass::initializeProjection(){
 }
 
 void PMClass::createFieldBgFbo(){
-  backGroundFbo.allocate(screen_height*2, screen_width);
+  backGroundFbo.allocate(screen_height_total, screen_width_total);
   
   //    backGroundFbo.begin();
   //        // write here if you create a background in this program (ex. animations)
@@ -28,13 +28,14 @@ void PMClass::createFieldBgFbo(){
 }
 
 void bullets::initBullet(int _id){
-  bulletFbo[_id].allocate(50,50,GL_RGBA);
+  bulletFbo[_id].allocate(50,50,GL_RGB);
   bulletFbo[_id].begin();
   ofPushMatrix();
   ofTranslate(25, 25);
   ofFill();
   for (int i = 0; i < 18; i++){
-    ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b,130 + 6 * i);
+//    ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b,130 + 6 * i);
+    ofSetColor(teamColor[_id].r,teamColor[_id].g,teamColor[_id].b);
     ofDrawCircle(0, 0, 18 - i);
   }
   ofNoFill();
@@ -102,7 +103,7 @@ void pointObject::draw(ofShader &shader, int state){
   ofDisableNormalizedTexCoords();
   shader.begin();
   shader.setUniform1f("time", ofGetElapsedTimef());
-  shader.setUniform2f("resolution", ofVec2f(screen_height*2, screen_width));
+  shader.setUniform2f("resolution", ofVec2f(screen_height_total, screen_width_total));
   //vbo.draw(GL_TRIANGLE_FAN, 0, 8);
   mesh.drawFaces();
   shader.end();
