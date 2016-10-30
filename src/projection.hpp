@@ -209,9 +209,7 @@ public:
 };
 
 class PMClass{
-public:
-  void createFieldBgFbo();
-  
+public:  
   /* texture, effects */
   ofImage textureImg;
   ofImage pointObjectTexture;
@@ -246,10 +244,6 @@ public:
   std::array<bool,4> bConfPort;
   std::array<bool,4> bConfShade;
   
-//  bool bConfPort1 = false;
-//  bool bConfPort2 = false;
-//  bool bConfPort3 = false;
-//  bool bConfPort4 = false;
   bool bConfShade1 = false;
   bool bconfShade2 = false;
   bool bShowFieldFrame = true;
@@ -266,12 +260,12 @@ public:
     // 0: left top screen, 1: right top, 2: left bottom, 3: right bottom
     viewPortPosition[0].x = 0;
     viewPortPosition[0].y = 0;
-    viewPortPosition[1].x = screen_width_total - screen_width;
+    viewPortPosition[1].x = screen_width;
     viewPortPosition[1].y = 0;
     viewPortPosition[2].x = 0;
-    viewPortPosition[2].y = screen_height_total - screen_height;
-    viewPortPosition[3].x = screen_width_total - screen_width;
-    viewPortPosition[3].y = screen_height_total - screen_height;
+    viewPortPosition[2].y = screen_height;
+    viewPortPosition[3].x = screen_width;
+    viewPortPosition[3].y = screen_height;
     
     // init view ports
     for(int i =0; i < 4; i++){

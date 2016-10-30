@@ -11,18 +11,13 @@ void PMx::setup() {
   //    PM.p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
   
   /* load images if needed */
-  //	PM.textureImg.load("281.gif");
-  PM.textureImg.load("pattern.png");
   PM.pointObjectTexture.load("texture.jpg");  //example texture
   PM.bulletImg.load("blue.png");  //image for bullet
   PM.backGroundImg.load("bg.jpg");
   PM.virtualWallTexture.load("mesh.jpg");
-  //PM.createFieldBgFbo();
   
+  /* load shaders */
   PM.fieldShader.load("test.vert", "water.frag");
-  PM.objectShader.load("test.vert", "cloud.frag");
-  PM.alphaShader.load("texture.vert","alpha.frag");
-  PM.robotShader.load("test.vert","robot.frag");
   
   /* load font */
   for (int i = 1; i < 50; i++){
