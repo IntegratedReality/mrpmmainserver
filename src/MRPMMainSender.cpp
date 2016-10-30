@@ -29,7 +29,7 @@ void MRPMMainSender::init() {
   
   sendersToCtrlrs.reserve(hostsConfig::NUM_OF_HUMAN);
   for(auto& t:hostsConfig::hostsList){
-    if(!(t.isAI)){
+    if(t.robotType == RobotType::HUMAN){
       ofxOscSender sender;
       sender.setup(t.operatorHostName, PORT_OPERATOR);
       sendersToCtrlrs.push_back(sender);
@@ -38,7 +38,7 @@ void MRPMMainSender::init() {
   
   sendersToAIs.reserve(hostsConfig::NUM_OF_AI);
   for(auto& t:hostsConfig::hostsList){
-    if(t.isAI){
+    if(t.robotType == RobotType::AI){
       ofxOscSender sender;
       sender.setup(t.operatorHostName, PORT_OPERATOR);
       sendersToCtrlrs.push_back(sender);

@@ -12,12 +12,12 @@ const std::vector<robotHostConfig>
 hostsConfig::hostsList{
   //rpiHostName, isAI, operator HostName
   //若い番号から人間,AIの順番を要請
-  {"mrpmpi0.local", false, "PE25.local"},
-  {"mrpmpi1.local", false, "PE26.local"},
-  {"mrpmpi2.local", false, "PE27.local"},
-  {"mrpmpi3.local", true, "mrpmpi3.local"},
-  {"mrpmpi4.local", true, "mrpmpi4.local"},
-  {"mrpmpi5.local", true, "mrpmpi5.local"}
+  {"raspberrypi.local", RobotType::HUMAN, "PE25.local"},
+  {"mrpmpi1.local", RobotType::HUMAN, "PE26.local"},
+  {"mrpmpi2.local", RobotType::HUMAN, "PE27.local"},
+  {"mrpmpi3.local", RobotType::AI, "mrpmpi3.local"},
+  {"mrpmpi4.local", RobotType::AI, "mrpmpi4.local"},
+  {"mrpmpi5.local", RobotType::AI, "mrpmpi5.local"}
 };
 
 
@@ -29,7 +29,7 @@ const int hostsConfig::NUM_OF_HUMAN
 (std::count_if(hostsConfig::hostsList.begin(),
                hostsConfig::hostsList.end(),
                [](robotHostConfig c){
-                 return !c.isAI;
+                 return c.robotType == RobotType::HUMAN;
                })
  );
 
@@ -38,7 +38,7 @@ const int hostsConfig::NUM_OF_AI
 (std::count_if(hostsConfig::hostsList.begin(),
                hostsConfig::hostsList.end(),
                [](robotHostConfig c){
-                 return c.isAI;
+                 return c.robotType == RobotType::AI;
                })
  );
 

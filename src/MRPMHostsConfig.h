@@ -8,10 +8,14 @@
 #pragma once
 #include "ofMain.h"
 
-//hostname, isAI
+enum class RobotType: uint8_t{
+    HUMAN,
+    AI
+};
+
 struct robotHostConfig{
     std::string rpiHostName;
-    bool isAI;
+    RobotType robotType;
     std::string operatorHostName;
 };
 
