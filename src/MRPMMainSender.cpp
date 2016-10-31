@@ -16,6 +16,10 @@ template <>
 void addArg<bool>(ofxOscMessage& _m, bool _arg) {
   _m.addBoolArg(_arg);
 }
+template <>
+void addArg<std::string&>(ofxOscMessage& _m, std::string& _arg){
+  _m.addStringArg(_arg);
+}
 
 
 void MRPMMainSender::init() {
@@ -85,6 +89,18 @@ void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr& _p){
   //全Ctrlrに送信
   for(auto& s: sendersToCtrlrs){
     s.sendMessage(m);
+  }
+}
+
+void MRPMMainSender::sendToCtrlrsAssignSignal(){
+  auto& list=hostsConfig::hostsList;
+  for(int i=0; i<hostsConfig::NUM_OF_HUMAN; ++i){
+    ofxOscMessage m;
+    m.setAddress("/main/toCtrlr/assign");
+    addArg(m, i);
+    addArg(m, list[i].rpiHostName);
+    
+    sendersToCtrlrs[i].sendMessage(m);
   }
 }
 

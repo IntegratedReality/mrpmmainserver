@@ -16,6 +16,7 @@ public:
     (int _id,
      MRPMPackMainToRobot& _p);
     void sendToCtrlrs(MRPMPackMainToCtrlr& _p);
+    void sendToCtrlrsAssignSignal();
     void sendToOneAI(Position& _pos);
     void sendToAIsSparse(MRPMPackMainToAI& _p);
     

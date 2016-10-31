@@ -1,6 +1,6 @@
 #pragma once
 
-enum EMode {
+enum class EMode {
   STANDBY,
   GAME,
   RESULT

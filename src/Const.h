@@ -3,6 +3,8 @@
 constexpr int FPS = 60;
 constexpr double TIME_PER_FRAME = 1.0 / FPS;
 
+constexpr int GAME_DURATION_MSEC = 3*60*1000;
+
 constexpr int WIDTH_OF_FIELD = 1800;
 constexpr int HEIGHT_OF_FIELD = 2700;
 constexpr double SCALE = 0.25;

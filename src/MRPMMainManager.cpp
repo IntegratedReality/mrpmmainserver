@@ -27,7 +27,7 @@ void MRPMMainManager::init() {
   sndMgr.init();
   judge.init();
   
-  mode = STANDBY;
+  mode = EMode::STANDBY;
   
   pmx = PMx::getInstance();
   
@@ -43,10 +43,19 @@ void MRPMMainManager::update() {
     sysRbtMgr.setPos(i, mainRcvr.getData(i).pos);
   }
   
-  if (mode == GAME) {
+  if (mode == EMode::STANDBY){
+    static SparseExecutor assignRobotsToCtrlrs
+    (static_cast<int>(ofGetFrameRate()*2),
+     [&](){
+       mainSndr.sendToCtrlrsAssignSignal();
+     });
+    assignRobotsToCtrlrs.touch();
+  }
+  
+  if (mode == EMode::GAME) {
     
-    if (timer->getTime() >= 3 * 60 * 1000) {
-      mode = RESULT;
+    if (timer->getTime() >= GAME_DURATION_MSEC) {
+      mode = EMode::RESULT;
       ofSetWindowTitle("RESULT");
       judge.end();
       sndMgr.stopBGM();
@@ -66,86 +75,64 @@ void MRPMMainManager::update() {
     
     box2d->update();
     
-  }
-  
-  //data sending ------------------
-  
-  //send to ctrlrs
-  {
-    static MRPMPackMainToCtrlr pack;
-    pack.positionsVec = blltMgr.getPositionsVec();
-    pack.velocitiesVec = blltMgr.getVelocitiesVec();
-    mainSndr.sendToCtrlrs(pack);
-  }
-  
-  //send to each robot
-  for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
-    static MRPMPackMainToRobot pack;
-    auto roboData = sysRbtMgr.getData(i);
-    pack.time = static_cast<int>(roboData.time);
-    pack.pos = roboData.pos;
-    pack.permissions.fill(true);  //とりあえず全部許可しとく
+    //data sending ------------------
     
-    //pack.permissions = checkMovability(roboData.pos);
-    //TODO: 全許可で動作確認とれたら UNCOMMENT
+    //send to ctrlrs
+    {
+      static MRPMPackMainToCtrlr pack;
+      pack.positionsVec = blltMgr.getPositionsVec();
+      pack.velocitiesVec = blltMgr.getVelocitiesVec();
+      mainSndr.sendToCtrlrs(pack);
+    }
     
-    mainSndr.sendToOneRobot(i, pack);
+    //send to each robot
+    for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+      static MRPMPackMainToRobot pack;
+      auto roboData = sysRbtMgr.getData(i);
+      pack.time = static_cast<int>(roboData.time);
+      pack.pos = roboData.pos;
+      pack.permissions.fill(true);  //とりあえず全部許可しとく
+      
+      //pack.permissions = checkMovability(roboData.pos);
+      //TODO: 全許可で動作確認とれたら UNCOMMENT
+      
+      mainSndr.sendToOneRobot(i, pack);
+    }
+    
+    
+    //send to AIs
+    static std::vector<Position> posVec;
+    static std::array<int, NUM_OF_POINT_OBJ> poownerAry;
+    posVec = sysRbtMgr.getPosVec();
+    poownerAry = sysPObjMgr.getOwnersAry();
+    
+    
+    for(Position& p: posVec){
+      //for each AI (Dense)
+      mainSndr.sendToOneAI(p);
+    }
+    
+    static SparseExecutor syncToAIs
+    (static_cast<int>(ofGetFrameRate()),
+     [&](){
+       MRPMPackMainToAI p;
+       p.robsPos=posVec;
+       p.POowners=poownerAry;
+       mainSndr.sendToAIsSparse(p);
+     });
+    syncToAIs.touch();  //touch()するとmod回に1回実行される
+    
+    
+    //sync judgement
+    for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+      judge.setRobotState(i, sysRbtMgr.getData(i).state);
+    }
+    for(int i=0; i<NUM_OF_POINT_OBJ; ++i){
+      judge.setPOOwner(i, static_cast<ETeam>(poownerAry[i]));
+    }
+    
   }
-  
-  
-  //send to AIs
-  static std::vector<Position> posVec;
-  static std::array<int, NUM_OF_POINT_OBJ> poownerAry;
-  posVec = sysRbtMgr.getPosVec();
-  poownerAry = sysPObjMgr.getOwnersAry();
-  
-  
-  for(Position& p: posVec){
-    //for each AI (Dense)
-    mainSndr.sendToOneAI(p);
-  }
-  
-  static SparseExecutor syncToAIs
-  (static_cast<int>(ofGetFrameRate()),
-   [&](){
-     MRPMPackMainToAI p;
-     p.robsPos=posVec;
-     p.POowners=poownerAry;
-     mainSndr.sendToAIsSparse(p);
-  });
-  syncToAIs.touch();  //touch()するとmod回に1回実行される
-  
-  
-  //sync judgement
-  for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
-    judge.setRobotState(i, sysRbtMgr.getData(i).state);
-  }
-  for(int i=0; i<NUM_OF_POINT_OBJ; ++i){
-    judge.setPOOwner(i, static_cast<ETeam>(poownerAry[i]));
-  }
-  
-  
-  /*
-  RobotData data;
-  for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
-    data = sysRbtMgr.getData(i);
-    mainSndr.sendData
-    (data.id,
-     data.time,
-     data.pos.x,
-     data.pos.y,
-     data.pos.theta,
-     data.HP,
-     data.EN,
-     mode != GAME ? STANDBY2 : data.state);
-    judge.setRobotState(i, data.state);
-  }
-  
-  for (int i = 0; i < NUM_OF_POINT_OBJ; i++) {
-    mainSndr.sendPOOwner(i, sysPObjMgr.getOwner(i));
-    judge.setPOOwner(i, sysPObjMgr.getOwner(i));
-  }
-   */
+
 }
 
 void MRPMMainManager::draw() {
@@ -155,7 +142,7 @@ void MRPMMainManager::draw() {
   //    itmMgr.draw();
   blltMgr.draw();
   
-  if (mode == RESULT) {
+  if (mode == EMode::RESULT) {
     pmx->drawTextField();
     switch (judge.getWinner()) {
       case TEAM_A:
@@ -168,7 +155,7 @@ void MRPMMainManager::draw() {
         pmx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
         break;
     }
-  } else if (mode == STANDBY) {
+  } else if (mode == EMode::STANDBY) {
 //    pmx->drawTextField();
 //    pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
   }
@@ -181,9 +168,9 @@ void MRPMMainManager::draw() {
 void MRPMMainManager::keyPressed(int key) {
   if (key == 's') sim = !sim;
   switch (mode) {
-    case STANDBY:
-      if (key == OF_KEY_RETURN) {
-        mode = GAME;
+    case EMode::STANDBY:
+      if (key == OF_KEY_RETURN && mainRcvr.haveAllCtrlrsEntried()) {
+        mode = EMode::GAME;
         ofSetWindowTitle("GAME");
         sndMgr.startBGM();
         timer->init();
@@ -193,10 +180,11 @@ void MRPMMainManager::keyPressed(int key) {
         judge.start();
       }
       break;
-    case GAME:
+    case EMode::GAME:
       if (key == 'q') {
-        mode = STANDBY;
+        mode = EMode::STANDBY;
         ofSetWindowTitle("STANDBY");
+        mainRcvr.resetAckReceived();
         sndMgr.stopBGM();
         timer->init();
         sysRbtMgr.init();
@@ -209,10 +197,11 @@ void MRPMMainManager::keyPressed(int key) {
         //sndMgr.stopBGM();
       }
       break;
-    case RESULT:
+    case EMode::RESULT:
       if (key == OF_KEY_RETURN) {
-        mode = STANDBY;
+        mode = EMode::STANDBY;
         ofSetWindowTitle("STANDBY");
+        mainRcvr.resetAckReceived();
         sndMgr.stopBGM();
         timer->init();
         sysRbtMgr.init();

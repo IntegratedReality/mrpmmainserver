@@ -10,8 +10,13 @@ public:
     void init();
     void update();
     RobotData getData(int _id);
+    
+    void resetAckReceived();
+    bool haveAllCtrlrsEntried();
 private:
     ofxOscReceiver receiver;
     std::vector<RobotData> data;
     std::vector<RobotData> prev_data;
+    
+    std::vector<bool> ackReceived;
 };
