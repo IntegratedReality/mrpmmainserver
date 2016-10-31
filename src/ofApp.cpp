@@ -13,13 +13,7 @@ void ofApp::setup() {
   pmx = PMx::getInstance();
   pmx->setup();
   
-  //ofNoFill();
-  //ofBackground(0, 0, 0);
-  //ofSetWindowTitle("MRPMMainServer");
-  //ofEnableAlphaBlending();
-  
   manager.init();
-  //    startTime = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
@@ -29,7 +23,6 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-  pmx->drawShaderField();
   manager.draw();
 }
 
