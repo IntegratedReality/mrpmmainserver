@@ -16,17 +16,6 @@ void PMClass::initializeProjection(){
   ofEnableNormalizedTexCoords();  //textureを持つあらゆるクラスの設定を変更し干渉するので注意
 }
 
-void PMClass::createFieldBgFbo(){
-  backGroundFbo.allocate(screen_height_total, screen_width_total);
-  
-  //    backGroundFbo.begin();
-  //        // write here if you create a background in this program (ex. animations)
-  //        ofDisableNormalizedTexCoords();
-  //        backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
-  //        ofEnableNormalizedTexCoords();
-  //    backGroundFbo.end();
-}
-
 void bullets::initBullet(int _id){
   bulletFbo[_id].allocate(50,50,GL_RGB);
   bulletFbo[_id].begin();

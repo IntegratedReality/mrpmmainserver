@@ -11,18 +11,13 @@ void PMx::setup() {
   //    PM.p_object[2].init(screen_height*1.5,screen_width*0.75, 0.5);
   
   /* load images if needed */
-  //	PM.textureImg.load("281.gif");
-  PM.textureImg.load("pattern.png");
   PM.pointObjectTexture.load("texture.jpg");  //example texture
   PM.bulletImg.load("blue.png");  //image for bullet
   PM.backGroundImg.load("bg.jpg");
   PM.virtualWallTexture.load("mesh.jpg");
-  //PM.createFieldBgFbo();
   
+  /* load shaders */
   PM.fieldShader.load("test.vert", "water.frag");
-  PM.objectShader.load("test.vert", "cloud.frag");
-  PM.alphaShader.load("texture.vert","alpha.frag");
-  PM.robotShader.load("test.vert","robot.frag");
   
   /* load font */
   for (int i = 1; i < 50; i++){
@@ -249,25 +244,12 @@ void PMx::drawFieldTexture() {
 }
 
 void PMx::drawShaderField(){
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawShaderField();
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawShaderField();
-  PM.cam[1].end();
-    
-  // screen 3
-  PM.cam[2].begin(PM.viewPort[2]);
-  _drawShaderField();
-  PM.cam[2].end();
-
-  // screen 4
-  PM.cam[3].begin(PM.viewPort[3]);
-  _drawShaderField();
-  PM.cam[3].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawShaderField();
+    PM.cam[i].end();
+  }
   
 }
 
@@ -454,7 +436,6 @@ void PMx::_drawShaderField(){
   
   ofPushStyle();
   ofSetColor(255, 255, 255);
-  ofDrawRectangle(-1000, -1000, -10, 10000, 10000);
   ofPopStyle();
   PM.fieldShader.begin();
   PM.fieldShader.setUniform1f("time", PM.time);
@@ -465,9 +446,10 @@ void PMx::_drawShaderField(){
     ofPushMatrix();
     ofPushStyle();
     ofTranslate(0, 0, 1);
-    ofSetColor(0,0,0,80);
+    ofSetColor(0,0,0,64);
     ofFill();
-    ofDrawRectangle(screen_height_total - PM.shadeWidth1, 0, PM.shadeWidth1 + PM.shadeWidth2, screen_width_total);
+    ofDrawRectangle(screen_height_total*0.5 - PM.shadeWidth1, 0, PM.shadeWidth1*2, screen_width*2);  //compensate the brightness of overlaped areas
+    ofDrawRectangle(0, screen_width_total*0.5 - PM.shadeWidth2, screen_height*2, PM.shadeWidth2*2);  //compensate the brightness of overlaped areas
     ofPopStyle();
     ofPopMatrix();
   }
