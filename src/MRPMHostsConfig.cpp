@@ -8,6 +8,9 @@
 
 #include "MRPMHostsConfig.h"
 
+#define WITH_NO_ROBOTS
+
+#ifndef WITH_NO_ROBOTS
 const std::vector<robotHostConfig>
 hostsConfig::hostsList{
   //rpiHostName, isAI, operator HostName
@@ -19,6 +22,18 @@ hostsConfig::hostsList{
   {"mrpmpi4.local", RobotType::AI, "mrpmpi4.local"},
   {"mrpmpi5.local", RobotType::AI, "mrpmpi5.local"}
 };
+#else
+const std::vector<robotHostConfig>
+hostsConfig::hostsList{
+  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
+  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
+  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
+  {"127.0.0.1", RobotType::AI, "127.0.0.1"},
+  {"127.0.0.1", RobotType::AI, "127.0.0.1"},
+  {"127.0.0.1", RobotType::AI, "127.0.0.1"}
+};
+#endif //WITH_NO_ROBOTS
+
 
 
 const int hostsConfig::NUM_OF_ROBOT
