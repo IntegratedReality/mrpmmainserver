@@ -309,6 +309,27 @@ void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _heigh
   
 }
 
+void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
+  //        ofTranslate(0, 0, 600);
+  if (size > 51){
+    size = 50;
+  }
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawText(content, x, y, size, textColor);
+    PM.cam[i].end();
+  }
+  
+}
+
+void PMx::drawTextField(ofColor bgColor){
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawTextField(bgColor);
+    PM.cam[i].end();
+  }
+}
+
 /* initialize robot */
 void PMx::initRobot(int _id, ETeam team){
   /* initialize robots */
@@ -326,6 +347,15 @@ void PMx::drawVWall(int x, int y, int w, int h){
   //    PM.cam[1].begin(PM.viewPort[1]);
   //    ofDrawBox(x*scale, y*scale, 0, w, h, 10);
   //    PM.cam[1].end();
+  
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    ofPopStyle();
+    ofFill();
+    ofDrawRectangle(y, x, w, h);
+    ofNoFill();
+    PM.cam[i].end();
+  }
   
   ofSetColor(255, 255, 255);
 }
@@ -463,32 +493,24 @@ void PMx::_drawBulletTexture(double _x, double _y, double _theta, ETeam team, fl
   ofEnableNormalizedTexCoords();
 }
 
-void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
-  //        ofTranslate(0, 0, 600);
+void PMx::_drawText(string content, int x, int y, int size, ofColor textColor){
   if (size > 51){
     size = 50;
   }
-  for (int i = 0; i < 4; i++){
-    PM.cam[i].begin(PM.viewPort[i]);
-      ofPushMatrix();
-      ofPushStyle();
-      ofSetColor(textColor);
-      ofTranslate(PM.viewPortPosition[0].y + x, PM.viewPortPosition[0].x + y,112); //using z-index like layers
-      ofRotateZ(90);
-      PM.font[size].drawString(content, 0, 0);
-
-      ofPopStyle();
-      ofPopMatrix();
-    PM.cam[i].end();
-  }
+  ofPushMatrix();
+  ofPushStyle();
+    ofSetColor(textColor);
+    ofTranslate(PM.viewPortPosition[0].y + x, PM.viewPortPosition[0].x + y,112); //using z-index like layers
+    ofRotateZ(90);
+    PM.font[size].drawString(content, 0, 0);
+  ofPopStyle();
+  ofPopMatrix();
   
 }
 
-void PMx::drawTextField(ofColor bgColor){
-  for (int i = 0; i < 4; i++){
-    PM.cam[i].begin(PM.viewPort[i]);
-    ofPushMatrix();
-    ofPushStyle();
+void PMx::_drawTextField(ofColor bgColor){
+  ofPushMatrix();
+  ofPushStyle();
     ofTranslate(0,0,111);
     ofNoFill();
     glLineWidth(5);
@@ -497,9 +519,7 @@ void PMx::drawTextField(ofColor bgColor){
     ofFill();
     ofSetColor(bgColor);
     ofDrawRectangle(50,50,screen_height_total-100,screen_width_total-100);  //今は暗くしているだけ、fboで作っておけばもっとリッチにできる
-    ofPopStyle();
-    ofPopMatrix();
-    PM.cam[i].end();
-  }
+  ofPopStyle();
+  ofPopMatrix();
 }
 

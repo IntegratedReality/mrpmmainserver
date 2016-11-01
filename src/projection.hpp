@@ -22,10 +22,10 @@ const double root3 = sqrt(3);
 /* screen size (default : WVGA) */
 //const int screen_width = 1024;  //pixel
 //const int screen_height = 768;
-const int field_width = 1600;   //field size [mm]
-const int field_height = 2400;
-const int screen_width = 480;   //screen size of the projector [px]
-const int screen_height = 800;
+const int field_width = WIDTH_OF_FIELD;   //field size [mm]
+const int field_height = HEIGHT_OF_FIELD;
+const int screen_width = SCREEN_WIDTH;   //screen size of the projector [px]
+const int screen_height = SCREEN_HEIGHT;
 const double scale = screen_width/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 is a projection width[mm]
 const int screen_width_total = ceil(field_width*scale);
 const int screen_height_total = ceil(field_height*scale);
