@@ -15,7 +15,7 @@ public:
     void setup();
     void keyPressed(int key);
     void drawField();
-    void drawFieldTexture();
+    void drawTextureField();
     void drawShaderField();
     void drawPO(int _id, int state);
     void initRobot(int _id, ETeam team);
@@ -38,7 +38,7 @@ private:
     
     // for one camera
     void _drawField();
-    void _drawFieldTexture();
+    void _drawTextureField();
     void _drawShaderField();
     void _drawPO(int _id, int state);
     void _drawRobot(double _x, double _y, double _theta, const RobotData *_data);

@@ -228,11 +228,11 @@ void PMx::drawField() {
   }
 }
 
-void PMx::drawFieldTexture() {
+void PMx::drawTextureField() {
   
   for (int i = 0; i < 4; i++){
     PM.cam[i].begin(PM.viewPort[i]);
-    _drawFieldTexture();
+    _drawTextureField();
     PM.cam[i].end();
   }
 }
@@ -369,11 +369,11 @@ void PMx::_drawField() {
   ofFill();
 }
 
-void PMx::_drawFieldTexture(){
+void PMx::_drawTextureField(){
   /* not necessarily create fbo here (should be written in ofApp::update) */
   PM.backGroundFbo.begin();
   ofDisableNormalizedTexCoords();
-  PM.backGroundImg.getTexture().draw(0, 0, screen_height*2, screen_width);
+  PM.backGroundImg.getTexture().draw(0, 0, screen_height_total, screen_width_total);
   ofEnableNormalizedTexCoords();
   if (PM.bShowFieldFrame){
     ofNoFill();
@@ -386,11 +386,11 @@ void PMx::_drawFieldTexture(){
   }
   
   /* minimum example for animation */
-  ofPushMatrix();
-  ofTranslate(100,100,1);
-  ofRotate(ofGetElapsedTimeMillis()%360);
-  ofDrawRectangle(0, 0, 100, 100);
-  ofPopMatrix();
+//  ofPushMatrix();
+//  ofTranslate(100,100,1);
+//  ofRotate(ofGetElapsedTimeMillis()%360);
+//  ofDrawRectangle(0, 0, 100, 100);
+//  ofPopMatrix();
   PM.backGroundFbo.end();
   
   PM.backGroundFbo.draw(0,0);
@@ -400,10 +400,6 @@ void PMx::_drawShaderField(){
   PM.currentTime = ofGetElapsedTimef();
   PM.time = PM.currentTime - PM.startTime;
   
-//  ofPushStyle();
-//  ofSetColor(255, 255, 255);
-//    ofDrawRectangle(0, 0, screen_height_total, screen_width_total);
-//  ofPopStyle();
   PM.fieldShader.begin();
   PM.fieldShader.setUniform1f("time", PM.time);
   PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height_total, screen_width_total));

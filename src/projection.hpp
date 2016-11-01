@@ -246,7 +246,7 @@ public:
   
   bool bConfShade1 = false;
   bool bconfShade2 = false;
-  bool bShowFieldFrame = true;
+  bool bShowFieldFrame = false;
   double camAngle;
   int projectorHeight;
   int shadeWidth1 = 0;
