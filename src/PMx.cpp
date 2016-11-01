@@ -20,7 +20,7 @@ void PMx::setup() {
   PM.fieldShader.load("test.vert", "water.frag");
   
   /* load font */
-  for (int i = 1; i < 50; i++){
+  for (int i = 1; i < 51; i++){
     PM.font[i].load("Arial.ttf",i);
   }
   
@@ -220,27 +220,21 @@ void PMx::keyPressed(int key) {
 }
 
 void PMx::drawField() {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawField();
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawField();
-  PM.cam[1].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawField();
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawFieldTexture() {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawFieldTexture();
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawFieldTexture();
-  PM.cam[1].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawFieldTexture();
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawShaderField(){
@@ -254,121 +248,65 @@ void PMx::drawShaderField(){
 }
 
 void PMx::drawPO(int _id, int state) {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawPO(_id, state);
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawPO(_id, state);
-  PM.cam[1].end();
-  
-  // screen 3
-  PM.cam[2].begin(PM.viewPort[2]);
-  _drawPO(_id, state);
-  PM.cam[2].end();
-  
-  // screen 4
-  PM.cam[3].begin(PM.viewPort[3]);
-  _drawPO(_id, state);
-  PM.cam[3].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawPO(_id, state);
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawRobot(_x, _y, _theta, _data);
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawRobot(_x, _y, _theta, _data);
-  PM.cam[1].end();
-  
-  // screen 3
-  PM.cam[2].begin(PM.viewPort[2]);
-  _drawRobot(_x, _y, _theta, _data);
-  PM.cam[2].end();
-  
-  // screen 4
-  PM.cam[3].begin(PM.viewPort[3]);
-  _drawRobot(_x, _y, _theta, _data);
-  PM.cam[3].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawRobot(_x, _y, _theta, _data);
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, float _duration, float _time) {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawImg(_x, _y, _theta, _img, _duration, _time);
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawImg(_x, _y, _theta, _img, _duration, _time);
-  PM.cam[1].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawImg(_x, _y, _theta, _img, _duration, _time);
+    PM.cam[i].end();
+  }
 }
 
-/* when changes the texture size */
+/* when you want to change the texture size */
 void PMx::drawImg(double _x, double _y, double _theta, ofImage &_img, int _width, int _height, float _duration, float _time) {
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  _drawImg(_x, _y, _theta, _img, _width, _height, _duration, _time);
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawImg(_x, _y, _theta, _img, _width, _height, _duration, _time);
-  PM.cam[1].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawImg(_x, _y, _theta, _img, _width, _height, _duration, _time);
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawBullet(double _x, double _y, double _theta,ETeam team, float _duration, float _time){
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  ofPushMatrix();
-  ofTranslate(0, 0,5);
-  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
-  ofPopMatrix();
-  PM.cam[0].end();
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  ofPushMatrix();
-  ofTranslate(0, 0,5);
-  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
-  ofPopMatrix();
-  PM.cam[1].end();
-  
-  // screen 3
-  PM.cam[2].begin(PM.viewPort[2]);
-  ofPushMatrix();
-  ofTranslate(0, 0,5);
-  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
-  ofPopMatrix();
-  PM.cam[2].end();
-  
-  // screen 4
-  PM.cam[3].begin(PM.viewPort[3]);
-  ofPushMatrix();
-  ofTranslate(0, 0,5);
-  _drawBulletTexture(_y*scale, _x*scale, _theta, team);
-  ofPopMatrix();
-  PM.cam[3].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    ofPushMatrix();
+    ofTranslate(0, 0, 2);
+    _drawBulletTexture(_y*scale, _x*scale, _theta, team);
+    ofPopMatrix();
+    PM.cam[i].end();
+  }
 }
 
 void PMx::drawBullet(double _x, double _y, double _theta ,int _width, int _height, float _duration, float _time){
-  // screen 1
-  PM.cam[0].begin(PM.viewPort[0]);
-  ofTranslate(0, 0,10);
-  ofDrawCircle(500, 300, 30);
-  _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
-  ofTranslate(0, 0,-10);
-  PM.cam[0].end();
+
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    ofPushMatrix();
+    ofTranslate(0, 0, 2);
+    _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
+    ofPopMatrix();
+    PM.cam[i].end();
+  }
   
-  // screen 2
-  PM.cam[1].begin(PM.viewPort[1]);
-  _drawImg(_x, _y, _theta, PM.bulletImg, _width, _height, _duration, _time);
-  PM.cam[1].end();
 }
 
 /* initialize robot */
@@ -434,9 +372,10 @@ void PMx::_drawShaderField(){
   PM.currentTime = ofGetElapsedTimef();
   PM.time = PM.currentTime - PM.startTime;
   
-  ofPushStyle();
-  ofSetColor(255, 255, 255);
-  ofPopStyle();
+//  ofPushStyle();
+//  ofSetColor(255, 255, 255);
+//    ofDrawRectangle(0, 0, screen_height_total, screen_width_total);
+//  ofPopStyle();
   PM.fieldShader.begin();
   PM.fieldShader.setUniform1f("time", PM.time);
   PM.fieldShader.setUniform2f("resolution", ofVec2f(screen_height_total, screen_width_total));
@@ -453,13 +392,13 @@ void PMx::_drawShaderField(){
     ofPopStyle();
     ofPopMatrix();
   }
-  ofNoFill();
-  ofPushStyle();
-  ofSetColor(50, 50, 250);
+//  ofNoFill();
+//  ofPushStyle();
+//  ofSetColor(50, 50, 250);
 //  ofDrawRectangle(0,0,1,screen_height,screen_width);
 //  ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
-  ofPopStyle();
-  ofFill();
+//  ofPopStyle();
+//  ofFill();
 }
 
 void PMx::_drawPO(int _id, int state) {
@@ -486,7 +425,7 @@ void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, float dur
   ofEnableNormalizedTexCoords();
 }
 
-/* when changes the texture size */
+/* when you want to change the texture size */
 void PMx::_drawImg(double _x, double _y, double _theta, ofImage &_img, int _width, int _height ,float duration, float time) {
   ofDisableNormalizedTexCoords();
   if (duration == 0){
@@ -529,30 +468,38 @@ void PMx::drawText(string content, int x, int y, int size, ofColor textColor){
   if (size > 51){
     size = 50;
   }
-  PM.cam[0].begin();
-  ofPushMatrix();
-  ofPushStyle();
-  ofSetColor(textColor);
-  ofTranslate(0,0,132);
-  ofRotateZ(90);
-  PM.font[size].drawString(content, PM.viewPortPosition[0].x*0.5 - 105 + x*0.3, -PM.viewPortPosition[0].y*0.5 - 50 - y*0.3);
-  PM.font[size].drawString(content, 200, 200);
-  ofPopStyle();
-  ofPopMatrix();
-  PM.cam[0].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+      ofPushMatrix();
+      ofPushStyle();
+      ofSetColor(textColor);
+      ofTranslate(PM.viewPortPosition[0].y + x, PM.viewPortPosition[0].x + y,112); //using z-index like layers
+      ofRotateZ(90);
+      PM.font[size].drawString(content, 0, 0);
+
+      ofPopStyle();
+      ofPopMatrix();
+    PM.cam[i].end();
+  }
   
 }
 
 void PMx::drawTextField(ofColor bgColor){
-  PM.cam[0].begin();
-  ofPushMatrix();
-  ofPushStyle();
-  ofTranslate(0,0,130);
-  ofSetColor(bgColor);
-  ofFill();
-  ofDrawRectangle(-300,-300,768*2.5,1500);
-  ofPopStyle();
-  ofPopMatrix();
-  PM.cam[0].end();
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    ofPushMatrix();
+    ofPushStyle();
+    ofTranslate(0,0,111);
+    ofNoFill();
+    glLineWidth(5);
+    ofSetColor(150,150,150);
+    ofDrawRectangle(50,50,screen_height_total-100,screen_width_total-100);
+    ofFill();
+    ofSetColor(bgColor);
+    ofDrawRectangle(50,50,screen_height_total-100,screen_width_total-100);  //今は暗くしているだけ、fboで作っておけばもっとリッチにできる
+    ofPopStyle();
+    ofPopMatrix();
+    PM.cam[i].end();
+  }
 }
 

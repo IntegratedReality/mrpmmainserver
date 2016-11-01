@@ -142,23 +142,28 @@ void MRPMMainManager::draw() {
   //    vWllMgr.draw();
   //    itmMgr.draw();
   blltMgr.draw();
+//  pmx->drawText("MRPM", 200, 100, 50, ofColor(220, 120, 0, 200));
   
   if (mode == EMode::RESULT) {
     pmx->drawTextField();
     switch (judge.getWinner()) {
       case TEAM_A:
-        pmx->drawText("WIN", 1500, 700, 49, ofColor(255, 120, 0, 200));
+        pmx->drawText("WIN", 100, 300, 49, ofColor(255, 120, 0, 200));
         break;
       case TEAM_B:
-        pmx->drawText("LOSE", 1500, 700, 49, ofColor(0, 120, 255, 200));
+        pmx->drawText("LOSE", 100, 300, 49, ofColor(0, 120, 255, 200));
         break;
       case NEUTRAL:
-        pmx->drawText("DRAW", 1500, 700, 49, ofColor(0, 120, 0, 200));
+        pmx->drawText("DRAW", 100, 300, 49, ofColor(0, 120, 0, 200));
         break;
     }
   } else if (mode == EMode::STANDBY) {
-//    pmx->drawTextField();
-//    pmx->drawText("MRPM", 1500, 700, 49, ofColor(220, 120, 0, 200));
+    pmx->drawTextField();
+    pmx->drawText("MRPM", 300, 150, 50, ofColor(220, 120, 0, 200));
+    pmx->drawText("Multi", 400, 180, 30, ofColor(220, 120, 0, 200));
+    pmx->drawText("Robots with", 450, 180, 30, ofColor(220, 120, 0, 200));
+    pmx->drawText("Projection", 500, 180, 30, ofColor(220, 120, 0, 200));
+    pmx->drawText("Mapping", 550, 180, 30, ofColor(220, 120, 0, 200));
   }
   
   //added by sakabe
