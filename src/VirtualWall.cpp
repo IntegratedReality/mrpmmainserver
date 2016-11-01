@@ -7,9 +7,10 @@ void VirtualWall::init(int _id) {
   PM = PMx::getInstance();
   
   type = VIRTUAL_WALL;
-  h = 50, w = 600;
-  if (_id == 0) y = 500, x = 1000;
-  else if (_id == 1) x = WIDTH_OF_FIELD - 1000 - w, y = HEIGHT_OF_FIELD - 500 - h;
+  h = 50, w = 300;
+//  if (_id == 0) y = 500, x = 1000;
+  if (_id == 0) y = 300, x = 400;
+  else if (_id == 1) x = 400-w, y = 900;
   b2dRect.setPhysics(3.0, 0.53, 0.1);
   this->b2dRect.fixture.isSensor = true; // 衝突検知のみを行う
   this->b2dRect.setup(SysBox2D::getInstance()->getWorld(), x + w / 2, y + h / 2, w, h);
@@ -22,9 +23,12 @@ void VirtualWall::update() {
 }
 
 void VirtualWall::draw() {
-  ofSetColor(255, 255, 255, 100);
-  ofDrawRectangle(x * SCALE, y * SCALE, w * SCALE, h * SCALE);
-  ofSetColor(255, 255, 255, 255);
+  if(sim){
+    ofPushStyle();
+    ofSetColor(255, 255, 255, 100);
+    ofDrawRectangle(x * SCALE, y * SCALE, w * SCALE, h * SCALE);
+    ofPopStyle();
+  }
   
   ofPushStyle();
   ofSetColor(0,0,0,140);

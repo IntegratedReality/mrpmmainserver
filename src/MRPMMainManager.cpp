@@ -22,7 +22,7 @@ void MRPMMainManager::init() {
   sysPObjMgr.init();
   time = 0;
   //   itmMgr.init();
-  //    vWllMgr.init();
+//      vWllMgr.init();
   blltMgr.init();
   sndMgr.init();
   judge.init();
@@ -67,7 +67,7 @@ void MRPMMainManager::update() {
     
     sysRbtMgr.update();
     sysPObjMgr.update();
-    //       vWllMgr.update();
+//           vWllMgr.update();
     //      itmMgr.update();
     blltMgr.update();
     sndMgr.update();
@@ -139,10 +139,9 @@ void MRPMMainManager::draw() {
   pmx->drawShaderField();
   sysRbtMgr.draw();
   sysPObjMgr.draw();
-  //    vWllMgr.draw();
+//      vWllMgr.draw();
   //    itmMgr.draw();
   blltMgr.draw();
-//  pmx->drawText("MRPM", 200, 100, 50, ofColor(220, 120, 0, 200));
   
   if (mode == EMode::RESULT) {
     pmx->drawTextField();

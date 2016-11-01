@@ -350,14 +350,12 @@ void PMx::drawVWall(int x, int y, int w, int h){
   
   for (int i = 0; i < 4; i++){
     PM.cam[i].begin(PM.viewPort[i]);
-    ofPopStyle();
     ofFill();
-    ofDrawRectangle(y, x, w, h);
+    ofDrawRectangle(y, x, 1, h, w);
     ofNoFill();
     PM.cam[i].end();
   }
-  
-  ofSetColor(255, 255, 255);
+
 }
 
 
