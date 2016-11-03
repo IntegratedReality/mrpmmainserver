@@ -21,6 +21,12 @@ void addArg<std::string&>(ofxOscMessage& _m, std::string& _arg){
   _m.addStringArg(_arg);
 }
 
+template <typename T>
+void addArg(ofxOscMessage& _m, std::string&& _key, T _arg){
+  addArg(_m, _key);
+  addArg(_m, _arg);
+}
+
 
 void MRPMMainSender::init() {
   sendersToRobots.reserve(hostsConfig::NUM_OF_ROBOT);
@@ -95,18 +101,32 @@ void MRPMMainSender::sendToCtrlrsEnd(){
 void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
   
   ofxOscMessage m;
-  m.setAddress("/main/toCtrlr/bullets");
-  size_t bulletsNum = _p.positionsVec.size();
+  m.setAddress("/main/toCtrlr/sync");
   
-  //int 弾のカウント,
-  //double 位置x, 位置y, 速度x, 速度y, ....
-  addArg(m, static_cast<int>(bulletsNum));
-  for(size_t i = 0; i<bulletsNum; ++i){
-    addArg(m, _p.positionsVec[i].x);
-    addArg(m, _p.positionsVec[i].y);
-    addArg(m, _p.velocitiesVec[i].x);
-    addArg(m, _p.velocitiesVec[i].y);
+  auto& p = _p.robsPos;
+  for(int i=0; i<p.size(); ++i){
+    //"00/x"
+    addArg(m, ofToString(i)+"0/x", p[i].x);
+    addArg(m, ofToString(i)+"0/y", p[i].y);
+    addArg(m, ofToString(i)+"0/rot", p[i].theta);
   }
+  
+  
+  {
+    auto& b = _p.bulletsPos;
+    static std::vector<int> counts(hostsConfig::NUM_OF_ROBOT);
+    for(auto& c:counts){c=0;}
+    for(auto& e: b){
+      const string token = ofToString(e.second)
+      +ofToString(++counts[e.second]);
+      addArg(m, token+"/x", e.first.x);
+      addArg(m, token+"/y", e.first.y);
+      addArg(m, token+"/rot", e.first.theta);
+    }
+  }
+  
+  addArg(m, "90/time", _p.timeSec);
+  addArg(m, "90/score", _p.score);
   
   //全Ctrlrに送信
   for(auto& s: sendersToCtrlrs){

@@ -80,8 +80,10 @@ void MRPMMainManager::update() {
     //send to ctrlrs
     {
       static MRPMPackMainToCtrlr pack;
-      pack.positionsVec = blltMgr.getPositionsVec();
-      pack.velocitiesVec = blltMgr.getVelocitiesVec();
+      pack.robsPos = sysRbtMgr.getPosVec();
+      pack.bulletsPos = blltMgr.getPositionsVec();
+      pack.timeSec = static_cast<int>(timer->getTime()/1000);
+      pack.score = judge.getScore(TEAM_A);
       mainSndr.sendToCtrlrsSync(pack);
     }
     
