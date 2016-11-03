@@ -82,7 +82,7 @@ void MRPMMainManager::update() {
       static MRPMPackMainToCtrlr pack;
       pack.positionsVec = blltMgr.getPositionsVec();
       pack.velocitiesVec = blltMgr.getVelocitiesVec();
-      mainSndr.sendToCtrlrs(pack);
+      mainSndr.sendToCtrlrsSync(pack);
     }
     
     //send to each robot

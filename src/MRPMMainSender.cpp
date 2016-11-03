@@ -70,7 +70,29 @@ void MRPMMainSender::sendToOneRobot
   sendersToRobots[_id].sendMessage(m);
 }
 
-void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr& _p){
+void MRPMMainSender::sendToCtrlrsStart(){
+  ofxOscMessage m;
+  m.setAddress("/main/toCtrlr/start");
+  addArg(m, true);
+  
+  //全Ctrlrに送信
+  for(auto& s: sendersToCtrlrs){
+    s.sendMessage(m);
+  }
+}
+
+void MRPMMainSender::sendToCtrlrsEnd(){
+  ofxOscMessage m;
+  m.setAddress("/main/toCtrlr/end");
+  addArg(m, true);
+  
+  //全Ctrlrに送信
+  for(auto& s: sendersToCtrlrs){
+    s.sendMessage(m);
+  }
+}
+
+void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
   
   ofxOscMessage m;
   m.setAddress("/main/toCtrlr/bullets");
