@@ -101,11 +101,12 @@ void SysRobot::update() {
       if (HP <= 0) {
         HP = 0;
         data.state = DEAD;
+        /*
         Position p = data.pos;
         for (int i = 0; i < 8; i++) {
           p.theta += M_PI / 4;
-          BulletManager::makeBullet(p, (ETeam)!team, true);
-        }
+          BulletManager::makeBullet(p, (ETeam)!team, 9, true);//所有者が決められないからとりあえず9にしときます
+        }*/
         break;
       }
       
@@ -116,7 +117,7 @@ void SysRobot::update() {
       // 弾の生成
       if (data.operation.shot && coolTime == 0 && energy >= ENG_TO_SHOT) {
         SoundManager::makeSE(SHOT);
-        BulletManager::makeBullet(data.pos, team);
+        BulletManager::makeBullet(data.pos, team, data.id);
         coolTime = TIME_SHOT_TO_SHOT;
         energy -= ENG_TO_SHOT;
       } else {

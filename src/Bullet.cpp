@@ -6,9 +6,10 @@
 #include <iostream>
 using namespace std;
 
-void Bullet::init(Position _pos, ETeam _team, bool _deathshot) {
+void Bullet::init(Position _pos, ETeam _team, int _shooterID, bool _deathshot) {
   type = BULLET;
   team = _team;
+  shooterID = _shooterID;
   damage = 50;
   deleteFlag = false;
   this->pos = _pos;
