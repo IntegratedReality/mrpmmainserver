@@ -26,9 +26,17 @@ constexpr int POINT_OBJ_2_X = WIDTH_OF_FIELD / 2 + WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 
 //projection
+
+//point object
 constexpr int diameter_po = 70.5;
 constexpr int height_bottom_po = 1;
 constexpr int height_top_po = 110;
+//robot
+constexpr int diameter_bottom_ro = 58.8;
+constexpr int diameter_top_ro = 35.3;
+constexpr int height_bottom_ro = 1;
+constexpr int height_top_ro = 61.8;   //size of the robot
+
 
 //in
 constexpr int PORT_MAINRCV = 8000;

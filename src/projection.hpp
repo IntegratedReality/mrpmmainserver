@@ -124,7 +124,7 @@ class robotModel{
   /* variables */
 public:
   //const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 58.8;   //size of the robot
-  const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 61.8;   //size of the robot
+  const int diameter_bottom = diameter_bottom_ro,diameter_top = diameter_top_ro,height_bottom = height_bottom_ro,height_top = height_top_ro;   //size of the robot
   ofVec2f centerPoint;
   ofMesh top_mesh,side_mesh;
   ofVbo top_vbo,side_vbo;
@@ -305,9 +305,13 @@ public:
     //---
     
     /* set point objects(x,y,theta) */
-    p_object[1].init(screen_height_total/4,screen_width_total/4, 2); //(x,y,theta)
-    p_object[0].init(screen_height_total/2,screen_width_total/2, 1);
-    p_object[2].init(screen_height_total*0.75,screen_width_total*0.75, 0.5);
+//    p_object[1].init(screen_height_total/4,screen_width_total/4, 2); //(x,y,theta)
+//    p_object[0].init(screen_height_total/2,screen_width_total/2, 1);
+//    p_object[2].init(screen_height_total*0.75,screen_width_total*0.75, 0.5);
+    p_object[1].init(POINT_OBJ_1_Y*scale,POINT_OBJ_1_X*scale, 0); //(x,y,theta)   values are defined in const.h
+    p_object[0].init(POINT_OBJ_0_Y*scale,POINT_OBJ_0_X*scale, 0);
+    p_object[2].init(POINT_OBJ_2_Y*scale,POINT_OBJ_2_X*scale, 0);
+
     
     bulletImg.setAnchorPercent(0.5, 0.5);   //中心で指定できるように
   }
