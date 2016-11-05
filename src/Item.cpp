@@ -23,7 +23,7 @@ void Item::update() {
 
 void Item::draw() {
   ofSetColor(0, 255, 0, 255);
-  ofDrawCircle(x * SCALE, y * SCALE, radius * SCALE);
+  ofDrawCircle(x * SCALE_SIM, y * SCALE_SIM, radius * SCALE_SIM);
   ofSetColor(255, 255, 255, 255);
 }
 

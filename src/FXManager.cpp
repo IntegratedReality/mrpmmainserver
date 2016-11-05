@@ -3,7 +3,6 @@
 std::vector<FX*> FXManager::FXs;
 
 void FXManager::init() {
-  
 }
 
 void FXManager::update() {

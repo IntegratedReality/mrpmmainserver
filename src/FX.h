@@ -21,5 +21,6 @@ private:
   ofImage img;
   Position pos;
   EFX FXType;
-  bool deleteFlag;
+  bool deleteFlag = false;
+  double size;
 };

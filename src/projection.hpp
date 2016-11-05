@@ -16,7 +16,6 @@
 #include "Const.h"
 #include <stdio.h>
 #include <array>
-#include <cmath>
 
 const double root3 = sqrt(3);
 /* screen size (default : WVGA) */
@@ -26,9 +25,9 @@ const int field_width = WIDTH_OF_FIELD;   //field size [mm]
 const int field_height = HEIGHT_OF_FIELD;
 const int screen_width = SCREEN_WIDTH;   //screen size of the projector [px]
 const int screen_height = SCREEN_HEIGHT;
-const double scale = screen_width/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 is a projection width[mm]
 const int screen_width_total = ceil(field_width*scale);
 const int screen_height_total = ceil(field_height*scale);
+//const double scale = screen_width/static_cast<double>(900);  //  moved to const.h
 
 /* set team color */
 const std::array<ofColor,3> teamColor = {
@@ -167,7 +166,7 @@ class pointObject{
   /* variables */
 public:
   //const int diameter = 68.5,height_bottom = 1,height_top = 76.4;     //size of the point object
-  const int diameter = 70.5,height_bottom = 1,height_top = 110;
+  const int diameter = diameter_po,height_bottom = height_bottom_po,height_top = height_top_po;
   
   ofVec2f centerPoint;
   float angle;

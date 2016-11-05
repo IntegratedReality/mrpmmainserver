@@ -2,5 +2,6 @@
 
 enum ESE {
   SHOT,
-  DAMAGE
+  DAMAGE,
+  COLLISION_SE
 };

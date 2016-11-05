@@ -26,7 +26,7 @@ void VirtualWall::draw() {
   if(sim){
     ofPushStyle();
     ofSetColor(255, 255, 255, 100);
-    ofDrawRectangle(x * SCALE, y * SCALE, w * SCALE, h * SCALE);
+    ofDrawRectangle(x * SCALE_SIM, y * SCALE_SIM, w * SCALE_SIM, h * SCALE_SIM);
     ofPopStyle();
   }
   

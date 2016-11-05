@@ -6,6 +6,7 @@
 #include "SysPointObjectManager.h"
 #include "BulletManager.h"
 #include "ItemManager.h"
+#include "FXManager.h"
 #include "VirtualWallManager.h"
 #include "SysBox2D.h"
 #include "CollisionListener.h"
@@ -35,6 +36,7 @@ private:
   SysPointObjectManager sysPObjMgr;
   ItemManager itmMgr;
   VirtualWallManager vWllMgr;
+  FXManager fxMgr;
   BulletManager blltMgr;
   CollisionListener collisionListener;
   SoundManager sndMgr;

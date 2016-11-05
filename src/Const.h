@@ -9,7 +9,9 @@ constexpr int WIDTH_OF_FIELD = 1600;
 constexpr int HEIGHT_OF_FIELD = 2400;
 constexpr int SCREEN_WIDTH = 480;   //screen size of the projector [px]
 constexpr int SCREEN_HEIGHT = 800;
-constexpr double SCALE = 0.25;
+constexpr double scale = SCREEN_WIDTH/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
+
+constexpr double SCALE_SIM = 0.25;
 
 constexpr int RADIUS_OF_ROBOT = 100;
 constexpr int MARGIN_OF_COLLISION = 30;
@@ -22,6 +24,11 @@ constexpr int POINT_OBJ_1_X = WIDTH_OF_FIELD / 2 - WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_1_Y = HEIGHT_OF_FIELD / 2 - HEIGHT_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_X = WIDTH_OF_FIELD / 2 + WIDTH_OF_FIELD / 4;
 constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
+
+//projection
+constexpr int diameter_po = 70.5;
+constexpr int height_bottom_po = 1;
+constexpr int height_top_po = 110;
 
 //in
 constexpr int PORT_MAINRCV = 8000;

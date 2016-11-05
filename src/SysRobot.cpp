@@ -1,10 +1,12 @@
 #include "ofApp.h"
 #include "SysRobot.h"
 #include "BulletManager.h"
+#include "Const.h"
+#include "FXManager.h"
 #include "SoundManager.h"
 #include "SysBox2D.h"
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 using namespace std;
 
@@ -135,7 +137,7 @@ void SysRobot::draw() {
   
   ofSetColor(255 * (data.team == TEAM_A), 0, 255 * (data.team == TEAM_B), 255);
   if (sim){
-    ofDrawLine(p.x * SCALE, p.y * SCALE, (p.x + r * cos(p.theta)) * SCALE, (p.y + r * sin(p.theta)) * SCALE);
+    ofDrawLine(p.x * SCALE_SIM, p.y * SCALE_SIM, (p.x + r * cos(p.theta)) * SCALE_SIM, (p.y + r * sin(p.theta)) * SCALE_SIM);
   }
   
   if (data.state == DEAD){
@@ -149,7 +151,7 @@ void SysRobot::draw() {
   }
   
   if (sim) {
-    ofDrawCircle(p.x * SCALE, p.y * SCALE, r * SCALE);
+    ofDrawCircle(p.x * SCALE_SIM, p.y * SCALE_SIM, r * SCALE_SIM);
   }
   
   ofSetColor(255, 255, 255, 255);
@@ -180,6 +182,12 @@ void SysRobot::collisionListner(CollisionObject *other) {
       data.item = (EItem)other->getValue();
       itemTime = 0;
       break;
-    default:;
+    case POINT_OBJ:
+      FXManager::makeFX(data.pos, COLLISION);
+      break;
+    case ROBOT:
+      break;
+    case VIRTUAL_WALL:
+      break;
   }
 }

@@ -23,6 +23,7 @@ void MRPMMainManager::init() {
   time = 0;
   //   itmMgr.init();
 //      vWllMgr.init();
+  fxMgr.init();
   blltMgr.init();
   sndMgr.init();
   judge.init();
@@ -69,6 +70,7 @@ void MRPMMainManager::update() {
     sysPObjMgr.update();
 //           vWllMgr.update();
     //      itmMgr.update();
+    fxMgr.update();
     blltMgr.update();
     sndMgr.update();
     judge.update();
@@ -141,6 +143,7 @@ void MRPMMainManager::draw() {
   sysPObjMgr.draw();
 //      vWllMgr.draw();
   //    itmMgr.draw();
+  fxMgr.draw();
   blltMgr.draw();
   
   if (mode == EMode::RESULT) {
@@ -157,15 +160,13 @@ void MRPMMainManager::draw() {
         break;
     }
   } else if (mode == EMode::STANDBY) {
-    /*
      //通信しないとモード遷移できないので、とりあえず文字は非表示にしておきます
-    pmx->drawTextField();
-    pmx->drawText("MRPM", 300, 150, 50, ofColor(220, 120, 0, 200));
-    pmx->drawText("Multi", 400, 180, 30, ofColor(220, 120, 0, 200));
-    pmx->drawText("Robots with", 450, 180, 30, ofColor(220, 120, 0, 200));
-    pmx->drawText("Projection", 500, 180, 30, ofColor(220, 120, 0, 200));
-    pmx->drawText("Mapping", 550, 180, 30, ofColor(220, 120, 0, 200));
-     */
+//    pmx->drawTextField();
+//    pmx->drawText("MRPM", 300, 150, 50, ofColor(220, 120, 0, 200));
+//    pmx->drawText("Multi", 400, 180, 30, ofColor(220, 120, 0, 200));
+//    pmx->drawText("Robots with", 450, 180, 30, ofColor(220, 120, 0, 200));
+//    pmx->drawText("Projection", 500, 180, 30, ofColor(220, 120, 0, 200));
+//    pmx->drawText("Mapping", 550, 180, 30, ofColor(220, 120, 0, 200));
   }
   
   //added by sakabe
@@ -178,6 +179,7 @@ void MRPMMainManager::keyPressed(int key) {
   switch (mode) {
     case EMode::STANDBY:
       if (key == OF_KEY_RETURN && mainRcvr.haveAllCtrlrsEntried()) {
+//      if (key == OF_KEY_RETURN) {
         mode = EMode::GAME;
         ofSetWindowTitle("GAME");
         sndMgr.startBGM();
@@ -185,6 +187,7 @@ void MRPMMainManager::keyPressed(int key) {
         sysRbtMgr.init();
         sysPObjMgr.init();
         blltMgr.init();
+        fxMgr.init();
         judge.start();
       }
       break;
@@ -198,6 +201,7 @@ void MRPMMainManager::keyPressed(int key) {
         sysRbtMgr.init();
         sysPObjMgr.init();
         blltMgr.init();
+        fxMgr.init();
         judge.end();
       } else if (key == OF_KEY_RETURN) {
         //mode = RESULT;
@@ -215,6 +219,7 @@ void MRPMMainManager::keyPressed(int key) {
         sysRbtMgr.init();
         sysPObjMgr.init();
         blltMgr.init();
+        fxMgr.init();
       }
       break;
   }

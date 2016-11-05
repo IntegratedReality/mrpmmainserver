@@ -9,5 +9,9 @@ public:
       CollisionObject *b = (CollisionObject*)contact->GetFixtureB()->GetBody()->GetUserData();
       a->collisionListner(b);
       b->collisionListner(a);
+      b2WorldManifold manif;
+      contact -> GetWorldManifold(&manif);
+      cout << contact->GetManifold()->points[0].localPoint.x <<", "<< contact->GetManifold()->points[0].localPoint.y << endl;
+      cout << manif.points[0].x << ", " << manif.points[0].y << endl;
     }
 };

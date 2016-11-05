@@ -46,7 +46,7 @@ void SysPointObject::draw() {
     ofSetColor(0, 0, 255, 255);
   }
   if (sim) {
-    ofDrawCircle(pos.x * SCALE, pos.y * SCALE, RADIUS_OF_POINT_OBJ * SCALE);
+    ofDrawCircle(pos.x * SCALE_SIM, pos.y * SCALE_SIM, RADIUS_OF_POINT_OBJ * SCALE_SIM);
   }
   
   ofSetColor(255, 255, 255, 255);
