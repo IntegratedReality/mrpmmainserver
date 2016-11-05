@@ -3,7 +3,8 @@
 void FX::init(Position _pos, EFX _FXType) {
 	pos = _pos;
 	FXType = _FXType;
-	img.load("fx.png");
+  
+  pmx = PMx::getInstance();
   
   switch (_FXType) {
     case HIT:
@@ -20,8 +21,8 @@ void FX::update() {
     case HIT:
         break;
     case COLLISION:
-      size +=2;
-      if (size >= 300){
+      size +=5;
+      if (size >= 100){
         deleteFlag = true;
       }
         break;
@@ -36,11 +37,7 @@ void FX::draw() {
     case HIT:
       break;
     case COLLISION:
-      ofPushStyle();
-      ofSetLineWidth(3);
-      ofSetColor(255, 200, 0);
-      ofDrawCircle(pos.x, pos.y, size);
-      ofPopStyle();
+      pmx->drawFX(ofVec2f(pos.y,pos.x), size, FXType);
       break;
     default:
       break;

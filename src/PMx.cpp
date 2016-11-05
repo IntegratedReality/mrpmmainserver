@@ -358,6 +358,15 @@ void PMx::drawVWall(int x, int y, int w, int h){
 
 }
 
+void PMx::drawFX(ofVec2f pos, double size, EFX FXType){
+  for (int i = 0; i < 4; i++){
+    PM.cam[i].begin(PM.viewPort[i]);
+    _drawFX(pos, size, FXType);
+    PM.cam[i].end();
+  }
+}
+
+//----------------------------------------------------------------------------
 
 void PMx::_drawField() {
   ofNoFill();
@@ -517,3 +526,6 @@ void PMx::_drawTextField(ofColor bgColor){
   ofPopMatrix();
 }
 
+void PMx::_drawFX(ofVec2f _pos,double size, EFX _FXType){
+  PM.fx.draw(_pos,size, _FXType);
+}

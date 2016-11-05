@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "Position.h"
 #include "EFX.h"
+#include "Const.h"
+#include "PMx.h"
 
 // このクラスで色々なエフェクトを実装する
 // 今後各エフェクト毎に派生クラスを作る構造にするかも
@@ -18,9 +20,10 @@ public:
   void draw();
   bool getDeleteFlag();
 private:
-  ofImage img;
   Position pos;
   EFX FXType;
   bool deleteFlag = false;
   double size;
+  
+  PMx *pmx;
 };

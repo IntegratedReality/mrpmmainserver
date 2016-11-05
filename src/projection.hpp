@@ -13,6 +13,7 @@
 #include "RobotData.h"
 #include "EState.h"
 #include "ETeam.h"
+#include "EFX.h"
 #include "Const.h"
 #include <stdio.h>
 #include <array>
@@ -108,18 +109,6 @@ public:
   }
 };
 
-class virtualWall{
-  
-public:
-  void draw();
-  void init();
-  
-  virtualWall(){
-    
-  }
-  
-};
-
 class robotModel{
   /* variables */
 public:
@@ -207,6 +196,24 @@ public:
   }
 };
 
+class virtualWall{
+public:
+  void draw();
+  void init();
+  
+  virtualWall(){
+    
+  }
+};
+
+class FXClass{
+public:
+  void draw(ofVec2f pos,double size, EFX FXType);
+  FXClass(){
+    
+  }
+};
+
 class PMClass{
 public:  
   /* texture, effects */
@@ -225,6 +232,7 @@ public:
   std::array<robotModel,6> robot;
   
   /* effect, bullet */
+  FXClass fx;
   bullets bullet;
   ofImage bulletImg;  //ここに置く？
   

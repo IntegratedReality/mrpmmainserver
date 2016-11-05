@@ -135,7 +135,8 @@ void pointObject::init(int x, int y, float theta){
   
   vbo.setMesh(mesh,GL_STREAM_DRAW);
 }
-// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+//---------------------------------------------------------------------------
+
 void virtualWall::init(){
   //    mesh[0].addVertex(ofVec3f(500,1000,0));
   //    mesh[0].addVertex(ofVec3f(550,1000,0));
@@ -146,7 +147,28 @@ void virtualWall::init(){
 void virtualWall::draw(){
 }
 
-// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+//---------------------------------------------------------------------------
+void FXClass::draw(ofVec2f pos,double size, EFX FXType){
+  switch (FXType) {
+    case HIT:
+      break;
+    case COLLISION:
+      ofPushMatrix();
+      ofPushStyle();
+      ofSetLineWidth(3);
+      ofSetColor(255, 200, 0);
+      ofTranslate(pos.x*scale, pos.y*scale, 2);
+      ofDrawCircle(0, 0, size);
+      ofPopStyle();
+      ofPopMatrix();
+      break;
+  }
+}
+
+
+
+//---------------------------------------------------------------------------
+
 
 void robotModel::draw(int x, int y, float theta, const RobotData *data){
   if (currentState != data->state){
