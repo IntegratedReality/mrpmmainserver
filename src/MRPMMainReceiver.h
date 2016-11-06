@@ -13,6 +13,7 @@ public:
     
     void resetAckReceived();
     bool haveAllCtrlrsEntried();
+    std::vector<bool> getAckReceivedVec();
 private:
     ofxOscReceiver receiver;
     std::vector<RobotData> data;

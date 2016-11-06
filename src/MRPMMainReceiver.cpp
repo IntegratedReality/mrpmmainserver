@@ -19,6 +19,10 @@ bool MRPMMainReceiver::haveAllCtrlrsEntried(){
    [](bool a){return a;});
 }
 
+std::vector<bool> MRPMMainReceiver::getAckReceivedVec(){
+  return ackReceived;
+}
+
 void MRPMMainReceiver::init() {
   
   data.resize(hostsConfig::NUM_OF_ROBOT);
