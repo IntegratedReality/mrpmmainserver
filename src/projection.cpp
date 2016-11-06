@@ -153,14 +153,14 @@ void FXClass::draw(ofVec2f pos,double size, EFX FXType){
     case HIT:
       break;
     case COLLISION:
-      ofPushMatrix();
-      ofPushStyle();
-      ofSetLineWidth(3);
-      ofSetColor(255, 200, 0);
-      ofTranslate(pos.x*scale, pos.y*scale, 2);
-      ofDrawCircle(0, 0, size);
-      ofPopStyle();
-      ofPopMatrix();
+//      ofPushMatrix();
+//      ofPushStyle();
+//      ofSetLineWidth(3);
+//      ofSetColor(255, 200, 0);
+//      ofTranslate(pos.x*scale, pos.y*scale, 2);
+//      ofDrawCircle(0, 0, size);
+//      ofPopStyle();
+//      ofPopMatrix();
       break;
   }
 }
