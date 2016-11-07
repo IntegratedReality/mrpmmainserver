@@ -16,4 +16,5 @@ struct RobotData {
 	long time;
 	double HP;
 	double EN;
+  double toRespawn;
 };

@@ -79,9 +79,11 @@ void SysRobot::update() {
   switch (data.state) {
     case DEAD:
       deadTime += timer->getDiff();
+      data.toRespawn = (TIME_DEAD_TO_RECOVERY-deadTime)/ofGetFrameRate();
       if (deadTime >= TIME_DEAD_TO_RECOVERY) {
         data.state = RECOVERY;
         deadTime = 0;
+        data.toRespawn = 0.0;
         HP = MAX_HP;
         coolTime = 0;
         thermo = 0;
@@ -125,6 +127,7 @@ void SysRobot::update() {
         if (energy < 100) energy = min(100., energy + timer->getDiff() * GAIN_ENG_KAIHUKU);
       }
       
+      data.toRespawn = 0.0;
       break;
     default:;
   }

@@ -103,12 +103,19 @@ void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
   ofxOscMessage m;
   m.setAddress("/main/toCtrlr/sync");
   
-  auto& p = _p.robsPos;
+  auto& p = _p.robsData;
   for(int i=0; i<p.size(); ++i){
-    //"00/x"
-    addArg(m, ofToString(i)+"0/x", p[i].x);
-    addArg(m, ofToString(i)+"0/y", p[i].y);
-    addArg(m, ofToString(i)+"0/rot", p[i].theta);
+    //key "00"
+    addArg(m, ofToString(i)+"0");
+    //value "(x)/(y)/..."
+    addArg(m,
+           ofToString(p[i].pos.x)+"/"+
+           ofToString(p[i].pos.y)+"/"+
+           ofToString(p[i].pos.theta)+"/"+
+           ofToString(p[i].toRespawn)+"/"+
+           ofToString(p[i].HP)+"/"+
+           ofToString(p[i].EN)
+           );
   }
   
   
@@ -117,16 +124,23 @@ void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
     static std::vector<int> counts(hostsConfig::NUM_OF_ROBOT);
     for(auto& c:counts){c=0;}
     for(auto& e: b){
-      const string token = ofToString(e.second)
-      +ofToString(++counts[e.second]);
-      addArg(m, token+"/x", e.first.x);
-      addArg(m, token+"/y", e.first.y);
-      addArg(m, token+"/rot", e.first.theta);
+      //key "01"
+      addArg(m, ofToString(e.second)
+             +ofToString(++counts[e.second]));
+      //value "(x)/(y)/(rot)"
+      addArg(m,
+             ofToString(e.first.x)+"/"+
+             ofToString(e.first.y)+"/"+
+             ofToString(e.first.theta)
+             );
     }
   }
   
-  addArg(m, "90/time", _p.timeSec);
-  addArg(m, "90/score", _p.score);
+  addArg(m, "90");
+  addArg(m,
+         ofToString(_p.timeSec)+"/"+
+         ofToString(_p.score)
+         );
   
   //全Ctrlrに送信
   for(auto& s: sendersToCtrlrs){

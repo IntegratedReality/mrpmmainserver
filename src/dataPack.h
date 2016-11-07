@@ -20,7 +20,7 @@ struct MRPMPackMainToRobot {
 };
 
 struct MRPMPackMainToCtrlr{
-  std::vector<Position> robsPos;
+  std::vector<RobotData> robsData;
   std::vector<std::pair<Position, int>> bulletsPos;
   int timeSec;
   int score;

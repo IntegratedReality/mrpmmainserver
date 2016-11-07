@@ -80,7 +80,7 @@ void MRPMMainManager::update() {
     //send to ctrlrs
     {
       static MRPMPackMainToCtrlr pack;
-      pack.robsPos = sysRbtMgr.getPosVec();
+      pack.robsData = sysRbtMgr.getRobotDataVec();
       pack.bulletsPos = blltMgr.getPositionsVec();
       pack.timeSec = static_cast<int>(timer->getTime()/1000);
       pack.score = judge.getScore(TEAM_A);

@@ -13,7 +13,8 @@ public:
     void setPos(int _id, Position _pos);
     void setShot(int _id, bool _shot);
     RobotData getData(int _id);
-    std::vector<Position> getPosVec();
+    std::vector<RobotData> getRobotDataVec();
+  std::vector<Position> getPosVec();
 private:
     std::vector<SysRobot> sysRobots;
 };
