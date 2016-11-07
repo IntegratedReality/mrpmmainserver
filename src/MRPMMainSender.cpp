@@ -21,6 +21,12 @@ void addArg<std::string&>(ofxOscMessage& _m, std::string& _arg){
   _m.addStringArg(_arg);
 }
 
+template <typename T>
+void addArg(ofxOscMessage& _m, std::string&& _key, T _arg){
+  addArg(_m, _key);
+  addArg(_m, _arg);
+}
+
 
 void MRPMMainSender::init() {
   sendersToRobots.reserve(hostsConfig::NUM_OF_ROBOT);
@@ -70,21 +76,73 @@ void MRPMMainSender::sendToOneRobot
   sendersToRobots[_id].sendMessage(m);
 }
 
-void MRPMMainSender::sendToCtrlrs(MRPMPackMainToCtrlr& _p){
+void MRPMMainSender::sendToCtrlrsStart(){
+  ofxOscMessage m;
+  m.setAddress("/main/toCtrlr/start");
+  addArg(m, true);
+  
+  //全Ctrlrに送信
+  for(auto& s: sendersToCtrlrs){
+    s.sendMessage(m);
+  }
+}
+
+void MRPMMainSender::sendToCtrlrsEnd(){
+  ofxOscMessage m;
+  m.setAddress("/main/toCtrlr/end");
+  addArg(m, true);
+  
+  //全Ctrlrに送信
+  for(auto& s: sendersToCtrlrs){
+    s.sendMessage(m);
+  }
+}
+
+void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
   
   ofxOscMessage m;
-  m.setAddress("/main/toCtrlr/bullets");
-  size_t bulletsNum = _p.positionsVec.size();
+  m.setAddress("/main/toCtrlr/sync");
   
-  //int 弾のカウント,
-  //double 位置x, 位置y, 速度x, 速度y, ....
-  addArg(m, static_cast<int>(bulletsNum));
-  for(size_t i = 0; i<bulletsNum; ++i){
-    addArg(m, _p.positionsVec[i].x);
-    addArg(m, _p.positionsVec[i].y);
-    addArg(m, _p.velocitiesVec[i].x);
-    addArg(m, _p.velocitiesVec[i].y);
+  auto& p = _p.robsData;
+  for(int i=0; i<p.size(); ++i){
+    //key "00" for each robot
+    addArg(m, ofToString(i)+"0");
+    //value "(x)/(y)/..."
+    addArg(m,
+           ofToString(p[i].pos.x)+"/"+
+           ofToString(p[i].pos.y)+"/"+
+           ofToString(p[i].pos.theta)+"/"+
+           ofToString(p[i].toRespawn)+"/"+
+           ofToString(p[i].HP)+"/"+
+           ofToString(p[i].EN)
+           );
   }
+  
+  
+  {
+    auto& b = _p.bulletsPos;
+    static std::vector<int> counts(hostsConfig::NUM_OF_ROBOT);
+    for(auto& c:counts){c=0;}
+    for(auto& e: b){
+      //key "01" for each bullet
+      addArg(m, ofToString(e.second)
+             +ofToString(++counts[e.second]));
+      //value "(x)/(y)/(rot)"
+      addArg(m,
+             ofToString(e.first.x)+"/"+
+             ofToString(e.first.y)+"/"+
+             ofToString(e.first.theta)
+             );
+    }
+  }
+  
+  //common data key"90"
+  addArg(m, "90");
+  //value "(time)/(score)"
+  addArg(m,
+         ofToString(_p.timeSec)+"/"+
+         ofToString(_p.score)
+         );
   
   //全Ctrlrに送信
   for(auto& s: sendersToCtrlrs){

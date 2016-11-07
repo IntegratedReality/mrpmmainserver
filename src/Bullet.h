@@ -8,7 +8,7 @@
 
 class Bullet : public CollisionObject{
 public:
-    void init(Position _pos, ETeam _team, bool _deathshot = false);
+    void init(Position _pos, ETeam _team, int _shooterID, bool _deathshot = false);
     void update();
     void draw();
     bool getDeleteFlag();
@@ -23,7 +23,11 @@ public:
     inline ofVec2f getVelocity(){
         return vel;
     }
+    inline int getShooterID(){
+        return shooterID;
+    }
 private:
+    int shooterID;
     PMx *PM;
     int radius;
     int count;

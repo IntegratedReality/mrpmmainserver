@@ -20,8 +20,10 @@ struct MRPMPackMainToRobot {
 };
 
 struct MRPMPackMainToCtrlr{
-  std::vector<Position> positionsVec;
-  std::vector<ofVec2f> velocitiesVec;
+  std::vector<RobotData> robsData;
+  std::vector<std::pair<Position, int>> bulletsPos;
+  int timeSec;
+  int score;
 };
 
 struct MRPMPackMainToAI{

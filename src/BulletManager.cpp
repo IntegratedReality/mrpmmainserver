@@ -34,11 +34,11 @@ void BulletManager::draw() {
 
 std::vector<unique_ptr<Bullet>> BulletManager::bullets;
 
-std::vector<Position> BulletManager::getPositionsVec(){
-  std::vector<Position> vec;
+std::vector<std::pair<Position, int>> BulletManager::getPositionsVec(){
+  std::vector<std::pair<Position, int>> vec;
   vec.reserve(bullets.size());
   for(auto& e:bullets){
-    vec.emplace_back(e->getPosition());
+      vec.emplace_back(e->getPosition(), e->getShooterID());
   }
   return vec;
 }
@@ -52,10 +52,10 @@ std::vector<ofVec2f> BulletManager::getVelocitiesVec(){
   return vec;
 }
 
-void BulletManager::makeBullet(Position _pos, ETeam _team, bool _deathshot) {
+void BulletManager::makeBullet(Position _pos, ETeam _team, int _shooterID, bool _deathshot) {
   Bullet *bullet = new Bullet();
   _pos.x += (RADIUS_OF_POINT_OBJ + 10) * cos(_pos.theta);
   _pos.y += (RADIUS_OF_POINT_OBJ + 10) * sin(_pos.theta);
-  bullet->init(_pos, _team, _deathshot);
+  bullet->init(_pos, _team, _shooterID, _deathshot);
   BulletManager::bullets.emplace_back(bullet);
 }

@@ -81,9 +81,11 @@ void SysRobot::update() {
   switch (data.state) {
     case DEAD:
       deadTime += timer->getDiff();
+      data.toRespawn = (TIME_DEAD_TO_RECOVERY-deadTime)/ofGetFrameRate();
       if (deadTime >= TIME_DEAD_TO_RECOVERY) {
         data.state = RECOVERY;
         deadTime = 0;
+        data.toRespawn = 0.0;
         HP = MAX_HP;
         coolTime = 0;
         thermo = 0;
@@ -103,11 +105,12 @@ void SysRobot::update() {
       if (HP <= 0) {
         HP = 0;
         data.state = DEAD;
+        /*
         Position p = data.pos;
         for (int i = 0; i < 8; i++) {
           p.theta += M_PI / 4;
-          BulletManager::makeBullet(p, (ETeam)!team, true);
-        }
+          BulletManager::makeBullet(p, (ETeam)!team, 9, true);//所有者が決められないからとりあえず9にしときます
+        }*/
         break;
       }
       
@@ -118,7 +121,7 @@ void SysRobot::update() {
       // 弾の生成
       if (data.operation.shot && coolTime == 0 && energy >= ENG_TO_SHOT) {
         SoundManager::makeSE(SHOT);
-        BulletManager::makeBullet(data.pos, team);
+        BulletManager::makeBullet(data.pos, team, data.id);
         coolTime = TIME_SHOT_TO_SHOT;
         energy -= ENG_TO_SHOT;
       } else {
@@ -126,6 +129,7 @@ void SysRobot::update() {
         if (energy < 100) energy = min(100., energy + timer->getDiff() * GAIN_ENG_KAIHUKU);
       }
       
+      data.toRespawn = 0.0;
       break;
     default:;
   }

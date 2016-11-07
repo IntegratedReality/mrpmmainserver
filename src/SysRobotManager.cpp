@@ -32,10 +32,18 @@ RobotData SysRobotManager::getData(int _id) {
   return sysRobots[_id].getData();
 }
 
-std::vector<Position> SysRobotManager::getPosVec(){
-  std::vector<Position> vec;
+std::vector<RobotData> SysRobotManager::getRobotDataVec(){
+  std::vector<RobotData> vec;
   for(auto& e:sysRobots){
-    vec.push_back(e.getData().pos);
+    vec.push_back(e.getData());
   }
   return vec;
+}
+
+std::vector<Position> SysRobotManager::getPosVec(){
+    std::vector<Position> vec;
+    for(auto& e:sysRobots){
+        vec.push_back(e.getData().pos);
+    }
+    return vec;
 }

@@ -82,9 +82,11 @@ void MRPMMainManager::update() {
     //send to ctrlrs
     {
       static MRPMPackMainToCtrlr pack;
-      pack.positionsVec = blltMgr.getPositionsVec();
-      pack.velocitiesVec = blltMgr.getVelocitiesVec();
-      mainSndr.sendToCtrlrs(pack);
+      pack.robsData = sysRbtMgr.getRobotDataVec();
+      pack.bulletsPos = blltMgr.getPositionsVec();
+      pack.timeSec = static_cast<int>(timer->getTime()/1000);
+      pack.score = judge.getScore(TEAM_A);
+      mainSndr.sendToCtrlrsSync(pack);
     }
     
     //send to each robot
