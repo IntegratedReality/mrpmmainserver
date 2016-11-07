@@ -16,7 +16,7 @@ void ofApp::setup() {
   manager.init();
 }
 
-//--------------------------------------------------------------
+//----------------------------------f----------------------------
 void ofApp::update() {
   manager.update();
 }
@@ -31,6 +31,9 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+  if (key == 'q') {
+    ofExit();
+  }
   pmx->keyPressed(key);
 }
 
