@@ -105,7 +105,7 @@ void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
   
   auto& p = _p.robsData;
   for(int i=0; i<p.size(); ++i){
-    //key "00"
+    //key "00" for each robot
     addArg(m, ofToString(i)+"0");
     //value "(x)/(y)/..."
     addArg(m,
@@ -124,7 +124,7 @@ void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
     static std::vector<int> counts(hostsConfig::NUM_OF_ROBOT);
     for(auto& c:counts){c=0;}
     for(auto& e: b){
-      //key "01"
+      //key "01" for each bullet
       addArg(m, ofToString(e.second)
              +ofToString(++counts[e.second]));
       //value "(x)/(y)/(rot)"
@@ -136,7 +136,9 @@ void MRPMMainSender::sendToCtrlrsSync(MRPMPackMainToCtrlr& _p){
     }
   }
   
+  //common data key"90"
   addArg(m, "90");
+  //value "(time)/(score)"
   addArg(m,
          ofToString(_p.timeSec)+"/"+
          ofToString(_p.score)
