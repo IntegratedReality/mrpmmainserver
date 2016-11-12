@@ -208,9 +208,8 @@ public:
 
 class FXClass{
 public:
-  void draw(ofVec2f pos,double size, EFX FXType);
+  void draw(ofVec2f pos,double size, double maxSize,EFX FXType);
   FXClass(){
-    
   }
 };
 

@@ -5,6 +5,7 @@
 #include "CollisionObject.h"
 #include "Timer.h"
 #include "PMx.h"
+#include "FXManager.h"
 
 class Bullet : public CollisionObject{
 public:

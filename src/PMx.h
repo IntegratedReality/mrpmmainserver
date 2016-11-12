@@ -28,7 +28,7 @@ public:
     void drawText(string content,int x,int y,int size = 24, ofColor textColor=ofColor(255,255,255));
     void drawTextField(ofColor bgColor=ofColor(0,0,0,200));
     void drawVWall(int x1,int y1, int w, int h);
-    void drawFX(ofVec2f pos,double size , EFX FXType);
+    void drawFX(ofVec2f pos,double size, double maxSize, EFX FXType);
     
     inline void drawLatticeIfNeeded(){
         pjlattice.draw();
@@ -49,5 +49,5 @@ private:
     void _drawImg(double _x, double _y, double _theta, ofImage &_img, int width, int height, float duration, float time);
     void _drawText(string content,int x,int y,int size, ofColor textColor);
     void _drawTextField(ofColor bgColor);
-    void _drawFX(ofVec2f _pos,double size , EFX _FXType);
+    void _drawFX(ofVec2f _pos,double size, double maxSize, EFX _FXType);
 };

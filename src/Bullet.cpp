@@ -66,19 +66,25 @@ bool Bullet::getDeleteFlag() {
 void Bullet::collisionListner(CollisionObject *other) {
   switch (other->getType()) {
     case ROBOT:
+      FXManager::makeFX(pos, HIT);
       deleteFlag = true;
       break;
     case POINT_OBJ:
+      FXManager::makeFX(pos, HIT);
       deleteFlag = true;
       break;
     case VIRTUAL_WALL:
+      FXManager::makeFX(pos, HIT);
       deleteFlag = true;
       break;
     case BULLET:
-      if (team != other->getTeam()) deleteFlag = true;
+      if (team != other->getTeam()){
+        FXManager::makeFX(pos, HIT);
+        deleteFlag = true;
+      }
       break;
     case ITEM:
-      ;
+      break;
   }
 }
 

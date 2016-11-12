@@ -148,19 +148,31 @@ void virtualWall::draw(){
 }
 
 //---------------------------------------------------------------------------
-void FXClass::draw(ofVec2f pos,double size, EFX FXType){
+void FXClass::draw(ofVec2f pos,double size, double maxSize, EFX FXType){
   switch (FXType) {
     case HIT:
+      ofPushMatrix();
+      ofPushStyle();
+      ofTranslate(pos.x*scale, pos.y*scale, 2);
+      ofNoFill();
+      for (int i = 0; i < 10; i++){
+        ofSetColor(155 + 10*i, 160, 0, (255 - i*5)*(1 - size/maxSize)*0.7);
+        ofDrawCircle(0, 0, size+i);
+      }
+      ofPopStyle();
+      ofPopMatrix();
       break;
     case COLLISION:
-//      ofPushMatrix();
-//      ofPushStyle();
-//      ofSetLineWidth(3);
-//      ofSetColor(255, 200, 0);
-//      ofTranslate(pos.x*scale, pos.y*scale, 2);
-//      ofDrawCircle(0, 0, size);
-//      ofPopStyle();
-//      ofPopMatrix();
+      ofPushMatrix();
+      ofPushStyle();
+      ofTranslate(pos.x*scale, pos.y*scale, 2);
+      ofNoFill();
+      for (int i = 0; i < 10; i++){
+        ofSetColor(255, 160 - 10*i, 0, (255 - i*5)*(1 - size/maxSize)*0.7);
+        ofDrawCircle(0, 0, size+i);
+      }
+      ofPopStyle();
+      ofPopMatrix();
       break;
   }
 }

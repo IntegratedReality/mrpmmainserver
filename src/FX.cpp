@@ -8,9 +8,13 @@ void FX::init(Position _pos, EFX _FXType) {
   
   switch (_FXType) {
     case HIT:
+      size = 0;
+      maxSize = 30;
       break;
     case COLLISION:
-      size = 0;
+      size = 60;
+      maxSize = 120;
+      break;
     default:
       break;
   }
@@ -19,10 +23,14 @@ void FX::init(Position _pos, EFX _FXType) {
 void FX::update() {
   switch (FXType) {
     case HIT:
+      size += 2;
+      if (size >= maxSize){
+        deleteFlag = true;
+      }
         break;
     case COLLISION:
-      size +=5;
-      if (size >= 100){
+      size +=6;
+      if (size >= maxSize){
         deleteFlag = true;
       }
         break;
@@ -35,9 +43,10 @@ void FX::update() {
 void FX::draw() {
   switch (FXType) {
     case HIT:
+      pmx->drawFX(ofVec2f(pos.y,pos.x), size, maxSize, FXType);
       break;
     case COLLISION:
-      pmx->drawFX(ofVec2f(pos.y,pos.x), size, FXType);
+      pmx->drawFX(ofVec2f(pos.y,pos.x), size, maxSize, FXType);
       break;
     default:
       break;

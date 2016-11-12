@@ -24,6 +24,7 @@ private:
   EFX FXType;
   bool deleteFlag = false;
   double size;
+  double maxSize;
   
   PMx *pmx;
 };
