@@ -16,6 +16,7 @@
 #include "EFX.h"
 #include "Const.h"
 #include <stdio.h>
+#include <cmath>
 #include <array>
 
 const double root3 = sqrt(3);
@@ -26,6 +27,7 @@ const int field_width = WIDTH_OF_FIELD;   //field size [mm]
 const int field_height = HEIGHT_OF_FIELD;
 const int screen_width = SCREEN_WIDTH;   //screen size of the projector [px]
 const int screen_height = SCREEN_HEIGHT;
+const int projector_height = PJ_HEIGHT;
 const int screen_width_total = ceil(field_width*scale);
 const int screen_height_total = ceil(field_height*scale);
 //const double scale = screen_width/static_cast<double>(900);  //  moved to const.h
@@ -145,6 +147,11 @@ public:
     vertices_top[4] = ofVec3f(-0.5*diameter_top*root3, 0.5*diameter_top, height_top);
     vertices_top[5] = ofVec3f(-0.5*diameter_top*root3, -0.5*diameter_top, height_top);
     
+    vertices_top[0] = ofVec3f(0,0,height_top);
+    for (int i = 1; i < 6; i++){
+//      vertices_top[i] = ofVec3f()
+    }
+    
     top_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
     side_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
     
@@ -254,7 +261,7 @@ public:
   bool bconfShade2 = false;
   bool bShowFieldFrame = false;
   double camAngle;
-  int projectorHeight;
+  int projectorHeight = PJ_HEIGHT*scale;
   int shadeWidth1 = 0;
   int shadeWidth2 = 0;
   
@@ -281,7 +288,7 @@ public:
     
     //---
     /* set up projector position */
-    projectorHeight = ceil(1000.0/scale);
+//    projectorHeight = ceil(1000.0/scale);
     cam[0].roll(90);    //to rotate cam around z-axis
     cam[1].roll(90);
     cam[2].roll(90);
@@ -292,7 +299,7 @@ public:
     cam[3].setPosition(ofVec3f(screen_height_total - screen_height/2.0,screen_width_total - screen_width/2.0,projectorHeight));
     
     /* カメラの視野の広さ(角度) */
-    camAngle = 24;
+    camAngle = 42;
     for(int i = 0; i < 4; i++){
       cam[i].setFov(camAngle);
     }

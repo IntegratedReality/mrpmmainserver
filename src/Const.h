@@ -11,9 +11,10 @@ constexpr int GAME_DURATION_MSEC = 3*60*1000;
 
 constexpr int WIDTH_OF_FIELD = 1600;
 constexpr int HEIGHT_OF_FIELD = 2400;
-constexpr int SCREEN_WIDTH = 480;   //screen size of the projector [px]
-constexpr int SCREEN_HEIGHT = 800;
-constexpr double scale = SCREEN_WIDTH/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
+constexpr int SCREEN_WIDTH = 1080;   //screen size of the projector [px]
+constexpr int SCREEN_HEIGHT = 1920;
+constexpr int PJ_HEIGHT = 2180;
+constexpr double scale = SCREEN_WIDTH/static_cast<double>(950);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
 
 constexpr double SCALE_SIM = 0.25;
 
