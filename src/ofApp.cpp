@@ -7,7 +7,7 @@ using namespace std;
 void ofApp::setup() {
   ofSetFrameRate(FPS);
   ofSetWindowShape(1024, 768*2);
-  ofSetWindowPosition(1680, 0);
+  ofSetWindowPosition(1921, 0);
   
   // PM
   pmx = PMx::getInstance();
