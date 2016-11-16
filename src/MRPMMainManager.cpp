@@ -51,9 +51,22 @@ void MRPMMainManager::update() {
        mainSndr.sendToCtrlrsAssignSignal();
      });
     assignRobotsToCtrlrs.touch();
+    
+    
+    //send to each robot
+    for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+      static MRPMPackMainToRobot pack;
+      auto roboData = sysRbtMgr.getData(i);
+      //pack.time = static_cast<int>(roboData.time);
+      pack.pos = roboData.pos;
+      pack.permissions.fill(false);
+      
+      mainSndr.sendToOneRobot(i, pack);
+    }
+    
   }
   
-  if (mode == EMode::GAME) {
+  else if (mode == EMode::GAME) {
     
     if (timer->getTime() >= GAME_DURATION_MSEC) {
       mode = EMode::RESULT;
@@ -133,6 +146,20 @@ void MRPMMainManager::update() {
     }
     for(int i=0; i<NUM_OF_POINT_OBJ; ++i){
       judge.setPOOwner(i, static_cast<ETeam>(poownerAry[i]));
+    }
+    
+  }
+  else if(mode == EMode::RESULT){
+    
+    //send to each robot
+    for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
+      static MRPMPackMainToRobot pack;
+      auto roboData = sysRbtMgr.getData(i);
+      //pack.time = static_cast<int>(roboData.time);
+      pack.pos = roboData.pos;
+      pack.permissions.fill(false);
+      
+      mainSndr.sendToOneRobot(i, pack);
     }
     
   }
