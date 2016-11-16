@@ -10,7 +10,7 @@ constexpr double TIME_PER_FRAME = 1.0 / FPS;
 constexpr int GAME_DURATION_MSEC = 3*60*1000;
 
 constexpr int WIDTH_OF_FIELD = 1600;
-constexpr int HEIGHT_OF_FIELD = 2400;
+constexpr int HEIGHT_OF_FIELD = 2440;
 constexpr int SCREEN_WIDTH = 1080;   //screen size of the projector [px]
 constexpr int SCREEN_HEIGHT = 1920;
 constexpr int PJ_HEIGHT = 2180;
