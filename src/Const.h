@@ -33,14 +33,14 @@ constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 //projection
 
 //point object
-constexpr int diameter_po = 300;
-constexpr int height_bottom_po = 19;
-constexpr int height_top_po = 200;
+constexpr int diameter_po = 249; //300;
+constexpr int height_bottom_po = 5; // 19;
+constexpr int height_top_po = 125; // 200;
 //robot
-constexpr int diameter_bottom_ro = 200;
-constexpr int diameter_top_ro = 120;
-constexpr int height_bottom_ro = 19;
-constexpr int height_top_ro = 80;   //size of the robot
+constexpr int diameter_bottom_ro = 200; //200;
+constexpr int diameter_top_ro = 120; // 120;
+constexpr int height_bottom_ro = 15; // 19;
+constexpr int height_top_ro = 90; // 80;   //size of the robot
 
 
 //in
