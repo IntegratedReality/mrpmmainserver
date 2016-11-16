@@ -8,28 +8,24 @@
 
 #include "MRPMHostsConfig.h"
 
-#define WITH_NO_ROBOTS
+//#define WITH_NO_ROBOTS
 
 #ifndef WITH_NO_ROBOTS
 const std::vector<robotHostConfig>
 hostsConfig::hostsList{
   //rpiHostName, isAI, operator HostName
   //若い番号から人間,AIの順番を要請
-  {"raspberrypi.local", RobotType::HUMAN, "PE25.local"},
-  {"mrpmpi1.local", RobotType::HUMAN, "PE26.local"},
-  {"mrpmpi2.local", RobotType::HUMAN, "PE27.local"},
-  {"mrpmpi3.local", RobotType::AI, "mrpmpi3.local"},
-  {"mrpmpi4.local", RobotType::AI, "mrpmpi4.local"},
-  {"mrpmpi5.local", RobotType::AI, "mrpmpi5.local"}
+  {"mrpmpi1.local", RobotType::HUMAN, "127.0.0.1"}, 
+  {"mrpmpi2.local", RobotType::HUMAN, "127.0.0.1"},
+  {"mrpmpi3.local", RobotType::AI, "127.0.0.1"}, //Main PC
+  {"mrpmpi4.local", RobotType::AI, "127.0.0.1"}
 };
 #else
 const std::vector<robotHostConfig>
 hostsConfig::hostsList{
+  {"192.168.10.3", RobotType::HUMAN, "192.168.10.13"},
   {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
-  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
-  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
-  {"127.0.0.1", RobotType::AI, "127.0.0.1"},
-  {"127.0.0.1", RobotType::AI, "127.0.0.1"},
+  {"mrpmpi3.local", RobotType::AI, "mrpmpi3.local"},
   {"127.0.0.1", RobotType::AI, "127.0.0.1"}
 };
 #endif //WITH_NO_ROBOTS
