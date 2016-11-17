@@ -147,10 +147,10 @@ public:
     vertices_top[4] = ofVec3f(-0.5*diameter_top*root3, 0.5*diameter_top, height_top);
     vertices_top[5] = ofVec3f(-0.5*diameter_top*root3, -0.5*diameter_top, height_top);
     
-//    vertices_top[0] = ofVec3f(0,0,height_top);
-//    for (int i = 1; i < 6; i++){
-////      vertices_top[i] = ofVec3f()
-//    }
+    //vertices_top[0] = ofVec3f(0,0,height_top);
+    //for (int i = 1; i < 6; i++){
+    //  vertices_top[i] = ofVec3f();
+    //}
     
     top_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
     side_mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);

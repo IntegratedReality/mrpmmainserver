@@ -207,8 +207,8 @@ void MRPMMainManager::keyPressed(int key) {
   if (key == 's') sim = !sim;
   switch (mode) {
     case EMode::STANDBY:
-      if (key == OF_KEY_RETURN && mainRcvr.haveAllCtrlrsEntried()) {
-//      if (key == OF_KEY_RETURN) {   //for debug
+      //if (key == OF_KEY_RETURN && mainRcvr.haveAllCtrlrsEntried()) {
+      if (key == OF_KEY_RETURN) {   //for debug
         mode = EMode::GAME;
         ofSetWindowTitle("GAME");
         sndMgr.startBGM();
