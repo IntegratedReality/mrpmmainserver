@@ -5,6 +5,7 @@ vector<ofSoundPlayer> SoundManager::SEs;
 void SoundManager::init() {
   bgm.load("bgm.mp3");
   bgm.setMultiPlay(false);
+  bgm.setPositionMS(85 * 1000);
   bgm.setLoop(false);
   
   SEs.emplace_back();
@@ -23,6 +24,7 @@ void SoundManager::update() {
 }
 
 void SoundManager::startBGM() {
+  bgm.setPositionMS(85 * 1000);
   bgm.play();
 }
 
