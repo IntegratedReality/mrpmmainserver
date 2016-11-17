@@ -12,6 +12,7 @@
 #include "Bullet.h"
 #include "Operation.h"
 #include "Const.h"
+#include "EMode.h"
 
 struct MRPMPackMainToRobot {
   int time;
@@ -29,4 +30,5 @@ struct MRPMPackMainToCtrlr{
 struct MRPMPackMainToAI{
   std::vector<Position> robsPos;
   std::array<int, NUM_OF_POINT_OBJ> POowners;
+  EMode gameState;
 };

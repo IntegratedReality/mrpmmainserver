@@ -174,7 +174,7 @@ void MRPMMainSender::sendToOneAI(Position& _pos){
 }
 
 void MRPMMainSender::sendToAIsSparse(MRPMPackMainToAI& _p){
-  ofxOscMessage m1, m2;
+  ofxOscMessage m1, m2, m3;
   
   m1.setAddress("/main/toAI/allpos");
   for(Position& e:_p.robsPos){
@@ -188,8 +188,12 @@ void MRPMMainSender::sendToAIsSparse(MRPMPackMainToAI& _p){
     addArg(m2, e);
   }
   
+  m3.setAddress("/main/toAI/gameState");
+  addArg(m3, static_cast<int>(_p.gameState));
+  
   for(auto& s: sendersToAIs){
     s.sendMessage(m1);
     s.sendMessage(m2);
+    s.sendMessage(m3);
   }
 }
