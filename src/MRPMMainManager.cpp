@@ -53,27 +53,44 @@ void MRPMMainManager::update() {
     assignRobotsToCtrlrs.touch();
     
     
-    //send to each robot
+    //send permissions to each robot
     for(int i=0; i<hostsConfig::NUM_OF_ROBOT; ++i){
       static MRPMPackMainToRobot pack;
       auto roboData = sysRbtMgr.getData(i);
-      //pack.time = static_cast<int>(roboData.time);
+      pack.time = 0;
       pack.pos = roboData.pos;
-      pack.permissions.fill(false);
-      
+      pack.permissions.fill(true);
       mainSndr.sendToOneRobot(i, pack);
     }
     
+    
+    //send to AIs
+    static std::vector<Position> posVec;
+    static std::array<int, NUM_OF_POINT_OBJ> poownerAry;
+    posVec = sysRbtMgr.getPosVec();
+    poownerAry = sysPObjMgr.getOwnersAry();
+    static SparseExecutor syncToAIs
+    (static_cast<int>(ofGetFrameRate()),
+     [&](){
+       MRPMPackMainToAI p;
+       p.robsPos=posVec;
+       p.POowners=poownerAry;
+       p.gameState=mode;
+       mainSndr.sendToAIsSparse(p);
+     });
+    syncToAIs.touch();  //touch()するとmod回に1回実行される
   }
   
   else if (mode == EMode::GAME) {
     
+    /*
     if (timer->getTime() >= GAME_DURATION_MSEC) {
       mode = EMode::RESULT;
       ofSetWindowTitle("RESULT");
       judge.end();
       sndMgr.stopBGM();
     }
+     */
     
     for (int i = 0; i < hostsConfig::NUM_OF_ROBOT; i++) {
       sysRbtMgr.setShot(i, mainRcvr.getData(i).operation.shot);
@@ -135,6 +152,7 @@ void MRPMMainManager::update() {
        MRPMPackMainToAI p;
        p.robsPos=posVec;
        p.POowners=poownerAry;
+       p.gameState=mode;
        mainSndr.sendToAIsSparse(p);
      });
     syncToAIs.touch();  //touch()するとmod回に1回実行される
@@ -149,6 +167,8 @@ void MRPMMainManager::update() {
     }
     
   }
+  
+  /*
   else if(mode == EMode::RESULT){
     
     //send to each robot
@@ -163,6 +183,7 @@ void MRPMMainManager::update() {
     }
     
   }
+   */
 
 }
 
@@ -175,6 +196,7 @@ void MRPMMainManager::draw() {
   fxMgr.draw();
   blltMgr.draw();
   
+  /*
   if (mode == EMode::RESULT) {
     pmx->drawTextField();
     switch (judge.getWinner()) {
@@ -197,7 +219,7 @@ void MRPMMainManager::draw() {
 //    pmx->drawText("Projection", 500, 180, 30, ofColor(220, 120, 0, 200));
 //    pmx->drawText("Mapping", 550, 180, 30, ofColor(220, 120, 0, 200));
   }
-  
+  */
   //added by sakabe
   //カメラやビューポートと独立に描画したい
   pmx->drawLatticeIfNeeded();
@@ -207,7 +229,7 @@ void MRPMMainManager::keyPressed(int key) {
   if (key == 's') sim = !sim;
   switch (mode) {
     case EMode::STANDBY:
-      //if (key == OF_KEY_RETURN && mainRcvr.haveAllCtrlrsEntried()) {
+      
       if (key == OF_KEY_RETURN) {   //for debug
         mode = EMode::GAME;
         ofSetWindowTitle("GAME");
@@ -221,7 +243,7 @@ void MRPMMainManager::keyPressed(int key) {
       }
       break;
     case EMode::GAME:
-      if (key == 'q') {
+      if (key == 'q' || key == OF_KEY_RETURN) {
         mode = EMode::STANDBY;
         ofSetWindowTitle("STANDBY");
         mainRcvr.resetAckReceived();
@@ -232,13 +254,14 @@ void MRPMMainManager::keyPressed(int key) {
         blltMgr.init();
         fxMgr.init();
         judge.end();
-      } else if (key == OF_KEY_RETURN) {
+      } /* else if (key == OF_KEY_RETURN) {
         //mode = RESULT;
         //ofSetWindowTitle("RESULT");
         //sndMgr.stopBGM();
-      }
+      }*/
       break;
     case EMode::RESULT:
+      /*
       if (key == OF_KEY_RETURN) {
         mode = EMode::STANDBY;
         ofSetWindowTitle("STANDBY");
@@ -250,6 +273,7 @@ void MRPMMainManager::keyPressed(int key) {
         blltMgr.init();
         fxMgr.init();
       }
+       */
       break;
   }
 }
