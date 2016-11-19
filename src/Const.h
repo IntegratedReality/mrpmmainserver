@@ -13,7 +13,7 @@ constexpr int WIDTH_OF_FIELD = 1600;
 constexpr int HEIGHT_OF_FIELD = 2440;
 constexpr int SCREEN_WIDTH = 1080;   //screen size of the projector [px]
 constexpr int SCREEN_HEIGHT = 1920;
-constexpr int PJ_HEIGHT = 2000;
+constexpr int PJ_HEIGHT = 2200;
 constexpr double scale = SCREEN_WIDTH/static_cast<double>(950);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
 
 constexpr double SCALE_SIM = 0.25;
@@ -32,6 +32,7 @@ constexpr int POINT_OBJ_2_Y = HEIGHT_OF_FIELD / 2 + HEIGHT_OF_FIELD / 4;
 
 //projection
 
+constexpr double CAM_FOV = 42.7;
 //point object
 constexpr int diameter_po = 125; //300;
 constexpr int height_bottom_po = 5; // 19;

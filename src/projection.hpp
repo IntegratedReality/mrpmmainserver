@@ -115,7 +115,7 @@ class robotModel{
   /* variables */
 public:
   //const int diameter_bottom = 58.8,diameter_top = 35.3,height_bottom = 1,height_top = 58.8;   //size of the robot
-  const int diameter_bottom = diameter_bottom_ro,diameter_top = diameter_top_ro,height_bottom = height_bottom_ro,height_top = height_top_ro;   //size of the robot
+  const int diameter_bottom = diameter_bottom_ro*scale,diameter_top = diameter_top_ro*scale,height_bottom = height_bottom_ro*scale,height_top = height_top_ro*scale;   //size of the robot
   ofVec2f centerPoint;
   ofMesh top_mesh,side_mesh;
   ofVbo top_vbo,side_vbo;
@@ -158,11 +158,11 @@ public:
   }
 };
 
-class pointObject{
+class pointObject {
   /* variables */
 public:
   //const int diameter = 68.5,height_bottom = 1,height_top = 76.4;     //size of the point object
-  const int diameter = diameter_po,height_bottom = height_bottom_po,height_top = height_top_po;
+  const int diameter = diameter_po*scale, height_bottom = height_bottom_po*scale, height_top = height_top_po*scale;
   
   ofVec2f centerPoint;
   float angle;
@@ -293,16 +293,21 @@ public:
     cam[1].roll(90);
     cam[2].roll(90);
     cam[3].roll(90);
-    cam[0].setPosition(ofVec3f(screen_height/2.0,screen_width/2.0,projectorHeight));    // coordinate is (y,x,z) (why?)
-    cam[1].setPosition(ofVec3f(screen_height/2.0,screen_width_total - screen_width/2.0,projectorHeight));
-    cam[2].setPosition(ofVec3f(screen_height_total - screen_height/2.0,screen_width/2.0,projectorHeight));
-    cam[3].setPosition(ofVec3f(screen_height_total - screen_height/2.0,screen_width_total - screen_width/2.0,projectorHeight));
+    cam[0].setPosition(ofVec3f(screen_height/2.0 + 22.5,screen_width/2.0 + 28.66,projectorHeight));    // coordinate is (y,x,z) (why?)
+    cam[1].setPosition(ofVec3f(screen_height/2.0 + 22.5,screen_width_total - screen_width/2.0 - 28.66,projectorHeight));
+    cam[2].setPosition(ofVec3f(screen_height_total - screen_height/2.0 + 22.5,screen_width/2.0 + 28.66,projectorHeight));
+    cam[3].setPosition(ofVec3f(screen_height_total - screen_height/2.0 + 22.5,screen_width_total - screen_width/2.0 - 28.66,projectorHeight));
     
     /* カメラの視野の広さ(角度) */
-    camAngle = 42;
+    camAngle = CAM_FOV;
     for(int i = 0; i < 4; i++){
       cam[i].setFov(camAngle);
     }
+    cam[0].setLensOffset(ofVec2f(-0.05319, 0.02866));
+    cam[1].setLensOffset(ofVec2f(0.05319, 0.02866));
+    cam[2].setLensOffset(ofVec2f(-0.05319, 0.02866));
+    cam[3].setLensOffset(ofVec2f(0.05319, 0.02866));
+
     cout << "cam0 : " << cam[0].getX() << ":" << cam[0].getY() << ":" << cam[0].getZ() << endl;
     cout << "cam1 : " << cam[1].getX() << ":" << cam[1].getY() << ":" << cam[1].getZ() << endl;
     cout << "cam2 : " << cam[2].getX() << ":" << cam[2].getY() << ":" << cam[2].getZ() << endl;
