@@ -14,7 +14,7 @@ constexpr int HEIGHT_OF_FIELD = 2440;
 constexpr int SCREEN_WIDTH = 1080;   //screen size of the projector [px]
 constexpr int SCREEN_HEIGHT = 1920;
 constexpr int PJ_HEIGHT = 2200;
-constexpr double scale = SCREEN_WIDTH/static_cast<double>(950);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
+constexpr double scale = SCREEN_WIDTH/static_cast<double>(900);  //  convert from [mm] to [pix]  ( [pix] / [mm] )  900 means the width of projection area [mm]
 
 constexpr double SCALE_SIM = 0.25;
 

@@ -23,9 +23,9 @@ hostsConfig::hostsList{
 #else
 const std::vector<robotHostConfig>
 hostsConfig::hostsList{
-  {"192.168.10.3", RobotType::HUMAN, "192.168.10.13"},
-  {"127.0.0.1", RobotType::HUMAN, "127.0.0.1"},
-  {"mrpmpi3.local", RobotType::AI, "mrpmpi3.local"},
+  {"192.168.10.11", RobotType::HUMAN, "192.168.10.4"},
+  {"192.168.10.9", RobotType::HUMAN, "192.168.10.7"},
+  {"127.0.0.1", RobotType::AI, "127.0.0.1"},
   {"127.0.0.1", RobotType::AI, "127.0.0.1"}
 };
 #endif //WITH_NO_ROBOTS
