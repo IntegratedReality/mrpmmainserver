@@ -20,7 +20,7 @@ public:
     void sendToCtrlrsSync(MRPMPackMainToCtrlr& _p);
     void sendToCtrlrsAssignSignal();
     void sendToOneAI(Position& _pos);
-    void sendToAIsSparse(MRPMPackMainToAI& _p);
+    void sendToAIsAllpos(MRPMPackMainToAI& _p);
     
 private:
     std::vector<ofxOscSender>
