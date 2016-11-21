@@ -240,6 +240,10 @@ void MRPMMainManager::keyPressed(int key) {
         blltMgr.init();
         fxMgr.init();
         judge.start();
+
+        std::cerr << "mode: STANDBY->GAME  " << std::endl;
+
+
       }
       break;
     case EMode::GAME:
@@ -254,6 +258,8 @@ void MRPMMainManager::keyPressed(int key) {
         blltMgr.init();
         fxMgr.init();
         judge.end();
+
+        std::cerr << "mode: GAME->STANDBY" << std::endl;
       } /* else if (key == OF_KEY_RETURN) {
         //mode = RESULT;
         //ofSetWindowTitle("RESULT");
