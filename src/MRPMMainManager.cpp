@@ -147,7 +147,7 @@ void MRPMMainManager::update() {
     }
     
     static SparseExecutor syncToAIs
-    (static_cast<int>(ofGetFrameRate()),
+    (2,
      [&](){
        MRPMPackMainToAI p;
        p.robsPos=posVec;
