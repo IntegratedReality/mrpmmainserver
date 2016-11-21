@@ -31,26 +31,44 @@ void addArg(ofxOscMessage& _m, std::string&& _key, T _arg) {
 void MRPMMainSender::init() {
   sendersToRobots.reserve(hostsConfig::NUM_OF_ROBOT);
   for (auto& t : hostsConfig::hostsList) {
-    ofxOscSender sender;
-    sender.setup(t.rpiHostName, PORT_ROBOT);
-    sendersToRobots.push_back(sender);
+
+    try
+    {
+      ofxOscSender sender;
+      sender.setup(t.rpiHostName, PORT_ROBOT);
+      sendersToRobots.push_back(sender);
+    }
+    catch (...) {
+      std::cerr << "OscSender Setup Error!!" << std::endl;
+    }
   }
 
   sendersToCtrlrs.reserve(hostsConfig::NUM_OF_HUMAN);
   for (auto& t : hostsConfig::hostsList) {
     if (t.robotType == RobotType::HUMAN) {
-      ofxOscSender sender;
-      sender.setup(t.operatorHostName, PORT_OPERATOR);
-      sendersToCtrlrs.push_back(sender);
+
+      try {
+        ofxOscSender sender;
+        sender.setup(t.operatorHostName, PORT_OPERATOR);
+        sendersToCtrlrs.push_back(sender);
+      }
+      catch (...) {
+        std::cerr << "OscSender Setup Error!!" << std::endl;
+      }
     }
   }
 
   sendersToAIs.reserve(hostsConfig::NUM_OF_AI);
   for (auto& t : hostsConfig::hostsList) {
     if (t.robotType == RobotType::AI) {
-      ofxOscSender sender;
-      sender.setup(t.operatorHostName, PORT_OPERATOR);
-      sendersToCtrlrs.push_back(sender);
+      try {
+        ofxOscSender sender;
+        sender.setup(t.operatorHostName, PORT_OPERATOR);
+        sendersToCtrlrs.push_back(sender);
+      }
+      catch (...) {
+        std::cerr << "OscSender Setup Error!!" << std::endl;
+      }
     }
   }
 }
