@@ -14,7 +14,8 @@ class PJLattice{
     //unit:格子間隔
     
     const int lineWidth=3;
-    ofColor lineColor;
+    ofColor latticeLineColor,
+      centerLineColor;
     int wndWidth,wndHeight;
     
     void drawVerticalLine(int x);
