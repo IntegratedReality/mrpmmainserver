@@ -76,7 +76,7 @@ void MRPMMainManager::update() {
        p.robsPos=posVec;
        p.POowners=poownerAry;
        p.gameState=mode;
-       mainSndr.sendToAIsSparse(p);
+       mainSndr.sendToAIsAllpos(p);
      });
     syncToAIs.touch();  //touch()するとmod回に1回実行される
   }
@@ -98,8 +98,8 @@ void MRPMMainManager::update() {
     
     sysRbtMgr.update();
     sysPObjMgr.update();
-//           vWllMgr.update();
-    //      itmMgr.update();
+//    vWllMgr.update();
+//    itmMgr.update();
     fxMgr.update();
     blltMgr.update();
     sndMgr.update();
@@ -141,10 +141,10 @@ void MRPMMainManager::update() {
     poownerAry = sysPObjMgr.getOwnersAry();
     
     
-    for(Position& p: posVec){
-      //for each AI (Dense)
-      mainSndr.sendToOneAI(p);
-    }
+//    for(Position& p: posVec){
+//      //for each AI (Dense)
+//      mainSndr.sendToOneAI(p);
+//    }
     
     static SparseExecutor syncToAIs
     (2,
@@ -153,7 +153,7 @@ void MRPMMainManager::update() {
        p.robsPos=posVec;
        p.POowners=poownerAry;
        p.gameState=mode;
-       mainSndr.sendToAIsSparse(p);
+       mainSndr.sendToAIsAllpos(p);
      });
     syncToAIs.touch();  //touch()するとmod回に1回実行される
     

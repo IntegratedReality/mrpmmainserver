@@ -191,7 +191,7 @@ void MRPMMainSender::sendToOneAI(Position& _pos) {
   }
 }
 
-void MRPMMainSender::sendToAIsSparse(MRPMPackMainToAI& _p) {
+void MRPMMainSender::sendToAIsAllpos(MRPMPackMainToAI& _p) {
   ofxOscMessage m1, m2, m3;
 
   m1.setAddress("/main/toAI/allpos");
