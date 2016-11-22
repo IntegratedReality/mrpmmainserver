@@ -72,6 +72,8 @@ void PMx::keyPressed(int key) {
     PM.bConfShade1 = !PM.bConfShade1;
     PM.bConfPort[0] = false;
     PM.bConfPort[1] = false;
+    PM.bConfPort[2] = false;
+    PM.bConfPort[3] = false;
     PM.bconfShade2 = false;
     cout << "bConfShade1 : " << PM.bConfShade1 << endl;
   }
@@ -79,6 +81,8 @@ void PMx::keyPressed(int key) {
     PM.bconfShade2 = !PM.bconfShade2;
     PM.bConfPort[0] = false;
     PM.bConfPort[1] = false;
+    PM.bConfPort[2] = false;
+    PM.bConfPort[3] = false;
     PM.bConfShade1 = false;
     cout << "bConfShade2 : " << PM.bconfShade2 << endl;
   }
@@ -255,6 +259,12 @@ void PMx::drawPO(int _id, int state) {
     _drawPO(_id, state);
     PM.cam[i].end();
   }
+  //PM.cam[0].begin(PM.viewPort[0]);
+  //_drawPO(_id, state);
+  //PM.cam[0].end();
+  //PM.cam[3].begin(PM.viewPort[3]);
+  //_drawPO(_id, state);
+  //PM.cam[3].end();
 }
 
 void PMx::drawRobot(double _x, double _y, double _theta, const RobotData *_data) {
@@ -401,6 +411,17 @@ void PMx::_drawTextureField(){
 //  ofRotate(ofGetElapsedTimeMillis()%360);
 //  ofDrawRectangle(0, 0, 100, 100);
 //  ofPopMatrix();
+
+  //ofNoFill();
+  //ofPushStyle();
+  //ofSetColor(50, 50, 250);
+  //ofDrawRectangle(0, 0, 1, screen_height, screen_width);
+  //ofDrawRectangle(screen_height, 0, 1, screen_height, screen_width);
+  //ofDrawRectangle(screen_height, screen_width, 1, screen_height, screen_width);
+  //ofDrawRectangle(0, screen_width, 1, screen_height, screen_width);
+  //ofPopStyle();
+  //ofFill();
+
   PM.backGroundFbo.end();
   
   PM.backGroundFbo.draw(0,0);
@@ -426,13 +447,15 @@ void PMx::_drawShaderField(){
     ofPopStyle();
     ofPopMatrix();
   }
-//  ofNoFill();
-//  ofPushStyle();
-//  ofSetColor(50, 50, 250);
-//  ofDrawRectangle(0,0,1,screen_height,screen_width);
-//  ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
-//  ofPopStyle();
-//  ofFill();
+  //ofNoFill();
+  //ofPushStyle();
+  //ofSetColor(50, 50, 250);
+  //ofDrawRectangle(0,0,1,screen_height,screen_width);
+  //ofDrawRectangle(screen_height,0,1,screen_height,screen_width);
+  //ofDrawRectangle(screen_height, screen_width, 1, screen_height, screen_width);
+  //ofDrawRectangle(0, screen_width, 1, screen_height, screen_width);
+  //ofPopStyle();
+  //ofFill();
 }
 
 void PMx::_drawPO(int _id, int state) {

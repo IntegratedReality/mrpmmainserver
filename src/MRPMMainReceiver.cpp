@@ -43,7 +43,7 @@ void MRPMMainReceiver::init() {
           double x = m.getArgAsDouble(2);
           double y = m.getArgAsDouble(3);
           double theta = m.getArgAsDouble(4);
-          double GAIN = 0;
+          double GAIN = 2;
           mtx.lock();
           data[id].time = time;
           data[id].pos.x = x + GAIN * (x - prev_data[id].pos.x);

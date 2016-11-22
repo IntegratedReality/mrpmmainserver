@@ -74,7 +74,8 @@ void pointObject::draw(ofImage &texture, int state){
   
   ofSetColor(teamColor[state]);
   mesh.drawWireframe();
-  ofTranslate(0, 0, 2);
+  ofTranslate(0, 0, 5);
+  ofFill();
   ofRotate(ofGetElapsedTimef() * 8);
   for (int i = 0; i < 3; i++){
     ofRotate(120);

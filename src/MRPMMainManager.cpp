@@ -188,7 +188,7 @@ void MRPMMainManager::update() {
 }
 
 void MRPMMainManager::draw() {
-  pmx->drawTextureField();
+  pmx->drawShaderField();
   sysRbtMgr.draw();
   sysPObjMgr.draw();
 //      vWllMgr.draw();

@@ -8,7 +8,7 @@
 
 #include "MRPMHostsConfig.h"
 
-//#define WITH_NO_ROBOTS
+#define WITH_NO_ROBOTS
 
 #ifndef WITH_NO_ROBOTS
 const std::vector<robotHostConfig>
